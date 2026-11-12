@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect, useCallback, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { ScrollProgress } from '@/components/presentation/ScrollProgress';
@@ -10,6 +10,7 @@ import { PresentationNavigation } from '@/components/layout/PresentationNavigati
 import { ProgressIndicator } from '@/components/layout/ProgressIndicator';
 import { ChapterSection } from '@/components/presentation/ChapterSection';
 import { Chapter01 } from '@/components/chapters/Chapter01';
+import { Chapter02 } from '@/components/chapters/Chapter02';
 import { CHAPTERS } from '@/lib/presentation';
 import { parsePresentationKey } from '@/lib/navigation';
 import { PresentationViewMode } from '@/types/presentation';
@@ -17,12 +18,19 @@ import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { Tv } from 'lucide-react';
 
-export default function PresentationPage() {
+function PresentationContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const chapterParam = searchParams.get('chapter');
+  const defaultChapter =
+    chapterParam && Number(chapterParam) >= 1 && Number(chapterParam) <= CHAPTERS.length
+      ? Number(chapterParam)
+      : 1;
 
   // Mode state: 'slides' (Presentation Mode) or 'scroll' (Scroll Mode)
   const [viewMode, setViewMode] = useState<PresentationViewMode>('slides');
-  const [currentChapterId, setCurrentChapterId] = useState<number>(1);
+  const [activeChapterOverride, setActiveChapterOverride] = useState<number | null>(null);
+  const currentChapterId = activeChapterOverride ?? defaultChapter;
   const [currentSlideIndex, setCurrentSlideIndex] = useState<number>(0);
   const [isNavDrawerOpen, setIsNavDrawerOpen] = useState<boolean>(false);
 
@@ -82,7 +90,7 @@ export default function PresentationPage() {
   }, [viewMode, handleNextSlide, handlePrevSlide, handleExitPresentation]);
 
   const handleSelectChapter = (chapterId: number) => {
-    setCurrentChapterId(chapterId);
+    setActiveChapterOverride(chapterId);
     setCurrentSlideIndex(0);
     if (viewMode === 'scroll') {
       const el = document.getElementById(`chapter-${chapterId}`);
@@ -148,6 +156,12 @@ export default function PresentationPage() {
             <div className="flex-1 flex items-center justify-center py-6">
               {currentChapterId === 1 ? (
                 <Chapter01 mode="slides" activeSlideIndex={currentSlideIndex} />
+              ) : currentChapterId === 2 ? (
+                <Chapter02
+                  mode="slides"
+                  activeSlideIndex={currentSlideIndex}
+                  onSelectChapter={handleSelectChapter}
+                />
               ) : (
                 <div className="text-center py-20 space-y-4 max-w-lg mx-auto">
                   <Badge variant="outline" size="md">
@@ -162,9 +176,9 @@ export default function PresentationPage() {
                   <Button
                     variant="secondary"
                     size="sm"
-                    onClick={() => handleSelectChapter(1)}
+                    onClick={() => handleSelectChapter(2)}
                   >
-                    بازگشت به فصل اول
+                    بازگشت به فصل دوم
                   </Button>
                 </div>
               )}
@@ -217,6 +231,11 @@ export default function PresentationPage() {
               <Chapter01 mode="scroll" />
             </ChapterSection>
 
+            {/* Chapter 02 Section */}
+            <ChapterSection chapter={CHAPTERS[1]}>
+              <Chapter02 mode="scroll" onSelectChapter={handleSelectChapter} />
+            </ChapterSection>
+
             {/* Preview of Upcoming Chapters in Scroll Mode */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-indigo-500/10">
               <div className="text-center mb-10 space-y-2">
@@ -232,7 +251,7 @@ export default function PresentationPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {CHAPTERS.slice(1).map((ch) => (
+                {CHAPTERS.slice(2).map((ch) => (
                   <div
                     key={ch.id}
                     className="p-5 rounded-2xl bg-[#141C2E]/60 border border-slate-800/80 flex flex-col justify-between"
@@ -271,5 +290,13 @@ export default function PresentationPage() {
       {/* Global Footer (shown in scroll mode) */}
       {viewMode === 'scroll' && <Footer />}
     </div>
+  );
+}
+
+export default function PresentationPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#0B1020]" />}>
+      <PresentationContent />
+    </Suspense>
   );
 }

@@ -138,13 +138,13 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {CHAPTERS.map((chapter) => {
-              const isFirst = chapter.id === 1;
+              const isAvailable = chapter.status === 'active';
 
               return (
                 <div
                   key={chapter.id}
                   className={`p-6 rounded-2xl border transition-all flex flex-col justify-between ${
-                    isFirst
+                    isAvailable
                       ? 'bg-[#141C2E] border-indigo-500/40 shadow-xl shadow-indigo-950/40 ring-1 ring-cyan-400/20'
                       : 'bg-[#101728]/70 border-slate-800/80 hover:border-slate-700'
                   }`}
@@ -158,7 +158,7 @@ export default function HomePage() {
                         <span className="text-xs text-slate-500 font-mono">
                           ~{chapter.estimatedMinutes}m
                         </span>
-                        {isFirst ? (
+                        {isAvailable ? (
                           <Badge variant="cyan" size="sm">
                             آماده ارائه
                           </Badge>
@@ -183,11 +183,11 @@ export default function HomePage() {
                   </div>
 
                   <div className="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between">
-                    {isFirst ? (
+                    {isAvailable ? (
                       <Button
                         variant="primary"
                         size="sm"
-                        onClick={handleStartPresentation}
+                        onClick={() => router.push(`/presentation?chapter=${chapter.id}`)}
                         iconEnd={<ChevronLeft className="w-3.5 h-3.5" />}
                         className="w-full text-xs"
                       >
