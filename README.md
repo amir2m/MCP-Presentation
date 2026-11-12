@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ارائه تعاملی Model Context Protocol (MCP)
+## مدلهای زبانی و Model Context Protocol: از تولید متن تا تعامل با ابزارهای خارجی
 
-## Getting Started
+یک پلتفرم ارائه مدرن، تعاملی و آموزشی با طراحی سینماتیک برای معرفی و تحلیل عمیق پروتکل **Model Context Protocol (MCP)** و نحوه ایجاد ارتباط استاندارد بین مدل‌های زبانی بزرگ (LLMs) و ابزارها و داده‌های جهان واقعی.
 
-First, run the development server:
+---
+
+## 🌟 ویژگی‌های کلیدی
+
+- **تجربه دوگانه ارائه:**
+  - **حالت اسکرول (Scroll Mode):** روایت گام‌به‌گام و روان با نمودارهای تعاملی مناسب مطالعه و مرور شخصی.
+  - **حالت پرزنتیشن تمام‌صفحه (Presentation Mode):** اجرای اسلایدی با کلیدهای میانبر کیبورد (`ArrowLeft` / `ArrowRight` و `Escape`) مناسب ارائه در سالن و کلاس درس.
+- **طراحی بصری پیشرفته:** پالت رنگی تیره مدرن، افکت‌های نوری ظریف، شبکه‌های انتزاعی ارتباطات، و کامپوننت‌های بهینه‌شده.
+- **راست‌چین استاندارد (RTL) با تفکیک فنی:** پشتیبانی کامل از تایپوگرافی فارسی همراه با جداسازی جهتی دقیق عبارات و قطعه‌کدهای انگلیسی (LTR Isolation).
+- **تعامل‌پذیری آموزشی:** مقایسه‌های زنده، نمودارهای معماری برداری (SVG)، و کوئیزهای تشخیصی کانسپت‌ها در پایان هر بخش.
+
+---
+
+## 🚀 فناوری‌های مورد استفاده (Tech Stack)
+
+- **فریم‌ورک:** [Next.js](https://nextjs.org/) (App Router, React 19)
+- **زبان:** [TypeScript](https://www.typescriptlang.org/) (Strict Mode)
+- **استایل‌دهی:** [Tailwind CSS v4](https://tailwindcss.com/)
+- **انیمیشن:** [Motion for React](https://motion.dev/)
+- **آیکون‌ها:** [Lucide React](https://lucide.dev/)
+- **فونت:** Vazirmatn برای متون فارسی و Geist / JetBrains Mono برای متون فنی
+
+---
+
+## 📁 ساختار مستندات (Documentation)
+
+- [مستند خلاصه پروژه (Project Brief)](file:///d:/web-img/React/mcp-presentation/docs/PROJECT_BRIEF.md)
+- [سرفصل‌ها و ساختار محتوا (Content Structure)](file:///d:/web-img/React/mcp-presentation/docs/CONTENT_STRUCTURE.md)
+- [راهنمای طراحی و دیزاین سیستم (Design Guidelines)](file:///d:/web-img/React/mcp-presentation/docs/DESIGN_GUIDELINES.md)
+- [برنامه پیاده‌سازی و وضعیت پیشرفت (Implementation Plan)](file:///d:/web-img/React/mcp-presentation/docs/IMPLEMENTATION_PLAN.md)
+
+---
+
+## 🛠 راه‌اندازی و اجرا (Getting Started)
+
+برای اجرای محلی پروژه، مراحل زیر را طی کنید:
 
 ```bash
+# نصب وابستگی‌ها
+npm install
+
+# اجرای سرور توسعه
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# بررسی انواع تایپ‌اسکریپت و لینتر
+npm run lint
+
+# ساخت نسخه پروداکشن
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+پس از اجرا، مرورگر را در آدرس [http://localhost:3000](http://localhost:3000) باز کنید.
