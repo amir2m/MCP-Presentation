@@ -117,7 +117,7 @@ export default function HomePage() {
       {/* Live Preview: Chapter 01 Section */}
       <section className="py-16">
         <ChapterSection chapter={CHAPTERS[0]}>
-          <Chapter01 mode="scroll" />
+          <Chapter01 mode="scroll" onSelectChapter={(id) => router.push(`/presentation?chapter=${id}`)} />
         </ChapterSection>
       </section>
 

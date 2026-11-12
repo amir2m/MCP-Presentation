@@ -155,7 +155,11 @@ function PresentationContent() {
             {/* Active Slide Canvas */}
             <div className="flex-1 flex items-center justify-center py-6">
               {currentChapterId === 1 ? (
-                <Chapter01 mode="slides" activeSlideIndex={currentSlideIndex} />
+                <Chapter01
+                  mode="slides"
+                  activeSlideIndex={currentSlideIndex}
+                  onSelectChapter={handleSelectChapter}
+                />
               ) : currentChapterId === 2 ? (
                 <Chapter02
                   mode="slides"
@@ -228,7 +232,7 @@ function PresentationContent() {
 
             {/* Chapter 01 Section */}
             <ChapterSection chapter={CHAPTERS[0]}>
-              <Chapter01 mode="scroll" />
+              <Chapter01 mode="scroll" onSelectChapter={handleSelectChapter} />
             </ChapterSection>
 
             {/* Chapter 02 Section */}

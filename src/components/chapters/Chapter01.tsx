@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Bot,
@@ -14,36 +15,88 @@ import {
   Boxes,
   Lock,
   Workflow,
+  FastForward,
+  ArrowLeft,
+  Server,
+  Layers,
+  ShieldCheck,
+  Cpu,
+  Info,
 } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { CHAPTER_01_QUIZ } from '@/lib/presentation';
+import { AccessBoundaryDiagram } from './chapter01/AccessBoundaryDiagram';
 
 interface Chapter01Props {
   mode?: 'scroll' | 'slides';
   activeSlideIndex?: number;
+  onSelectChapter?: (chapterId: number) => void;
 }
 
 export function Chapter01({
   mode = 'scroll',
   activeSlideIndex = 0,
+  onSelectChapter,
 }: Chapter01Props) {
+  const router = useRouter();
+
   // State for interactive comparison simulation
   const [activeTab, setActiveTab] = useState<'text-only' | 'mcp-action'>('text-only');
-  const [isSimulating, setIsSimulating] = useState(false);
+  const [simStep, setSimStep] = useState<number>(2); // Default to fully loaded
+  const [isSimulating, setIsSimulating] = useState<boolean>(false);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   // State for quiz
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
-  const [hasSubmittedQuiz, setHasSubmittedQuiz] = useState(false);
+  const [hasSubmittedQuiz, setHasSubmittedQuiz] = useState<boolean>(false);
 
-  const handleSimulate = (type: 'text-only' | 'mcp-action') => {
+  // Max steps for each simulation mode
+  const maxSteps = activeTab === 'text-only' ? 2 : 5;
+
+  // Cleanup timers on unmount
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, []);
+
+  const startSimulation = (type: 'text-only' | 'mcp-action') => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+
     setActiveTab(type);
     setIsSimulating(true);
+    setSimStep(0);
 
-    setTimeout(() => {
-      setIsSimulating(false);
-    }, 1800);
+    const targetMax = type === 'text-only' ? 2 : 5;
+    let current = 0;
+
+    timerRef.current = setInterval(() => {
+      current += 1;
+      setSimStep(current);
+
+      if (current >= targetMax) {
+        if (timerRef.current) {
+          clearInterval(timerRef.current);
+          timerRef.current = null;
+        }
+        setIsSimulating(false);
+      }
+    }, 700);
+  };
+
+  const handleSkipSimulation = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+    setSimStep(maxSteps);
+    setIsSimulating(false);
   };
 
   const handleSelectQuizOption = (optionId: string) => {
@@ -56,89 +109,115 @@ export function Chapter01({
     setHasSubmittedQuiz(false);
   };
 
+  const handleNavigateToChapter02 = () => {
+    if (onSelectChapter) {
+      onSelectChapter(2);
+    } else {
+      router.push('/presentation?chapter=2');
+    }
+  };
+
   // ==========================================
-  // SLIDE 1: The Isolated Room & Transition
+  // SLIDE 1: The Access Boundary & Foundations
   // ==========================================
   const renderSlide1 = () => (
     <div className="space-y-8 max-w-5xl mx-auto">
       {/* Intro Header */}
       <div className="text-center space-y-3">
         <Badge variant="indigo" size="md">
-          بخش ۱.۱ • اتاق ایزوله هوش مصنوعی
+          بخش ۱.۱ • مرزهای دسترسی و معماری پایه
         </Badge>
         <h3 className="text-2xl sm:text-4xl font-extrabold text-white">
           گذار از تولید متن به تعامل با ابزارها
         </h3>
-        <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
-          مدل‌های زبانی بزرگ (<span className="font-mono" dir="ltr">LLMs</span>) شگفت‌انگیزند، اما به صورت پیش‌فرض درون یک «اتاق تاریک و بسته» زندگی می‌کنند.
+        <p className="text-sm sm:text-base text-slate-300 max-w-3xl mx-auto leading-relaxed">
+          مدل زبانی به‌خودی‌خود دسترسی مستقیمی به سیستم‌عامل، فایل‌ها، شبکه یا پایگاه داده ندارد. این دسترسی‌ها در اختیار محیط اجرایی برنامه میزبان هستند و برنامه می‌تواند از طریق ابزارهای مجاز، قابلیت تعامل با سیستم‌های خارجی را در اختیار مدل قرار دهد.
         </p>
       </div>
 
-      {/* Visual Metaphor Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-        {/* Isolated LLM Card */}
-        <Card variant="translucent" className="p-6 border-indigo-500/20 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-bold text-amber-400 bg-amber-950/60 border border-amber-500/30 px-2.5 py-1 rounded-lg">
-                ماهیت پیش‌فرض مدل‌ها
+      {/* 3 Foundational Architectural Distinctions */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Layer 1: LLM Core */}
+        <Card variant="translucent" className="p-5 border-indigo-500/20 flex flex-col justify-between">
+          <div className="space-y-2.5">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-indigo-300 bg-indigo-950/60 border border-indigo-500/30 px-2.5 py-0.5 rounded-lg">
+                لایه هسته محاسباتی
               </span>
-              <Bot className="w-6 h-6 text-indigo-400" />
+              <Bot className="w-5 h-5 text-indigo-400" />
             </div>
 
-            <h4 className="text-lg font-bold text-slate-100 mb-2">
-              ۱. موتور پیش‌بینی واژگان (<span className="font-mono text-cyan-300" dir="ltr">Next-Token Predictor</span>)
+            <h4 className="text-base font-bold text-slate-100">
+              ۱. مدل زبانی؛ پیش‌بینی‌کننده توکن بعدی
             </h4>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed space-y-2">
-              مدل زبانی بر اساس الگوهای آماری میلیاردی وزن‌ها، تنها به این پرسش پاسخ می‌دهد:{' '}
-              <span className="text-indigo-300 font-semibold">«محتمل‌ترین واژه بعدی برای تکمیل این متن چیست؟»</span>
+            <div className="text-xs font-mono text-cyan-300" dir="ltr">Next-Token Predictor</div>
+            
+            <p className="text-xs text-slate-300 leading-relaxed">
+              توکن (<span className="font-mono text-cyan-300" dir="ltr">Token</span>) کوچک‌ترین واحد پردازش متن در مدل است و می‌تواند یک کلمه، زیرکلمه، علامت نگارشی یا بخشی از نویسه‌ها باشد. مدل با دریافت دنباله توکن‌ها، محتمل‌ترین توکن بعدی را محاسبه می‌کند.
             </p>
-
-            <div className="mt-4 p-3 rounded-xl bg-[#0B1020]/80 border border-slate-800 text-xs font-mono text-slate-400 space-y-1" dir="ltr">
-              <div className="text-slate-500">{'// Model Internal State:'}</div>
-              <div className="text-rose-400">× No active network socket</div>
-              <div className="text-rose-400">× No file system access</div>
-              <div className="text-rose-400">× Knowledge cut-off barrier</div>
-            </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-slate-800/80 text-xs text-slate-400 flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
-            <span>نتیجه: عدم توانایی در خواندن یا تغییر دنیای واقعی</span>
+          <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex items-center gap-1.5">
+            <Cpu className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+            <span>محاسبات تانسوری روی پارامترهای آماری</span>
           </div>
         </Card>
 
-        {/* The Need for Action Card */}
-        <Card variant="translucent" className="p-6 border-cyan-500/25 flex flex-col justify-between bg-gradient-to-br from-[#141C2E] to-[#122238]">
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-bold text-cyan-300 bg-cyan-950/60 border border-cyan-500/30 px-2.5 py-1 rounded-lg">
-                هدف غایی مهندسی هوش مصنوعی
+        {/* Layer 2: Host Environment */}
+        <Card variant="translucent" className="p-5 border-cyan-500/20 flex flex-col justify-between">
+          <div className="space-y-2.5">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-cyan-300 bg-cyan-950/60 border border-cyan-500/30 px-2.5 py-0.5 rounded-lg">
+                محیط اجرایی
               </span>
-              <Workflow className="w-6 h-6 text-cyan-400" />
+              <Server className="w-5 h-5 text-cyan-400" />
             </div>
 
-            <h4 className="text-lg font-bold text-slate-100 mb-2">
-              ۲. هوش مصنوعی عامل‌محور (<span className="font-mono text-cyan-300" dir="ltr">Agentic Action</span>)
+            <h4 className="text-base font-bold text-slate-100">
+              ۲. محیط اجرایی برنامه میزبان
             </h4>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              کاربران تنها یک چت‌بات متنی نمی‌خواهند؛ آنها سیستمی می‌خواهند که بتواند در گیت‌هاب پول‌ریکوئست بسازد، در دیتابیس تراکنش مالی ثبت کند و فایل‌های پروژه را ویرایش نماید.
-            </p>
+            <div className="text-xs font-mono text-cyan-300" dir="ltr">Host Environment</div>
 
-            <div className="mt-4 p-3 rounded-xl bg-[#0B1020]/80 border border-cyan-500/20 text-xs font-mono text-slate-400 space-y-1" dir="ltr">
-              <div className="text-slate-500">{'// Desired Agent Capabilities:'}</div>
-              <div className="text-emerald-400">✓ Query live PostgreSQL databases</div>
-              <div className="text-emerald-400">✓ Safely edit workspace files</div>
-              <div className="text-emerald-400">✓ Trigger cloud pipelines & APIs</div>
-            </div>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              برنامه‌ای که روی رایانه کاربر یا سرور اجرا می‌شود (مانند VS Code یا سرویس بک‌اند). این محیط به سوکت شبکه، دسترسی فایل و فراخوانی‌های سیستمی مجهز است و امنیت را پایش می‌کند.
+            </p>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-slate-800/80 text-xs text-cyan-300 flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />
-            <span>پل ارتباطی مورد نیاز: پروتکل استاندارد اتصال به ابزار (MCP)</span>
+          <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex items-center gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+            <span>مدیریت دسترسی‌ها و کنترل اختیارات</span>
+          </div>
+        </Card>
+
+        {/* Layer 3: Tools */}
+        <Card variant="translucent" className="p-5 border-emerald-500/20 flex flex-col justify-between">
+          <div className="space-y-2.5">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-emerald-300 bg-emerald-950/60 border border-emerald-500/30 px-2.5 py-0.5 rounded-lg">
+                پل‌های واسط
+              </span>
+              <Workflow className="w-5 h-5 text-emerald-400" />
+            </div>
+
+            <h4 className="text-base font-bold text-slate-100">
+              ۳. ابزارهای مجاز واسط
+            </h4>
+            <div className="text-xs font-mono text-emerald-300" dir="ltr">Authorized Tools</div>
+
+            <p className="text-xs text-slate-300 leading-relaxed">
+              توابع استانداردی که توسط میزبان تعریف شده و امکان خواندن از پایگاه داده، فراخوانی API و تغییر ایمن فایل‌ها را تحت نظارت برنامه میزبان مهیا می‌کنند.
+            </p>
+          </div>
+
+          <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex items-center gap-1.5">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+            <span>اتصال با ساختار استاندارد</span>
           </div>
         </Card>
       </div>
+
+      {/* 2D Responsive Architecture Diagram */}
+      <AccessBoundaryDiagram />
     </div>
   );
 
@@ -149,13 +228,13 @@ export function Chapter01({
     <div className="space-y-6 max-w-5xl mx-auto">
       <div className="text-center space-y-2">
         <Badge variant="cyan" size="md">
-          بخش ۱.۲ • مقایسه زنده
+          بخش ۱.۲ • مقایسه زنده شبیه‌سازی‌شده
         </Badge>
         <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
-          مقایسه تصویری: حدس زدن متن در برابر اقدام در محیط واقعی
+          مقایسه تصویری: حدس متنی در برابر اقدام ابزارمحور
         </h3>
         <p className="text-xs sm:text-sm text-slate-400">
-          سناریو: کاربر درخواست بررسی موجودی قطعه سرور و ثبت سفارش فوری دارد.
+          سناریو: کاربر درخواست بررسی موجودی قطعه سرور (<span className="font-mono text-cyan-300" dir="ltr">NVMe-4TB</span>) و ثبت سفارش فوری دارد.
         </p>
       </div>
 
@@ -163,7 +242,7 @@ export function Chapter01({
       <div className="flex justify-center gap-3">
         <button
           type="button"
-          onClick={() => handleSimulate('text-only')}
+          onClick={() => startSimulation('text-only')}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${
             activeTab === 'text-only'
               ? 'bg-rose-950/60 text-rose-300 border border-rose-500/50 shadow-lg shadow-rose-950/40'
@@ -171,12 +250,12 @@ export function Chapter01({
           }`}
         >
           <Bot className="w-4 h-4" />
-          <span>سناریوی اول: مدل فقط متنی (Text-Only)</span>
+          <span>سناریوی اول: مدل فاقد ابزار (Text-Only)</span>
         </button>
 
         <button
           type="button"
-          onClick={() => handleSimulate('mcp-action')}
+          onClick={() => startSimulation('mcp-action')}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${
             activeTab === 'mcp-action'
               ? 'bg-indigo-950/80 text-cyan-300 border border-cyan-400/50 shadow-lg shadow-cyan-950/40'
@@ -189,35 +268,64 @@ export function Chapter01({
       </div>
 
       {/* Interactive Simulation Window */}
-      <Card variant="translucent" className="p-6 border-slate-700/60 min-h-[360px] flex flex-col justify-between">
-        {/* Terminal Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+      <Card variant="translucent" className="p-6 border-slate-700/60 min-h-[420px] flex flex-col justify-between">
+        {/* Terminal Header & Execution Controls */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-slate-800">
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 rounded-full bg-rose-500/80 inline-block" />
             <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
             <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
             <span className="text-xs font-mono text-slate-400 mr-2" dir="ltr">
-              simulation-{activeTab}.log
+              simulator-{activeTab}.log
             </span>
+            {isSimulating && (
+              <span className="text-[11px] font-mono text-cyan-300 animate-pulse bg-cyan-950/50 px-2 py-0.5 rounded border border-cyan-500/30">
+                [گام {simStep} از {maxSteps}]
+              </span>
+            )}
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-slate-400">
-              {isSimulating ? 'در حال اجرای شبیه‌سازی...' : 'آماده بررسی'}
-            </span>
+          {/* Action Buttons: Replay & Skip */}
+          <div className="flex items-center gap-2 self-stretch sm:self-auto justify-end">
+            {isSimulating && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleSkipSimulation}
+                iconStart={<FastForward className="w-3.5 h-3.5 text-amber-400" />}
+                className="text-xs text-slate-300 hover:text-amber-300"
+              >
+                نمایش فوری
+              </Button>
+            )}
+
             <Button
               variant="secondary"
               size="sm"
-              onClick={() => handleSimulate(activeTab)}
+              onClick={() => startSimulation(activeTab)}
               iconStart={<RefreshCw className={`w-3.5 h-3.5 text-cyan-400 ${isSimulating ? 'animate-spin' : ''}`} />}
+              className="text-xs"
             >
               اجرای مجدد شبیه‌سازی
             </Button>
           </div>
         </div>
 
+        {/* Persistent Mock Data Disclosure Badge */}
+        <div className="mt-3 p-2.5 rounded-lg bg-amber-950/30 border border-amber-500/30 text-amber-300 text-xs flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <Info className="w-4 h-4 text-amber-400 shrink-0" />
+            <span className="font-medium">
+              شبیه‌سازی آموزشی — بدون اتصال واقعی به پایگاه داده و سیستم‌های تجاری.
+            </span>
+          </div>
+          <span className="text-[10px] text-amber-400/80 font-mono hidden sm:inline" dir="ltr">
+            MOCK ENVIRONMENT
+          </span>
+        </div>
+
         {/* Dynamic Simulation Body */}
-        <div className="py-6 space-y-4">
+        <div className="py-5 space-y-4">
           {/* User Request Bubble */}
           <div className="flex items-start gap-3 bg-[#0B1020]/70 p-3.5 rounded-xl border border-slate-800">
             <div className="w-7 h-7 rounded-lg bg-indigo-600/40 text-indigo-300 flex items-center justify-center font-bold text-xs shrink-0">
@@ -233,97 +341,202 @@ export function Chapter01({
           {/* Execution Trace */}
           {activeTab === 'text-only' ? (
             <div className="space-y-3">
-              <div className="p-3.5 rounded-xl bg-rose-950/20 border border-rose-900/40 text-xs font-mono space-y-2">
-                <div className="flex items-center gap-2 text-rose-400 font-bold">
-                  <AlertTriangle className="w-4 h-4 shrink-0" />
-                  <span>وضعیت مدل: بدون دسترسی به ابزار یا دیتابیس</span>
-                </div>
-                <p className="text-slate-300 font-sans leading-relaxed">
-                  مدل صرفاً واژگان را پیش‌بینی می‌کند: «بله، موجودی قطعه انبار حدوداً ۴۵ عدد است و فاکتور شماره ۱۲۳۴۵ برای شما ثبت گردید!»
-                </p>
-                <div className="pt-2 border-t border-rose-900/40 text-rose-300 text-[11px] font-sans">
-                  ⚠️ <strong>تحلیل فنی:</strong> هیچ اتصال سوکت یا کوئری SQL رخ نداد؛ این شماره فاکتور کاملاً خیالی (Hallucination) است و در دیتابیس سازمان هیچ سفارشی ذخیره نشد!
-                </div>
-              </div>
+              {simStep >= 1 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-3.5 rounded-xl bg-rose-950/20 border border-rose-900/40 text-xs font-mono space-y-2"
+                >
+                  <div className="flex items-center gap-2 text-rose-400 font-bold">
+                    <AlertTriangle className="w-4 h-4 shrink-0" />
+                    <span>وضعیت مدل: متکی به دانش زمان آموزش؛ بدون دسترسی به ابزار یا دیتابیس</span>
+                  </div>
+                  <p className="text-slate-300 font-sans leading-relaxed">
+                    پاسخ فرضی مدل بر اساس توالی متنی: «بله، موجودی قطعه انبار حدوداً ۴۵ عدد است و فاکتور شماره ۱۲۳۴۵ برای شما ثبت گردید!»
+                  </p>
+                </motion.div>
+              )}
+
+              {simStep >= 2 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-3.5 rounded-xl bg-[#0e1628] border border-amber-500/20 space-y-2 text-xs"
+                >
+                  <div className="text-amber-300 font-bold flex items-center gap-1.5">
+                    <Info className="w-4 h-4 text-amber-400 shrink-0" />
+                    <span>تحلیل علمی پدیده توهم (Hallucination Nuance):</span>
+                  </div>
+                  <p className="text-slate-300 leading-relaxed">
+                    نبود دسترسی به داده‌های خارجی و لحظه‌ای می‌تواند احتمال تولید پاسخ بی‌پشتوانه را افزایش دهد؛ اما توهم حتی در سیستم‌های مجهز به ابزار نیز ممکن است رخ دهد (مثلاً در تفسیر نادرست داده‌ها توسط مدل).
+                  </p>
+                </motion.div>
+              )}
             </div>
           ) : (
             <div className="space-y-3">
-              <div className="p-3.5 rounded-xl bg-indigo-950/30 border border-cyan-500/30 text-xs font-mono space-y-2" dir="ltr">
-                <div className="flex items-center justify-between text-cyan-400 font-bold">
-                  <span>[MCP Client] Executing Tool Call:</span>
-                  <span className="text-[10px] text-emerald-400">JSON-RPC 2.0</span>
-                </div>
-                <div className="bg-[#0B1020] p-2.5 rounded-lg border border-slate-800 text-slate-300 text-[11px]">
-                  <code>&gt; tools/call: query_inventory({`{ sku: "NVMe-4TB" }`})</code>
-                  <br />
-                  <span className="text-emerald-400">&lt; response: {`{ in_stock: true, count: 6, warehouse: "Tehran-Central" }`}</span>
-                </div>
-                <div className="bg-[#0B1020] p-2.5 rounded-lg border border-slate-800 text-slate-300 text-[11px]">
-                  <code>&gt; tools/call: reserve_order({`{ sku: "NVMe-4TB", qty: 1 }`})</code>
-                  <br />
-                  <span className="text-cyan-300">&lt; response: {`{ status: "CONFIRMED", invoice_id: "INV-2026-981" }`}</span>
-                </div>
-              </div>
+              {/* Step 1: Host Validating and Processing */}
+              {simStep >= 1 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-3 rounded-xl bg-indigo-950/30 border border-cyan-500/30 text-xs font-mono space-y-1.5"
+                  dir="ltr"
+                >
+                  <div className="flex items-center justify-between text-cyan-400 font-bold">
+                    <span>[HOST] Validating and Processing Tool Request</span>
+                    <span className="text-[10px] text-slate-400 font-sans">برنامه میزبان</span>
+                  </div>
+                  <div className="text-[11px] text-slate-400 font-sans" dir="rtl">
+                    در این مرحله، برنامه میزبان درخواست ابزار را مدیریت می‌کند. جزئیات ارتباط استاندارد MCP در فصل‌های بعد بررسی خواهد شد.
+                  </div>
+                </motion.div>
+              )}
 
-              <div className="p-3 rounded-xl bg-emerald-950/30 border border-emerald-500/30 text-xs text-slate-200">
-                <span className="font-bold text-emerald-300">پاسخ مدل به کاربر:</span> «قطعه در انبار مرکزی تهران ۶ عدد موجود است. فاکتور با شماره رسمی <span className="font-mono text-cyan-300" dir="ltr">INV-2026-981</span> در سامانه ERP با موفقیت ثبت و رزرو شد.»
-              </div>
+              {/* Step 2 & 3: Inventory Query and Response */}
+              {simStep >= 2 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-2.5 rounded-lg bg-[#0B1020] border border-slate-800 text-slate-300 text-[11px] font-mono space-y-1"
+                  dir="ltr"
+                >
+                  <div className="text-cyan-300">&gt; tools/call: query_inventory({`{ sku: "NVMe-4TB" }`})</div>
+                  {simStep >= 3 && (
+                    <div className="text-emerald-400">
+                      &lt; response (داده بازگشتی از ابزار شبیه‌سازی‌شده): {`{ in_stock: true, count: 6, warehouse: "Tehran-Central" }`}
+                    </div>
+                  )}
+                </motion.div>
+              )}
+
+              {/* Step 4 & 5: Reservation Call & Response */}
+              {simStep >= 4 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-2.5 rounded-lg bg-[#0B1020] border border-slate-800 text-slate-300 text-[11px] font-mono space-y-1"
+                  dir="ltr"
+                >
+                  <div className="text-cyan-300">&gt; tools/call: reserve_order({`{ sku: "NVMe-4TB", qty: 1 }`})</div>
+                  {simStep >= 5 && (
+                    <div className="text-cyan-300">
+                      &lt; response (داده بازگشتی از ابزار شبیه‌سازی‌شده): {`{ status: "CONFIRMED", invoice_id: "INV-2026-981" }`}
+                    </div>
+                  )}
+                </motion.div>
+              )}
+
+              {/* Final Step: Model response based on tool results */}
+              {simStep >= 5 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="space-y-3"
+                >
+                  <div className="p-3 rounded-xl bg-emerald-950/30 border border-emerald-500/30 text-xs text-slate-200">
+                    <span className="font-bold text-emerald-300">پاسخ مدل به کاربر (مبتنی بر داده‌های ابزار): </span>
+                    «بر اساس داده‌های بازگشتی از ابزار، قطعه در انبار ۶ عدد موجود است و فاکتور رزرو با شناسه <span className="font-mono text-cyan-300" dir="ltr">INV-2026-981</span> ثبت گردید.»
+                  </div>
+
+                  {/* Scientific Cautionary Note */}
+                  <div className="p-3 rounded-xl bg-[#0e1628] border border-amber-500/25 text-xs text-slate-300 leading-relaxed">
+                    <span className="font-bold text-amber-300">نکته احتیاطی مهم: </span>
+                    استفاده از ابزار به‌تنهایی صحت پاسخ را تضمین نمی‌کند. ابزار ممکن است خطا کند، داده ناقص یا قدیمی برگرداند یا با مشکل دسترسی مواجه شود. همچنین مدل ممکن است نتیجه ابزار را اشتباه تفسیر کند.
+                  </div>
+                </motion.div>
+              )}
             </div>
           )}
         </div>
 
-        {/* Footer Summary Comparison */}
-        <div className="pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
-          <span>
-            {activeTab === 'text-only'
-              ? 'نتیجه: پیش‌بینی بدون اتصال = غیرقابل اتکا در سامانه‌های تجاری'
-              : 'نتیجه: پروتکل استاندارد ابزار = داده قطعی، تراکنش امن و اتصال معتبر'}
-          </span>
-          <Badge variant={activeTab === 'text-only' ? 'outline' : 'success'} size="sm">
-            {activeTab === 'text-only' ? 'توهم متنی' : 'عملیات معتبر (Grounded)'}
-          </Badge>
+        {/* Footer Concept Distinction: Training Knowledge vs Runtime Context */}
+        <div className="pt-4 border-t border-slate-800 space-y-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div className="p-2.5 rounded-lg bg-[#0c1222] border border-slate-800 text-slate-300">
+              <span className="font-bold text-indigo-300">دانش زمان آموزش (Training Knowledge): </span>
+              وزن‌های آماری محاسبه‌شده در دوره آموزش مدل با مرز زمانی محدود (<span className="font-mono text-slate-400" dir="ltr">Knowledge Cutoff</span>).
+            </div>
+
+            <div className="p-2.5 rounded-lg bg-[#0c1222] border border-slate-800 text-slate-300">
+              <span className="font-bold text-cyan-300">بافتار زمان اجرا (Runtime Context): </span>
+              اطلاعات تزریق‌شده به پنجره بافتار در لحظه استنتاج شامل دستور کاربر و داده‌های بازگشتی از ابزارها.
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between text-xs text-slate-400 pt-1">
+            <span>
+              {activeTab === 'text-only'
+                ? 'وضعیت: تولید متن صرفاً بر پایه احتمالات آماری آموزش'
+                : 'وضعیت: اجرای ابزار تحت مدیریت برنامه میزبان و تزریق به بافتار زمان اجرا'}
+            </span>
+            <Badge variant={activeTab === 'text-only' ? 'outline' : 'success'} size="sm">
+              {activeTab === 'text-only' ? 'پاسخ فاقد ابزار' : 'اقدام ابزارمحور (Tool-mediated)'}
+            </Badge>
+          </div>
         </div>
       </Card>
     </div>
   );
 
   // ==========================================
-  // SLIDE 3: The Core Educational Question
+  // SLIDE 3: The Core Educational Question & N×M
   // ==========================================
   const renderSlide3 = () => (
     <div className="space-y-8 max-w-4xl mx-auto">
       <div className="text-center space-y-3">
         <Badge variant="indigo" size="md">
-          بخش ۱.۳ • چالش بنیادین مهندسی
+          بخش ۱.۳ • نیاز به معماری استاندارد
         </Badge>
         <h3 className="text-2xl sm:text-4xl font-extrabold text-white">
           پرسش اصلی ارائه: معماری اتصال چگونه باید باشد؟
         </h3>
         <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
-          اگر هر ارائه‌دهنده مدل و هر ابزار نرم‌افزاری بخواهند زبان خاص خود را بسازند، جهان نرم‌افزار غرق در هرج‌ومرج می‌شود.
+          اگر هر ارائه‌دهنده مدل و هر ابزار نرم‌افزاری بخواهند زبان خاص خود را بسازند، توسعه نرم‌افزار به اتصالات شکننده و پرهزینه تبدیل می‌شود.
         </p>
       </div>
 
       {/* The Central Question Banner */}
-      <Card variant="glow" glowColor="cyan" className="p-8 border-cyan-500/30 text-center space-y-4">
+      <Card variant="glow" glowColor="cyan" className="p-6 sm:p-8 border-cyan-500/30 text-center space-y-4">
         <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-cyan-400 mx-auto flex items-center justify-center text-slate-900 shadow-xl shadow-cyan-500/20">
           <HelpCircle className="w-7 h-7 text-[#0B1020]" />
         </div>
 
-        <blockquote className="text-lg sm:text-2xl font-bold text-slate-100 leading-relaxed max-w-2xl mx-auto">
+        <blockquote className="text-base sm:text-xl font-bold text-slate-100 leading-relaxed max-w-2xl mx-auto">
           «چگونه می‌توان مدل‌های زبانی را <span className="text-cyan-300">بدون به خطر انداختن امنیت</span> و <span className="text-indigo-300">بدون نوشتن کدهای اتصال اختصاصی N×M</span>، به صورت استاندارد، ایمن و قابل‌حمل به ابزارها و داده‌های جهان پیرامون متصل کرد؟»
         </blockquote>
       </Card>
 
-      {/* 3 Engineering Pillars */}
+      {/* N×M Complexity Clarification Banner */}
+      <div className="p-4 rounded-xl bg-[#0c1322] border border-amber-500/30 text-xs text-slate-300 space-y-2">
+        <div className="flex items-center gap-2 font-bold text-amber-300">
+          <Layers className="w-4 h-4 text-amber-400 shrink-0" />
+          <span>توضیح تحلیلی چالش پیچیدگی N×M:</span>
+        </div>
+        <p className="leading-relaxed">
+          این نمودار یک مدل ساده‌شده از وضعیت اتصال‌های اختصاصی است؛ در آن، با افزایش تعداد برنامه‌ها و سرویس‌ها، تعداد مسیرهای یکپارچه‌سازی و هزینه نگهداری می‌تواند افزایش یابد. استانداردسازی، این رشد پیچیدگی را مهار می‌کند.
+        </p>
+      </div>
+
+      {/* Section Sub-heading for Desirable Criteria */}
+      <div className="text-center pt-2">
+        <h4 className="text-sm sm:text-base font-bold text-slate-200">
+          ویژگی‌های مورد انتظار از یک استاندارد ارتباطی مناسب
+        </h4>
+        <p className="text-xs text-slate-400 mt-1">
+          معیارهای عمومی یک چارچوب استاندارد پیش از ورود به جزئیات پروتکل
+        </p>
+      </div>
+
+      {/* 3 Standardization Criteria Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="p-4 rounded-xl bg-[#141C2E] border border-slate-800 text-right space-y-2">
           <div className="p-2 rounded-lg bg-indigo-950/60 text-indigo-400 w-fit">
             <Boxes className="w-5 h-5" />
           </div>
-          <h4 className="font-bold text-slate-100 text-sm">۱. عدم وابستگی به مدل (Model Agnostic)</h4>
+          <h5 className="font-bold text-slate-100 text-sm">۱. عدم وابستگی به مدل (Model Agnostic)</h5>
           <p className="text-xs text-slate-400 leading-relaxed">
-            ابزاری که برای یک مدل ساخته می‌شود باید بدون تغییر با مدل‌های دیگر (Claude، GPT، Gemini و مدل‌های متن‌باز محلی) کار کند.
+            قابلیت کارکرد مستقل با انواع مدل‌های زبانی بدون نیاز به بازنویسی لاجیک اتصال ابزار برای هر مدل یا ارائه‌دهنده.
           </p>
         </div>
 
@@ -331,9 +544,9 @@ export function Chapter01({
           <div className="p-2 rounded-lg bg-cyan-950/60 text-cyan-400 w-fit">
             <Lock className="w-5 h-5" />
           </div>
-          <h4 className="font-bold text-slate-100 text-sm">۲. امنیت و ایزوله‌سازی (Security Boundaries)</h4>
+          <h5 className="font-bold text-slate-100 text-sm">۲. مرزهای مشخص امنیتی (Security Boundaries)</h5>
           <p className="text-xs text-slate-400 leading-relaxed">
-            مدل نباید دسترسی آزاد و نامحدود به سیستم عامل پیدا کند؛ هر ابزار نیازمند مرزهای دسترسی مشخص و تایید کاربر انسانی است.
+            ایزوله‌سازی دسترسی‌ها، کنترل اختیارات توسط برنامه میزبان و نیازمندی به تأیید کاربر انسانی برای اقدامات حساس.
           </p>
         </div>
 
@@ -341,9 +554,9 @@ export function Chapter01({
           <div className="p-2 rounded-lg bg-emerald-950/60 text-emerald-400 w-fit">
             <Code2 className="w-5 h-5" />
           </div>
-          <h4 className="font-bold text-slate-100 text-sm">۳. استاندارد باز ارتباطی (Open Protocol)</h4>
+          <h5 className="font-bold text-slate-100 text-sm">۳. پروتکل باز و استاندارد (Open Standard Protocol)</h5>
           <p className="text-xs text-slate-400 leading-relaxed">
-            پروتکلی سبک، شفاف و مبتنی بر استانداردهای پذیرفته‌شده صنعت مانند <span className="font-mono text-cyan-300" dir="ltr">JSON-RPC 2.0</span>.
+            بهره‌گیری از استانداردهای باز و قابل توسعه مانند قالب ساختاریافته پیام‌ها و فرمت‌های سبک تبادل داده.
           </p>
         </div>
       </div>
@@ -351,13 +564,13 @@ export function Chapter01({
   );
 
   // ==========================================
-  // SLIDE 4: Interactive Concept Quiz
+  // SLIDE 4: Interactive Quiz & Chapter 02 Transition
   // ==========================================
   const renderSlide4 = () => {
     const quiz = CHAPTER_01_QUIZ;
 
     return (
-      <div className="space-y-6 max-w-4xl mx-auto">
+      <div className="space-y-8 max-w-4xl mx-auto">
         <div className="text-center space-y-2">
           <Badge variant="cyan" size="md">
             بخش ۱.۴ • سنجش تعاملی درک مفهوم
@@ -366,7 +579,7 @@ export function Chapter01({
             آزمونک کوتاه تشخیصی
           </h3>
           <p className="text-xs sm:text-sm text-slate-400">
-            برای سنجش درک شهودی از محدودیت مدل‌های زبانی، گزینه صحیح را انتخاب کنید.
+            برای سنجش درک شهودی از مرزهای دسترسی مدل‌های زبانی، گزینه صحیح را انتخاب کنید.
           </p>
         </div>
 
@@ -471,6 +684,36 @@ export function Chapter01({
             </motion.div>
           )}
         </Card>
+
+        {/* Chapter 02 Transition CTA Banner */}
+        <div className="p-6 rounded-2xl bg-gradient-to-r from-indigo-950/50 via-[#121B30] to-cyan-950/40 border border-indigo-500/30 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-xl">
+          <div className="space-y-1.5 text-center sm:text-right">
+            <div className="flex items-center justify-center sm:justify-start gap-2">
+              <Badge variant="cyan" size="sm">
+                گام بعدی
+              </Badge>
+              <span className="text-xs text-cyan-300 font-mono" dir="ltr">
+                Chapter 02 Preview
+              </span>
+            </div>
+            <h4 className="text-base sm:text-lg font-bold text-white">
+              ادامه مسیر: مدل‌های زبانی و ابزارهای خارجی (فصل دوم)
+            </h4>
+            <p className="text-xs text-slate-400 max-w-xl leading-relaxed">
+              بررسی عمیق محدودیت‌های ذاتی LLMها، تاریخچه تکامل اتصال به ابزارها و معماری مدرن Function Calling.
+            </p>
+          </div>
+
+          <Button
+            variant="primary"
+            size="md"
+            onClick={handleNavigateToChapter02}
+            iconEnd={<ArrowLeft className="w-4 h-4" />}
+            className="shrink-0 text-xs sm:text-sm shadow-lg shadow-indigo-600/30"
+          >
+            ورود به فصل دوم
+          </Button>
+        </div>
       </div>
     );
   };

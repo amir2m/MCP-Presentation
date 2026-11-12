@@ -27,6 +27,21 @@
 - [x] Restrain GPU consumption with low-poly geometry, capped pixel ratio (`dpr={[1, 1.5]}`), and low-power preference.
 - [x] Clean TypeScript, ESLint (React 19 hooks compliant), and Turbopack production build.
 
+### Phase 1.6: Scientific Accuracy & Educational Refinement — Chapter 01 (Completed: TASK-001.6)
+- [x] Clarify boundary between LLM Core, Host Environment, and Tools with approved scientific statement.
+- [x] Replace vague terminology with "Next-Token Predictor" and precise definition of Tokens.
+- [x] Design and implement responsive 2D `AccessBoundaryDiagram` (State A: Isolated/Blocked vs State B: Host-Mediated).
+- [x] Add prominent and persistent Mock Data Disclosure banner to the Chapter 01 simulator.
+- [x] Replace guaranteed correctness claims with accurate terms ("Tool Execution", "Data Returned by Tool", "Tool-mediated Action").
+- [x] Add scientific cautionary note regarding tool failure, stale data, and model misinterpretation.
+- [x] Differentiate Training Knowledge (weights/cutoff) from Runtime Context (injected tool output).
+- [x] Update simulator host trace: `[HOST] Validating and Processing Tool Request` and clarify Host vs MCP Client roles.
+- [x] Progressive multi-stage execution sequence in the simulator with Replay and Skip controls.
+- [x] Reframe 3 cards under "ویژگی‌های مورد انتظار از یک استاندارد ارتباطی مناسب" as general criteria.
+- [x] Clarify N×M integration complexity model note.
+- [x] Add prominent Chapter 02 CTA button/banner linking to Chapter 02.
+- [x] Full TypeScript, ESLint, and Turbopack build verification with zero errors.
+
 ### Phase 2: Chapters 02 & 03
 - [x] Implement Chapter 02: "از پیش‌بینی کلمه تا انجام عملیات" (Large Language Models & External Tools) (Completed: TASK-002).
   - [x] Educational breakdowns: LLM conceptual definition, Token representation and probability distributions.
@@ -60,8 +75,8 @@
 
 ## 2. Current Implementation Status
 
-- **Sprint:** TASK-002
-- **Focus:** Complete implementation of Chapter 02 (Large Language Models & External Tools), Interactive Simulator, and Chapter 02 Quiz.
+- **Sprint:** TASK-001.6
+- **Focus:** Educational and Scientific Refinement of Chapter 01 (LLM vs Host vs Tools distinction, Next-Token Predictor, AccessBoundaryDiagram, persistent mock disclosure, progressive simulation, Chapter 02 CTA).
 - **Status:** Complete & Verified.
 
 ---
