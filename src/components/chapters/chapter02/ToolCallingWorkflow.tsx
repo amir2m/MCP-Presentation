@@ -255,13 +255,13 @@ export function ToolCallingWorkflow() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
             <div className="p-3 rounded-xl bg-[#0c1322] border border-slate-800 text-slate-300 leading-relaxed">
-              <strong className="text-amber-400 block mb-1">احتمال خطای ابزار:</strong>
-              اجرای ابزار مصون از شکست نیست و ممکن است به دلایلی نظیر قطعی شبکه، خطای تایم‌اوت، رد مجوزها، پارامتر نامعتبر یا بازگشت داده‌های کهنه (<span className="font-mono text-slate-400" dir="ltr">Stale Data</span>) ناموفق باشد.
+              <strong className="text-amber-400 block mb-1">شکست در اجرا و کیفیت داده:</strong>
+              اجرای ابزار مصون از خطا یا شکست نیست؛ ممکن است به دلایلی مانند قطعی شبکه، خطای <span className="font-mono text-slate-400" dir="ltr">Timeout</span>، رد مجوزها یا پارامترهای نامعتبر با شکست مواجه شود. همچنین حتی در صورت اجرای موفق، ممکن است ابزار داده‌هایی ناقص یا کهنه (<span className="font-mono text-slate-400" dir="ltr">Stale Data</span>) بازگرداند.
             </div>
 
             <div className="p-3 rounded-xl bg-[#0c1322] border border-slate-800 text-slate-300 leading-relaxed">
-              <strong className="text-emerald-400 block mb-1">عملیات خواندن (Read) در برابر تغییر وضعیت (Write):</strong>
-              استعلام‌های خواندنی بدون تغییر در وضعیت سیستم انجام می‌شوند؛ اما عملیات نوشتن و تراکنش‌ها وضعیت داده‌ها را تغییر می‌دهند و در اقدامات حساس نیازمند تایید مستقیم انسان (<span className="font-mono text-slate-400" dir="ltr">Human-in-the-loop</span>) هستند.
+              <strong className="text-emerald-400 block mb-1">عملیات خواندن، نوشتن و تراکنش‌ها:</strong>
+              عملیات خواندن (<span className="font-mono text-slate-400" dir="ltr">Read</span>) برای دریافت داده انجام می‌شوند و معمولاً وضعیت اصلی سیستم را تغییر نمی‌دهند. عملیات نوشتن یا تغییر وضعیت (<span className="font-mono text-slate-400" dir="ltr">Write / Mutation</span>) داده‌ها یا وضعیت سیستم را تغییر می‌دهند. تراکنش (<span className="font-mono text-slate-400" dir="ltr">Transaction</span>) سازوکاری برای اجرای یک یا چند عملیات پایگاه داده با رعایت ویژگی‌هایی مانند اتمیک‌بودن و سازگاری است. اقدامات حساس ممکن است به تأیید مستقیم انسان (<span className="font-mono text-slate-400" dir="ltr">Human-in-the-loop</span>) نیاز داشته باشند.
             </div>
           </div>
         </div>

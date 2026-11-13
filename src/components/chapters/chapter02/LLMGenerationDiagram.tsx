@@ -215,10 +215,16 @@ export function LLMGenerationDiagram() {
               className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3 border-t border-slate-800/80"
             >
               {/* Distribution Table */}
-              <div className="p-3.5 rounded-xl bg-[#141C2E]/70 border border-indigo-500/20 space-y-2">
-                <span className="text-xs font-bold text-indigo-300 block">
-                  محتمل‌ترین توکن بعدی (Probability Distribution):
-                </span>
+              <div className="p-3.5 rounded-xl bg-[#141C2E]/70 border border-indigo-500/20 space-y-2.5">
+                <div className="space-y-1">
+                  <span className="text-xs font-bold text-indigo-300 block">
+                    محتمل‌ترین گزینه‌های ادامه پاسخ (Top-3 Candidates):
+                  </span>
+                  <p className="text-[11px] text-slate-400 leading-relaxed font-sans">
+                    احتمال هر گزینه با توجه به توکن‌های قبلی و بافتار ورودی مدل تعیین می‌شود.
+                  </p>
+                </div>
+
                 <div className="space-y-1.5 text-xs font-mono">
                   <div className="flex items-center justify-between bg-indigo-950/60 p-1.5 px-2.5 rounded border border-indigo-500/40 text-cyan-300 font-bold">
                     <span>&quot;موجودی&quot;</span>
@@ -232,6 +238,19 @@ export function LLMGenerationDiagram() {
                     <span>&quot;اطلاعات&quot;</span>
                     <span>5.1%</span>
                   </div>
+                  <div className="flex items-center justify-between bg-slate-900/30 p-1 px-2.5 rounded text-slate-500 text-[11px] border border-slate-800/50">
+                    <span className="font-sans">سایر کاندیداها در دایره واژگان:</span>
+                    <span>2.3%</span>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-slate-800/80 space-y-1.5 text-[11px] text-slate-400 font-sans leading-relaxed">
+                  <p>
+                    <strong className="text-indigo-300">نکته آموزشی:</strong> انتخاب گزینه دارای بیشترین احتمال، نمونه‌ای از گزینش حریصانه (<span className="font-mono text-slate-300" dir="ltr">Greedy Decoding</span>) است. در روش‌های نمونه‌برداری (<span className="font-mono text-slate-300" dir="ltr">Sampling</span>)، ممکن است گزینه‌های دیگری نیز انتخاب شوند.
+                  </p>
+                  <p className="text-[10px] text-slate-500 leading-normal">
+                    * اعداد این نمودار فرضی و صرفاً برای نمایش آموزشی مفهوم احتمال هستند؛ این مقادیر از خروجی واقعی یک مدل مشخص استخراج نشده‌اند.
+                  </p>
                 </div>
               </div>
 
