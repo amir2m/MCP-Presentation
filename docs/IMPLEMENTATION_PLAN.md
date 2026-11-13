@@ -52,9 +52,9 @@
   - [x] The Missing Piece: N×M custom integration spaghetti problem bridging to Chapter 03.
   - [x] 3-question interactive quiz with scoring, per-option feedback, and retry.
   - [x] Full integration into Presentation Mode (6 slides) and Scroll Mode.
-- [ ] Formal introduction of MCP specification and history (Chapter 03 - Future Task).
-- [ ] Interactive USB-C vs Spaghetti wiring diagram (Chapter 03 - Future Task).
-- [ ] Chapter 03 checkpoint questions (Future Task).
+- [x] Chapter 03 Scientific Audit & Conceptual Demarcation (TASK-003-AUDIT).
+- [x] Chapter 03 Content Finalization & Implementation Planning (TASK-003.1 — see [CHAPTER_03_CONTENT_SPEC.md](CHAPTER_03_CONTENT_SPEC.md) & [CHAPTER_03_IMPLEMENTATION_PLAN.md](CHAPTER_03_IMPLEMENTATION_PLAN.md)).
+- [ ] Chapter 03 Implementation across 6 sections and presentation/scroll modes (TASK-003.2 - Next Task).
 
 ### Phase 3: Chapters 04 & 05 (Future Task)
 - [ ] MCP Architecture visualization (Host, Client, Server, Transports) (Chapter 04).
@@ -75,9 +75,13 @@
 
 ## 2. Current Implementation Status
 
-- **Sprint:** TASK-001.6
-- **Focus:** Educational and Scientific Refinement of Chapter 01 (LLM vs Host vs Tools distinction, Next-Token Predictor, AccessBoundaryDiagram, persistent mock disclosure, progressive simulation, Chapter 02 CTA).
-- **Status:** Complete & Verified.
+- **Completed Sprints:**
+  - **TASK-001 / TASK-001.6:** Chapter 01 Educational & Scientific Refinement (Complete & Verified).
+  - **TASK-002 / TASK-002.1 / TASK-002.3:** Chapter 02 Implementation & Scientific Precision (Complete & Verified).
+  - **TASK-002.4:** Chapter 02 Browser-Based Visual & Interaction QA (Complete & Verified — PASS).
+  - **TASK-003-AUDIT:** Chapter 03 Scientific, Structural & Pedagogical Audit (Complete & Approved).
+  - **TASK-003.1:** Chapter 03 Content Finalization & Implementation Planning (Complete & Documented).
+- **Next Milestone:** TASK-003.2 — Chapter 03 Application Implementation.
 
 ---
 

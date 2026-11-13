@@ -11,6 +11,7 @@ import { ProgressIndicator } from '@/components/layout/ProgressIndicator';
 import { ChapterSection } from '@/components/presentation/ChapterSection';
 import { Chapter01 } from '@/components/chapters/Chapter01';
 import { Chapter02 } from '@/components/chapters/Chapter02';
+import { Chapter03 } from '@/components/chapters/Chapter03';
 import { CHAPTERS } from '@/lib/presentation';
 import { parsePresentationKey } from '@/lib/navigation';
 import { PresentationViewMode } from '@/types/presentation';
@@ -166,6 +167,12 @@ function PresentationContent() {
                   activeSlideIndex={currentSlideIndex}
                   onSelectChapter={handleSelectChapter}
                 />
+              ) : currentChapterId === 3 ? (
+                <Chapter03
+                  mode="slides"
+                  activeSlideIndex={currentSlideIndex}
+                  onSelectChapter={handleSelectChapter}
+                />
               ) : (
                 <div className="text-center py-20 space-y-4 max-w-lg mx-auto">
                   <Badge variant="outline" size="md">
@@ -180,9 +187,9 @@ function PresentationContent() {
                   <Button
                     variant="secondary"
                     size="sm"
-                    onClick={() => handleSelectChapter(2)}
+                    onClick={() => handleSelectChapter(3)}
                   >
-                    بازگشت به فصل دوم
+                    بازگشت به فصل سوم
                   </Button>
                 </div>
               )}
@@ -240,6 +247,11 @@ function PresentationContent() {
               <Chapter02 mode="scroll" onSelectChapter={handleSelectChapter} />
             </ChapterSection>
 
+            {/* Chapter 03 Section */}
+            <ChapterSection chapter={CHAPTERS[2]}>
+              <Chapter03 mode="scroll" onSelectChapter={handleSelectChapter} />
+            </ChapterSection>
+
             {/* Preview of Upcoming Chapters in Scroll Mode */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-indigo-500/10">
               <div className="text-center mb-10 space-y-2">
@@ -255,7 +267,7 @@ function PresentationContent() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {CHAPTERS.slice(2).map((ch) => (
+                {CHAPTERS.slice(3).map((ch) => (
                   <div
                     key={ch.id}
                     className="p-5 rounded-2xl bg-[#141C2E]/60 border border-slate-800/80 flex flex-col justify-between"
