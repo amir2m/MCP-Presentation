@@ -63,8 +63,8 @@ export function ToolCallingWorkflow() {
       step: 5,
       actor: 'ابزار خارجی (External Tool)',
       icon: <Database className="w-4 h-4 text-cyan-400" />,
-      title: 'اجرای کوئری واقعی روی پایگاه داده',
-      desc: 'ابزار فراخوانی شده، کوئری SQL یا درخواست API واقعی را به پایگاه داده انبار ارسال می‌نماید.',
+      title: 'اجرای استعلام توسط ابزار بر روی پایگاه داده',
+      desc: 'ابزار فراخوانی‌شده، کوئری SQL یا درخواست API را به پایگاه داده انبار ارسال می‌نماید.',
       code: 'SQL: SELECT quantity FROM inventory WHERE sku = "PLC-204";',
       activeNode: 'db',
     },
@@ -72,8 +72,8 @@ export function ToolCallingWorkflow() {
       step: 6,
       actor: 'ابزار خارجی (External Tool)',
       icon: <Database className="w-4 h-4 text-cyan-400" />,
-      title: 'بازگشت نتیجه واقعی به برنامه میزبان',
-      desc: 'پایگاه داده رکورد معتبر را استخراج کرده و به صورت ساختاریافته برمی‌گرداند.',
+      title: 'بازگشت نتیجه ساختاریافته به برنامه میزبان',
+      desc: 'پایگاه داده نتیجه را به صورت ساختاریافته در قالب JSON به میزبان بازمی‌گرداند.',
       code: 'Result: { "product_id": "PLC-204", "available_quantity": 12 }',
       activeNode: 'db',
     },
@@ -203,7 +203,7 @@ export function ToolCallingWorkflow() {
           }`}>
             <Database className="w-5 h-5 mx-auto mb-1 text-cyan-400" />
             <span className="text-xs font-bold text-slate-200 block">دیتابیس / ابزار</span>
-            <span className="text-[10px] text-cyan-400">منبع داده واقعی</span>
+            <span className="text-[10px] text-cyan-400">سرویس داده ابزار</span>
           </div>
 
         </div>
@@ -246,10 +246,24 @@ export function ToolCallingWorkflow() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Essential Scientific Highlight */}
-        <div className="p-4 rounded-xl bg-indigo-950/30 border border-indigo-500/20 text-xs text-slate-300 leading-relaxed">
-          <strong className="text-cyan-300">نکته کلیدی معماری: </strong>
-          مدل زبانی هرگز دسترسی مستقیم به سیستم فایل یا دیتابیس ندارد. مدل صرفاً درخواست ابزار را صادر می‌کند؛ اما <strong>برنامه میزبان (Host)</strong> است که نقش ناظر امنیتی را بازی کرده، ورودی‌ها را اعتبارسنجی می‌کند و ابزار را فراخوانی می‌نماید.
+        {/* Essential Scientific Highlights */}
+        <div className="space-y-2.5 pt-2">
+          <div className="p-3.5 rounded-xl bg-indigo-950/30 border border-indigo-500/20 text-xs text-slate-300 leading-relaxed">
+            <strong className="text-cyan-300">نقش محوری برنامه میزبان (Host): </strong>
+            مدل زبانی هرگز دسترسی مستقیم به سیستم فایل یا دیتابیس ندارد؛ مدل صرفاً متن ساختاریافته درخواست ابزار را صادر می‌کند و این برنامه میزبان است که به عنوان ناظر امنیتی، مجوزها را اعتبارسنجی و ابزار را اجرا می‌نماید.
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+            <div className="p-3 rounded-xl bg-[#0c1322] border border-slate-800 text-slate-300 leading-relaxed">
+              <strong className="text-amber-400 block mb-1">احتمال خطای ابزار:</strong>
+              اجرای ابزار مصون از شکست نیست و ممکن است به دلایلی نظیر قطعی شبکه، خطای تایم‌اوت، رد مجوزها، پارامتر نامعتبر یا بازگشت داده‌های کهنه (<span className="font-mono text-slate-400" dir="ltr">Stale Data</span>) ناموفق باشد.
+            </div>
+
+            <div className="p-3 rounded-xl bg-[#0c1322] border border-slate-800 text-slate-300 leading-relaxed">
+              <strong className="text-emerald-400 block mb-1">عملیات خواندن (Read) در برابر تغییر وضعیت (Write):</strong>
+              استعلام‌های خواندنی بدون تغییر در وضعیت سیستم انجام می‌شوند؛ اما عملیات نوشتن و تراکنش‌ها وضعیت داده‌ها را تغییر می‌دهند و در اقدامات حساس نیازمند تایید مستقیم انسان (<span className="font-mono text-slate-400" dir="ltr">Human-in-the-loop</span>) هستند.
+            </div>
+          </div>
         </div>
 
       </Card>

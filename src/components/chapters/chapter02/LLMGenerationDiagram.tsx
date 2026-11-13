@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Sparkles, Play, RotateCcw, Brain, Split } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
@@ -10,6 +10,21 @@ import { Button } from '@/components/ui/Button';
 export function LLMGenerationDiagram() {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(false);
+  const timersRef = useRef<NodeJS.Timeout[]>([]);
+
+  // Cleanup all timers on unmount
+  useEffect(() => {
+    return () => {
+      timersRef.current.forEach(clearTimeout);
+      timersRef.current = [];
+    };
+  }, []);
+
+  const clearAutoPlayTimers = () => {
+    timersRef.current.forEach(clearTimeout);
+    timersRef.current = [];
+    setIsAutoPlaying(false);
+  };
 
   // Sample tokens for the prompt
   const persianTokens = [
@@ -32,18 +47,24 @@ export function LLMGenerationDiagram() {
   ];
 
   const handleNextStep = () => {
+    clearAutoPlayTimers();
     setActiveStep((prev) => (prev + 1) % 4);
   };
 
   const handleAutoPlay = () => {
+    clearAutoPlayTimers();
     setIsAutoPlaying(true);
     setActiveStep(0);
-    setTimeout(() => setActiveStep(1), 700);
-    setTimeout(() => setActiveStep(2), 1700);
-    setTimeout(() => {
+
+    const t1 = setTimeout(() => setActiveStep(1), 700);
+    const t2 = setTimeout(() => setActiveStep(2), 1700);
+    const t3 = setTimeout(() => {
       setActiveStep(3);
       setIsAutoPlaying(false);
+      timersRef.current = [];
     }, 2800);
+
+    timersRef.current = [t1, t2, t3];
   };
 
   return (
@@ -57,7 +78,7 @@ export function LLMGenerationDiagram() {
           مدل زبانی چگونه فکر می‌کند؟
         </h3>
         <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
-          مدل زبانی بزرگ (<span className="font-mono text-cyan-300" dir="ltr">LLM</span>) پایگاه داده‌ای از پاسخ‌های ذخیره‌شده نیست؛ بلکه مدلی هوشمند است که با یادگیری الگوهای آماری، پاسخ‌ها را کلمه به کلمه تولید می‌کند.
+          مدل زبانی بزرگ (<span className="font-mono text-cyan-300" dir="ltr">LLM</span>) پایگاه داده‌ای از پاسخ‌های ذخیره‌شده نیست؛ بلکه مدلی آماری است که پاسخ‌ها را توکن به توکن (<span className="font-mono text-cyan-300" dir="ltr">Next-Token Prediction</span>) بر پایه الگوهای یادگرفته‌شده تولید می‌کند.
         </p>
       </div>
 
@@ -71,7 +92,7 @@ export function LLMGenerationDiagram() {
             </h4>
           </div>
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            مدلی از هوش مصنوعی که روی حجم عظیمی از داده‌های متنی آموزش دیده تا ساختار، معانی و روابط میان واژگان را بیاموزد. در زمان استنتاج، مدل متن ورودی را پردازش کرده و مکرراً با تخمین احتمال واژه بعدی، متن جدید خلق می‌کند.
+            مدلی از هوش مصنوعی که روی حجم عظیمی از داده‌های متنی آموزش دیده تا ساختار، معانی و روابط میان توکن‌ها را بیاموزد. در زمان استنتاج، مدل توکن‌های ورودی را پردازش کرده و مکرراً با تخمین احتمال توکن بعدی، متن جدید را تولید می‌کند.
           </p>
         </Card>
 
@@ -83,7 +104,7 @@ export function LLMGenerationDiagram() {
             </h4>
           </div>
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            متن‌ها پیش از ورود به مدل، به واحدهای کوچک‌تری به نام <span className="font-mono text-cyan-300" dir="ltr">Token</span> خرد می‌شوند. یک توکن ممکن است یک کلمه کامل، بخشی از کلمه یا یک علامت نگارشی باشد.
+            متن‌ها پیش از ورود به مدل، به واحدهای کوچک‌تری به نام <span className="font-mono text-cyan-300" dir="ltr">Token</span> خرد می‌شوند. یک توکن ممکن است یک کلمه کامل، زیرکلمه (Subword)، علامت نگارشی یا قطعات کاراکتری باشد.
           </p>
           {/* English Token Example */}
           <div className="mt-3 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
@@ -106,7 +127,7 @@ export function LLMGenerationDiagram() {
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-cyan-400" />
             <span className="font-bold text-slate-200 text-sm">
-              شبیه‌ساز گام‌به‌گام پردازش توکن و پیش‌بینی واژه
+              شبیه‌ساز گام‌به‌گام پردازش توکن و پیش‌بینی توکن بعدی
             </span>
           </div>
 
@@ -142,7 +163,7 @@ export function LLMGenerationDiagram() {
             ۲. خردسازی به توکن‌ها
           </div>
           <div className={`p-2 rounded-xl border transition-all ${activeStep === 2 ? 'bg-indigo-950/60 border-cyan-400 text-cyan-300 font-bold' : 'bg-[#0B1020]/60 border-slate-800 text-slate-400'}`}>
-            ۳. تخمین احتمال کلمه بعد
+            ۳. تخمین احتمال توکن بعدی
           </div>
           <div className={`p-2 rounded-xl border transition-all ${activeStep === 3 ? 'bg-indigo-950/60 border-cyan-400 text-cyan-300 font-bold' : 'bg-[#0B1020]/60 border-slate-800 text-slate-400'}`}>
             ۴. تولید متن خروجی
@@ -200,16 +221,16 @@ export function LLMGenerationDiagram() {
                 </span>
                 <div className="space-y-1.5 text-xs font-mono">
                   <div className="flex items-center justify-between bg-indigo-950/60 p-1.5 px-2.5 rounded border border-indigo-500/40 text-cyan-300 font-bold">
-                    <span>&quot;برابر&quot;</span>
-                    <span>84.2% ★</span>
+                    <span>&quot;موجودی&quot;</span>
+                    <span>78.4% ★</span>
                   </div>
                   <div className="flex items-center justify-between bg-slate-900/50 p-1.5 px-2.5 rounded text-slate-400">
-                    <span>&quot;حدود&quot;</span>
-                    <span>10.5%</span>
+                    <span>&quot;بر اساس&quot;</span>
+                    <span>14.2%</span>
                   </div>
                   <div className="flex items-center justify-between bg-slate-900/50 p-1.5 px-2.5 rounded text-slate-400">
-                    <span>&quot;نامشخص&quot;</span>
-                    <span>3.8%</span>
+                    <span>&quot;اطلاعات&quot;</span>
+                    <span>5.1%</span>
                   </div>
                 </div>
               </div>
@@ -224,13 +245,13 @@ export function LLMGenerationDiagram() {
                     <span className="text-slate-400 animate-pulse">در حال پیش‌بینی توکن بعدی...</span>
                   ) : (
                     <span>
-                      «موجودی این محصول در آخرین گزارش‌ها <strong className="text-rose-400 font-mono">۴۵ عدد</strong> ذکر شده است.»
+                      «موجودی این محصول در آخرین گزارش‌ها <strong className="text-rose-400 font-bold">۴۵ عدد</strong> ذکر شده است.»
                     </span>
                   )}
                 </div>
                 {activeStep === 3 && (
                   <div className="text-[11px] text-amber-400 flex items-center gap-1.5 pt-1">
-                    <span>⚠️ اما آیا این عدد واقعی است یا صرفاً کلمه‌ای محتمل در متن؟</span>
+                    <span>⚠️ اما آیا این عدد متکی بر پایگاه داده است یا صرفاً برآمده از احتمال توکن‌های متنی؟</span>
                   </div>
                 )}
               </div>

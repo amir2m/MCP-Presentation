@@ -20,6 +20,17 @@ export function Chapter02({
   activeSlideIndex = 0,
   onSelectChapter,
 }: Chapter02Props) {
+  const handleGoToQuiz = () => {
+    if (mode === 'slides') {
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
+    } else {
+      const el = document.getElementById('chapter-02-quiz');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   // Presentation Mode: Render the current active slide
   if (mode === 'slides') {
     return (
@@ -38,9 +49,11 @@ export function Chapter02({
             {activeSlideIndex === 2 && <ToolCallingWorkflow />}
             {activeSlideIndex === 3 && <ToolCallingSimulator />}
             {activeSlideIndex === 4 && (
-              <MissingPieceSection onGoToChapter3={() => onSelectChapter?.(3)} />
+              <MissingPieceSection onGoToQuiz={handleGoToQuiz} />
             )}
-            {activeSlideIndex === 5 && <Chapter02Quiz />}
+            {activeSlideIndex === 5 && (
+              <Chapter02Quiz onSelectChapter={onSelectChapter} />
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
@@ -54,8 +67,10 @@ export function Chapter02({
       <KnowledgeBoundaryDiagram />
       <ToolCallingWorkflow />
       <ToolCallingSimulator />
-      <MissingPieceSection onGoToChapter3={() => onSelectChapter?.(3)} />
-      <Chapter02Quiz />
+      <MissingPieceSection onGoToQuiz={handleGoToQuiz} />
+      <div id="chapter-02-quiz">
+        <Chapter02Quiz onSelectChapter={onSelectChapter} />
+      </div>
     </div>
   );
 }

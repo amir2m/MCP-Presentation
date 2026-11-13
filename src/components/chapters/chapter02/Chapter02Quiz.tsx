@@ -2,13 +2,17 @@
 
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { CheckCircle2, XCircle, RotateCcw, Trophy, Award, HelpCircle } from 'lucide-react';
+import { CheckCircle2, XCircle, RotateCcw, Trophy, Award, HelpCircle, ArrowLeft } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { CHAPTER_02_QUIZ } from '@/lib/presentation';
 
-export function Chapter02Quiz() {
+interface Chapter02QuizProps {
+  onSelectChapter?: (chapterId: number) => void;
+}
+
+export function Chapter02Quiz({ onSelectChapter }: Chapter02QuizProps) {
   const [selectedAnswers, setSelectedAnswers] = useState<Record<string, string>>({});
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
@@ -213,6 +217,38 @@ export function Chapter02Quiz() {
         </div>
 
       </Card>
+
+      {/* Chapter 03 Transition CTA Banner */}
+      {onSelectChapter && (
+        <div className="p-6 rounded-2xl bg-gradient-to-r from-indigo-950/50 via-[#121B30] to-cyan-950/40 border border-indigo-500/30 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-xl">
+          <div className="space-y-1.5 text-center sm:text-right">
+            <div className="flex items-center justify-center sm:justify-start gap-2">
+              <Badge variant="cyan" size="sm">
+                گام بعدی
+              </Badge>
+              <span className="text-xs text-cyan-300 font-mono" dir="ltr">
+                Chapter 03 Preview
+              </span>
+            </div>
+            <h4 className="text-base sm:text-lg font-bold text-white">
+              ادامه مسیر: معرفی Model Context Protocol (فصل سوم)
+            </h4>
+            <p className="text-xs text-slate-400 max-w-xl leading-relaxed">
+              بررسی ظهور استاندارد باز جهانی، تمثیل درگاه USB-C برای هوش مصنوعی و حل چالش اتصالات اسپاگتی N×M.
+            </p>
+          </div>
+
+          <Button
+            variant="primary"
+            size="md"
+            onClick={() => onSelectChapter(3)}
+            iconEnd={<ArrowLeft className="w-4 h-4" />}
+            className="shrink-0 text-xs sm:text-sm shadow-lg shadow-indigo-600/30"
+          >
+            ورود به فصل سوم
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

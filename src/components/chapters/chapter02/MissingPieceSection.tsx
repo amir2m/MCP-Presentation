@@ -7,10 +7,10 @@ import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 
 interface MissingPieceSectionProps {
-  onGoToChapter3?: () => void;
+  onGoToQuiz?: () => void;
 }
 
-export function MissingPieceSection({ onGoToChapter3 }: MissingPieceSectionProps) {
+export function MissingPieceSection({ onGoToQuiz }: MissingPieceSectionProps) {
   const applications = ['Claude Desktop', 'VS Code IDE', 'Custom Web Agent'];
   const tools = ['PostgreSQL DB', 'GitHub API', 'Slack Bot', 'Local Filesystem'];
 
@@ -109,21 +109,21 @@ export function MissingPieceSection({ onGoToChapter3 }: MissingPieceSectionProps
           </p>
         </div>
 
-        {/* Transition Navigation Action to Chapter 3 */}
+        {/* Transition Navigation Action to Chapter 2 Quiz */}
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-800">
           <div className="text-xs text-slate-400">
-            در فصل بعد می‌بینیم MCP چگونه همانند درگاه <span className="font-mono text-cyan-300" dir="ltr">USB-C</span> این ارتباطات را استاندارد و یکپارچه می‌کند.
+            پیش از ورود به معرفی استاندارد باز MCP در فصل سوم، میزان یادگیری مفاهیم فصل دوم را بسنجید.
           </div>
 
-          {onGoToChapter3 && (
+          {onGoToQuiz && (
             <Button
               variant="accent"
               size="md"
-              onClick={onGoToChapter3}
+              onClick={onGoToQuiz}
               iconEnd={<ChevronLeft className="w-4 h-4" />}
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto text-xs sm:text-sm"
             >
-              ورود به فصل سوم: معرفی پروتکل MCP
+              ورود به آزمونک ارزیابی فصل دوم
             </Button>
           )}
         </div>

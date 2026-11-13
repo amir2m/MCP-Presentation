@@ -29,7 +29,7 @@ export function KnowledgeBoundaryDiagram() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <span className="text-xs font-bold text-indigo-300 bg-indigo-950/80 border border-indigo-500/30 px-3 py-1 rounded-lg">
-                دانش درونی مدل (Model Knowledge)
+                دانش زمان آموزش (Training Knowledge)
               </span>
               <span className="text-xs font-mono text-slate-500" dir="ltr">Static Weights</span>
             </div>
@@ -38,51 +38,51 @@ export function KnowledgeBoundaryDiagram() {
               الگوهای آماری ذخیره‌شده در زمان آموزش
             </h4>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              این دانش شامل گرامر، تعاریف عمومی، کدنویسی، زبان‌شناسی و اطلاعاتی است که مدل تا تاریخ انقطاع آموزش (<span className="font-mono text-cyan-300" dir="ltr">Training Cutoff</span>) مطالعه کرده است.
+              اطلاعاتی که در وزن‌ها و پارامترهای آماری مدل در طول آموزش کدگذاری شده و دارای مرز زمانی مشخص (<span className="font-mono text-cyan-300" dir="ltr">Knowledge Cutoff</span>) است.
             </p>
 
             <div className="mt-4 p-3.5 rounded-xl bg-[#0B1020]/80 border border-slate-800 text-xs space-y-1.5 font-mono text-slate-400" dir="ltr">
               <div className="text-indigo-400">✓ Understands grammar & semantics</div>
               <div className="text-indigo-400">✓ General encyclopedic knowledge</div>
-              <div className="text-rose-400">× No real-time updates</div>
+              <div className="text-rose-400">× No real-time updates in weights</div>
               <div className="text-rose-400">× Zero private enterprise visibility</div>
             </div>
           </div>
 
           <div className="mt-6 pt-4 border-t border-slate-800 text-xs text-slate-400 flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-indigo-400 shrink-0" />
-            <span>مناسب برای: ترجمه، خلاصه‌سازی و تحلیل منطقی</span>
+            <span>پایه استدلال، خلاصه‌سازی و تحلیل عمومی</span>
           </div>
         </Card>
 
-        {/* Card 2: External Data */}
+        {/* Card 2: Runtime Context */}
         <Card variant="translucent" className="p-6 border-cyan-500/25 flex flex-col justify-between bg-gradient-to-br from-[#141C2E] to-[#102236]">
           <div>
             <div className="flex items-center justify-between mb-4">
               <span className="text-xs font-bold text-cyan-300 bg-cyan-950/80 border border-cyan-500/30 px-3 py-1 rounded-lg">
-                داده‌های خارجی (External Data)
+                بافتار زمان اجرا (Runtime Context)
               </span>
-              <span className="text-xs font-mono text-slate-500" dir="ltr">Live & Private</span>
+              <span className="text-xs font-mono text-slate-500" dir="ltr">Injected In-Context</span>
             </div>
 
             <h4 className="text-lg font-bold text-white mb-2">
-              اطلاعات زنده و اختصاصی پایگاه‌های داده
+              داده‌های پویا و نتایج ابزارها در لحظه استنتاج
             </h4>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              اطلاعات لحظه‌ای که در دیتابیس‌های <span className="font-mono text-cyan-300" dir="ltr">PostgreSQL</span>، نرم‌افزارهای مالی، فایل‌های داخلی یا وب‌سرویس‌ها زندگی می‌کنند و نیازمند دسترسی مجاز هستند.
+              اطلاعات ورودی در پنجره زمینه شامل پرامپت کاربر، تاریخچه گفتگو و خروجی ابزارها که بدون تغییر وزن‌های مدل، در لحظه به بافتار تزریق می‌شوند.
             </p>
 
             <div className="mt-4 p-3.5 rounded-xl bg-[#0B1020]/80 border border-cyan-500/20 text-xs space-y-1.5 font-mono text-slate-400" dir="ltr">
-              <div className="text-cyan-400">✓ Live inventory & stock counts</div>
-              <div className="text-cyan-400">✓ Private internal documentation</div>
-              <div className="text-cyan-400">✓ Financial & user records</div>
-              <div className="text-amber-400">! Requires authenticated connection</div>
+              <div className="text-cyan-400">✓ Injected via Host application</div>
+              <div className="text-cyan-400">✓ Live inventory & database records</div>
+              <div className="text-cyan-400">✓ Ephemeral: does not alter trained model</div>
+              <div className="text-amber-400">! Requires Host orchestration & tools</div>
             </div>
           </div>
 
           <div className="mt-6 pt-4 border-t border-slate-800 text-xs text-cyan-300 flex items-center gap-2">
             <Database className="w-4 h-4 text-cyan-400 shrink-0" />
-            <span>نیاز مبرم: ایجاد کانال امن اتصال ابزاری به مدل</span>
+            <span>پل ارتباطی: تزریق خروجی ابزارهای مجاز به بافتار جاری</span>
           </div>
         </Card>
 
@@ -118,10 +118,10 @@ export function KnowledgeBoundaryDiagram() {
               <Lock className="w-4 h-4" />
             </div>
             <span className="text-xs font-bold text-rose-300">
-              دسترسی به پایگاه داده انبار وجود ندارد
+              دسترسی مستقیم به پایگاه داده وجود ندارد
             </span>
-            <span className="text-[10px] text-slate-400">
-              مدل ایزوله است و سوکت یا کوئری به دیتابیس ندارد.
+            <span className="text-[10px] text-slate-400 leading-snug">
+              هسته مدل فاقد سوکت شبکه و دسترسی سیستمی است؛ ارتباط منحصراً از طریق برنامه میزبان و ابزار مجاز امکان‌پذیر است.
             </span>
           </div>
 
@@ -134,7 +134,7 @@ export function KnowledgeBoundaryDiagram() {
               </span>
             </div>
             <div className="text-sm font-bold text-white">
-              «موجودی این قطعه در انبار <span className="text-rose-400 text-base font-mono">۴۵ عدد</span> است.»
+              «موجودی این قطعه در انبار <span className="text-rose-400 text-base font-bold">۴۵ عدد</span> است.»
             </div>
             <p className="text-[11px] text-rose-200/80 leading-relaxed pt-1">
               ⚠️ این عدد ۴۵ کاملاً بر اساس احتمال آماری ساخته شده و در انبار واقعی ممکن است ۱۲ عدد یا اصلاً ناموجود باشد!
@@ -146,8 +146,8 @@ export function KnowledgeBoundaryDiagram() {
         {/* Scientific Nuance Footer */}
         <div className="mt-6 pt-4 border-t border-slate-800/80 text-xs text-slate-400 flex items-start gap-2">
           <HelpCircle className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-          <span>
-            <strong>نکته علمی:</strong> توهم (<span className="font-mono text-cyan-300" dir="ltr">Hallucination</span>) زمانی رخ می‌دهد که مدل اطلاعاتی کاملاً باورپذیر و با لحنی مطمئن اما فاقد پشتوانه واقعی تولید می‌کند. راه‌حل این چالش، اتصال مدل به منابع معتبر بیرونی از طریق فراخوانی ابزار است.
+          <span className="leading-relaxed">
+            <strong>نکته علمی:</strong> توهم (<span className="font-mono text-cyan-300" dir="ltr">Hallucination</span>) زمانی رخ می‌دهد که مدل اطلاعاتی کاملاً باورپذیر و با لحنی مطمئن اما فاقد پشتوانه واقعی تولید می‌کند. اتصال به ابزارها این چالش را در بازیابی اطلاعات لحظه‌ای به شدت کاهش می‌دهد، اما به تنهایی سلامت و صحت پاسخ را تضمین نمی‌کند؛ چرا که ابزار ممکن است خطا دهد، پاسخ ناقص یا کهنه برگرداند یا مدل نتیجه ابزار را اشتباه تفسیر کند.
           </span>
         </div>
       </Card>

@@ -66,7 +66,7 @@ export const CHAPTERS: Chapter[] = [
         chapterId: 2,
         slideNumber: 1,
         title: 'مدل زبانی چگونه فکر می‌کند؟',
-        subtitle: 'پردازش توکن‌ها و پیش‌بینی محتمل‌ترین واژه بعدی',
+        subtitle: 'پردازش توکن‌ها و پیش‌بینی محتمل‌ترین توکن بعدی (Next-Token Prediction)',
       },
       {
         id: 'c2-s2',
@@ -87,7 +87,7 @@ export const CHAPTERS: Chapter[] = [
         chapterId: 2,
         slideNumber: 4,
         title: 'شبیه‌ساز مقایسه: یک سؤال، دو نتیجه متفاوت',
-        subtitle: 'مقایسه تعاملی پاسخ بدون ابزار با پاسخ معتبر مبتنی بر Tool Calling',
+        subtitle: 'مقایسه تعاملی پاسخ بدون ابزار با پاسخ مبتنی بر فراخوانی ابزار',
       },
       {
         id: 'c2-s5',
