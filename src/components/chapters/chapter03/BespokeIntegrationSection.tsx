@@ -108,7 +108,7 @@ export function BespokeIntegrationSection() {
               <div className="w-full py-4 px-3 border-y border-dashed border-amber-500/40 bg-amber-950/15 rounded-xl space-y-2">
                 <div className="text-xs font-bold text-amber-300 flex items-center justify-center gap-1.5">
                   <AlertTriangle className="w-4 h-4 shrink-0 text-amber-400" />
-                  <span>انباشت خطی اتصالات اختصاصی</span>
+                  <span>انباشت فزاینده اتصالات اختصاصی</span>
                 </div>
                 <div className="text-xs sm:text-sm font-mono text-white font-extrabold bg-[#0B1020] p-1.5 rounded-lg border border-slate-800" dir="ltr">
                   3 Clients × 4 Tools = 12 Connectors

@@ -18,19 +18,19 @@ export function Chapter03Conclusion({ onSelectChapter }: Chapter03ConclusionProp
     {
       id: 1,
       q: 'این استاندارد در عمل از چه بازیگرانی تشکیل شده است؟',
-      hint: 'تفکیک برنامه کاربردی از لایه ارتباطی کلاینت و سرورهای خارجی.',
+      hint: 'تفکیک برنامه کاربردی و میزبان از لایه ارتباطی کلاینت و سرورهای خارجی.',
       icon: Network,
     },
     {
       id: 2,
       q: 'نقش‌های سه‌گانه Host، Client و Server چگونه همکاری می‌کنند؟',
-      hint: 'تقسیم وظایف میان واسط کاربری، مذاکره‌کننده پروتکل و مجری ابزارها.',
+      hint: 'آشنایی مفهومی با تعامل میان میزبان، کلاینت و سرورهای قابلیت‌ها.',
       icon: Cpu,
     },
     {
       id: 3,
-      q: 'ابزارها، منابع داده و پرامپت‌ها چگونه در کد کشف و اجرا می‌شوند؟',
-      hint: 'قرارداد تبادل پیام‌ها و ثبت امن قابلیت‌ها در چرخه زمان اجرا.',
+      q: 'ابزارها، منابع اطلاعاتی و پرامپت‌ها چگونه در کد نرم‌افزار ارائه می‌شوند؟',
+      hint: 'پیش‌نمایش مسیر کشف و استفاده از قابلیت‌ها در فصل چهارم.',
       icon: Terminal,
     },
   ];
@@ -101,37 +101,37 @@ export function Chapter03Conclusion({ onSelectChapter }: Chapter03ConclusionProp
             
             <div className="p-4 rounded-xl bg-[#141C2E] border border-cyan-500/30 space-y-1">
               <span className="text-[10px] uppercase font-mono text-cyan-400 font-bold block" dir="ltr">
-                Tier 1
+                Role 1
               </span>
               <div className="text-xs sm:text-sm font-bold text-white font-mono" dir="ltr">
                 Host Application
               </div>
               <div className="text-[11px] text-slate-400 font-sans">
-                برنامه میزبان هوش مصنوعی (مانند IDE یا کلاینت دسکتاپ)
+                برنامه میزبان کاربر و نقطه اتصال مدل هوش مصنوعی
               </div>
             </div>
 
             <div className="p-4 rounded-xl bg-[#141C2E] border border-indigo-500/30 space-y-1">
               <span className="text-[10px] uppercase font-mono text-indigo-400 font-bold block" dir="ltr">
-                Tier 2
+                Role 2
               </span>
               <div className="text-xs sm:text-sm font-bold text-white font-mono" dir="ltr">
                 MCP Client
               </div>
               <div className="text-[11px] text-slate-400 font-sans">
-                مذاکره‌کننده پروتکل و مدیریت‌کننده اتصال سرورها
+                مؤلفه اتصال پروتکل و هدایت ارتباطات استاندارد
               </div>
             </div>
 
             <div className="p-4 rounded-xl bg-[#141C2E] border border-amber-500/30 space-y-1">
               <span className="text-[10px] uppercase font-mono text-amber-400 font-bold block" dir="ltr">
-                Tier 3
+                Role 3
               </span>
               <div className="text-xs sm:text-sm font-bold text-white font-mono" dir="ltr">
                 MCP Server
               </div>
               <div className="text-[11px] text-slate-400 font-sans">
-                تأمین‌کننده قابلیت‌ها (ابزارها، داده‌ها و پرامپت‌ها)
+                تأمین‌کننده قابلیت‌ها (ابزارها، منابع داده و پرامپت‌ها)
               </div>
             </div>
 
@@ -150,10 +150,10 @@ export function Chapter03Conclusion({ onSelectChapter }: Chapter03ConclusionProp
               </span>
             </div>
             <h4 className="text-base sm:text-lg font-bold text-white">
-              ادامه مسیر: معماری و مؤلفه‌های کلیدی MCP (فصل چهارم)
+              ادامه مسیر: معماری و اجزای MCP (فصل چهارم)
             </h4>
             <p className="text-xs text-slate-400 max-w-xl leading-relaxed">
-              بررسی عمیق ساختار سه‌لایه Host، Client و Server، چرخه پیام‌ها و نحوه عرضه Tools و Resources.
+              بررسی عمیق نقش‌های سه‌گانه میزبان (Host)، کلاینت (Client) و سرور (Server) و چگونگی سازمان‌دهی ارتباطات پروتکل در فصل بعدی.
             </p>
           </div>
 
@@ -164,7 +164,7 @@ export function Chapter03Conclusion({ onSelectChapter }: Chapter03ConclusionProp
             iconEnd={<ArrowLeft className="w-4 h-4" />}
             className="shrink-0 text-xs sm:text-sm shadow-lg shadow-cyan-950/40"
           >
-            ورود به فصل چهارم: معماری MCP
+            ورود به فصل چهارم: معماری و اجزای MCP
           </Button>
         </div>
 
@@ -200,7 +200,7 @@ export function Chapter03Conclusion({ onSelectChapter }: Chapter03ConclusionProp
                     <span>متن گفتاری گوینده:</span>
                   </div>
                   <p>
-                    «ما در این فصل ریشه شکل‌گیری Model Context Protocol، تمثیل کاربردی USB-C، تعریف استاندارد باز و مرزبندی‌های آن را به صورت شفاف شناختیم. اما یک مهندس نرم‌افزار قانع نمی‌شود تا زمانی که بفهمد این معماری در عمل چگونه کار می‌کند. اجزای نرم‌افزاری MCP چه هستند؟ برنامه میزبان چیست، کلاینت چه وظیفه‌ای دارد و سرورها چگونه به سیستم متصل می‌شوند؟ در فصل چهارم، مستقیماً وارد کالبدشکافی معماری سه‌لایه MCP خواهیم شد و تعاملات دقیق این سه مؤلفه را تحلیل خواهیم کرد. همراه ما باشید.»
+                    «ما در این فصل ریشه شکل‌گیری Model Context Protocol، تمثیل کاربردی USB-C، تعریف استاندارد باز و مرزبندی‌های آن را به صورت شفاف شناختیم. اما یک مهندس نرم‌افزار زمانی قانع می‌شود که بفهمد این معماری در عمل چگونه کار می‌کند. اجزای نرم‌افزاری MCP چه هستند؟ نقش‌های سه‌گانه برنامه میزبان (Host)، کلاینت پروتکل (Client) و سرورهای قابلیت‌ها (Server) چگونه با هم تعامل می‌کنند؟ در فصل چهارم، مستقیماً وارد بررسی دقیق معماری و اجزای MCP خواهیم شد و جایگاه هر یک را کالبدشکافی خواهیم کرد. همراه ما باشید.»
                   </p>
                 </div>
               </motion.div>
