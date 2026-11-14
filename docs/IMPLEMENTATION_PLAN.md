@@ -54,12 +54,14 @@
   - [x] Full integration into Presentation Mode (6 slides) and Scroll Mode.
 - [x] Chapter 03 Scientific Audit & Conceptual Demarcation (TASK-003-AUDIT).
 - [x] Chapter 03 Content Finalization & Implementation Planning (TASK-003.1 — see [CHAPTER_03_CONTENT_SPEC.md](CHAPTER_03_CONTENT_SPEC.md) & [CHAPTER_03_IMPLEMENTATION_PLAN.md](CHAPTER_03_IMPLEMENTATION_PLAN.md)).
-- [ ] Chapter 03 Implementation across 6 sections and presentation/scroll modes (TASK-003.2 - Next Task).
+- [x] Chapter 03 Application Implementation across 6 sections and dual presentation/scroll modes (TASK-003.2).
+- [x] Chapter 03 Final Scientific & Educational Refinement and Browser QA (TASK-003.3).
 
-### Phase 3: Chapters 04 & 05 (Future Task)
-- [ ] MCP Architecture visualization (Host, Client, Server, Transports) (Chapter 04).
-- [ ] Live protocol inspector simulation: JSON-RPC 2.0 handshake, Tools, Prompts, Resources (Chapter 05).
-- [ ] Interactive payload debugger widget.
+### Phase 3: Chapters 04 & 05
+- [x] Chapter 04 Scientific Audit & Content Architecture (TASK-004.1, TASK-004.1.1, TASK-004.1.2 & TASK-004.1.3 — see [CHAPTER_04_CONTENT_SPEC.md](CHAPTER_04_CONTENT_SPEC.md) & [CHAPTER_04_IMPLEMENTATION_PLAN.md](CHAPTER_04_IMPLEMENTATION_PLAN.md)).
+- [ ] Chapter 04 Application Implementation (TASK-004.2 — Next Task).
+- [ ] Live protocol inspector simulation: Request lifecycle, Tools, Prompts, Resources (Chapter 05).
+- [ ] Interactive payload debugger widget (Chapter 05).
 
 ### Phase 4: Chapters 06 & 07 (Future Task)
 - [ ] Comparative architectural matrix (MCP vs REST, Function Calling, Ad-hoc connectors) (Chapter 06).
@@ -77,11 +79,10 @@
 
 - **Completed Sprints:**
   - **TASK-001 / TASK-001.6:** Chapter 01 Educational & Scientific Refinement (Complete & Verified).
-  - **TASK-002 / TASK-002.1 / TASK-002.3:** Chapter 02 Implementation & Scientific Precision (Complete & Verified).
-  - **TASK-002.4:** Chapter 02 Browser-Based Visual & Interaction QA (Complete & Verified — PASS).
-  - **TASK-003-AUDIT:** Chapter 03 Scientific, Structural & Pedagogical Audit (Complete & Approved).
-  - **TASK-003.1:** Chapter 03 Content Finalization & Implementation Planning (Complete & Documented).
-- **Next Milestone:** TASK-003.2 — Chapter 03 Application Implementation.
+  - **TASK-002 / TASK-002.1 / TASK-002.3 / TASK-002.4:** Chapter 02 Implementation & Browser QA (Complete & Verified).
+  - **TASK-003-AUDIT / TASK-003.1 / TASK-003.2 / TASK-003.3:** Chapter 03 Planning, Implementation & Refinement (Complete & Verified).
+  - **TASK-004.1 / TASK-004.1.1 / TASK-004.1.2 / TASK-004.1.3:** Chapter 04 Scientific Audit, Content Architecture, Client Capabilities Requirement Correction & Implementation Roadmap (Complete & Documented).
+- **Next Milestone:** TASK-004.2 — Chapter 04 Application Code Implementation.
 
 ---
 
