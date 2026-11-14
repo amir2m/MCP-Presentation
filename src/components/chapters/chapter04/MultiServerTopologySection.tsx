@@ -34,7 +34,7 @@ export function MultiServerTopologySection() {
       borderColor: 'border-cyan-500/40',
       bgColor: 'bg-cyan-950/20',
       tools: ['read_file', 'write_file', 'list_dir'],
-      isolationBoundary: 'تنها به مسیرهای مجاز فایل‌سیستم دسترسی دارد و از وضعیت دیتابیس یا گیت کاملاً بی‌خبر است.',
+      isolationBoundary: 'تنها در مسیرهای مجاز فایل‌سیستم عملیات انجام می‌دهد و ارتباط سطح پروتکلی با سرورهای مجاور ندارد.',
     },
     {
       id: 'db',
@@ -46,7 +46,7 @@ export function MultiServerTopologySection() {
       borderColor: 'border-indigo-500/40',
       bgColor: 'bg-indigo-950/20',
       tools: ['execute_query', 'get_schema', 'explain_query'],
-      isolationBoundary: 'فقط داده‌های مجاز SQL را برمی‌گرداند؛ هیچ دسترسی به فایل‌های هارد یا مکالمات کاربر ندارد.',
+      isolationBoundary: 'داده‌های کوئری SQL مجاز را واکشی می‌کند؛ هاست دسترسی به آن را کنترل می‌نماید.',
     },
     {
       id: 'git',
@@ -58,7 +58,7 @@ export function MultiServerTopologySection() {
       borderColor: 'border-emerald-500/40',
       bgColor: 'bg-emerald-950/20',
       tools: ['git_status', 'git_diff', 'list_commits'],
-      isolationBoundary: 'به تاریخچه مخزن دسترسی دارد اما توانایی تعامل مستقیم با سرور دیتابیس یا اسناد را ندارد.',
+      isolationBoundary: 'به تاریخچه مخزن دسترسی دارد اما کانال ارتباطی مستقیمی در پروتکل با سرورهای دیگر ندارد.',
     },
     {
       id: 'docs',
@@ -70,7 +70,7 @@ export function MultiServerTopologySection() {
       borderColor: 'border-amber-500/40',
       bgColor: 'bg-amber-950/20',
       tools: ['search_docs', 'get_doc_page'],
-      isolationBoundary: 'تنها اسناد وب را جستجو می‌کند و هیچ اطلاعی از کدهای اختصاصی پروژه ندارد.',
+      isolationBoundary: 'مستندات وب را جستجو می‌کند و هاست پاسخ‌های آن را با سایر کانتکست‌ها تجمیع می‌کند.',
     },
   ];
 
@@ -87,7 +87,7 @@ export function MultiServerTopologySection() {
           همکاری چند سرور در پناه کنترل برنامه میزبان (<span className="font-mono text-cyan-300" dir="ltr">Host Coordination</span>)
         </h3>
         <p className="text-sm sm:text-base text-slate-300 max-w-3xl mx-auto leading-relaxed">
-          یک دستیار مهندسی هوش مصنوعی برای حل مسائل واقعی، معمولاً نیازمند چند سرور تخصصی هم‌زمان است. مرزهای امنیتی و ایزولاسیون چگونه در این چیدمان حفظ می‌شوند؟
+          یک دستیار هوش مصنوعی برای حل مسائل واقعی، معمولاً نیازمند چند سرور تخصصی هم‌زمان است. هماهنگی کانتکست و مرزهای دسترسی میان این اجزا چگونه مدیریت می‌شود؟
         </p>
       </div>
 
@@ -96,11 +96,16 @@ export function MultiServerTopologySection() {
         
         {/* Conceptual Hub & Spoke Header */}
         <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-800">
-          <div className="flex items-center gap-2">
-            <Network className="w-5 h-5 text-cyan-400" />
-            <span className="font-bold text-slate-200 text-sm sm:text-base">
-              مدل مفهومی توپولوژی ستاره‌ای (<span className="font-mono text-cyan-300 text-xs sm:text-sm" dir="ltr">Conceptual Hub & Spoke Topology</span>)
-            </span>
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <Network className="w-5 h-5 text-cyan-400" />
+              <span className="font-bold text-slate-200 text-sm sm:text-base">
+                تصویرسازی مفهومی معماری ستاره‌ای (<span className="font-mono text-cyan-300 text-xs sm:text-sm" dir="ltr">Conceptual Hub & Spoke Illustration</span>)
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-400">
+              * این دیاگرام صرفاً یک تصویرسازی مفهومی است، نه یک توپولوژی اجباری در لایه پروتکل یا ضمانت امنیتی ایزولاسیون.
+            </p>
           </div>
           <span className="text-[11px] font-mono text-slate-400 bg-slate-800/80 px-2.5 py-1 rounded-full border border-slate-700/60" dir="ltr">
             1 Host → N Dedicated Clients → N Servers
@@ -193,7 +198,7 @@ export function MultiServerTopologySection() {
             </div>
 
             <p className="text-xs text-slate-300 leading-relaxed font-sans">
-              <strong className="text-amber-300">مرز ایزولاسیون:</strong> {activeServer.isolationBoundary}
+              <strong className="text-amber-300">حیطه دسترسی و وظایف:</strong> {activeServer.isolationBoundary}
             </p>
           </div>
         </div>
@@ -223,17 +228,17 @@ export function MultiServerTopologySection() {
           <div className="p-4 rounded-xl bg-[#0e1628] border border-slate-800 space-y-2">
             <div className="flex items-center gap-2 text-xs font-bold text-emerald-300">
               <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span>مرزهای دسترسی و ایزولاسیون</span>
+              <span>مرزهای دسترسی و تفکیک سرورها</span>
             </div>
             <p className="text-[11px] text-slate-400 leading-relaxed font-sans">
-              سرورها به طور پیش‌فرض به Context و مکالمات سایر سرورها دسترسی ندارند، هرچند خارج از MCP ممکن است با پایگاه‌های داده مشترک در تعامل باشند.
+              برنامه میزبان مرزهای دسترسی و تجمیع کانتکست را هماهنگ می‌کند. در سطح پروتکل ارتباط مستقیمی میان سرورها تعریف نشده است؛ بااین‌حال، این امر ایزولاسیون کامل زیرساختی را تضمین نمی‌کند زیرا سرورها ممکن است خارج از MCP به منابع خارجی مشترک دسترسی داشته باشند.
             </p>
           </div>
         </div>
 
         {/* Highlight Quote */}
-        <div className="p-4 rounded-xl bg-cyan-950/20 border border-cyan-500/30 text-xs text-slate-200 leading-relaxed font-sans">
-          «در معماری استاندارد MCP، هر Client با یک Server مشخص ارتباط دارد. هماهنگی میان قابلیت‌های چند Server از طریق Host و سیاست‌های دسترسی آن مدیریت می‌شود؛ بنابراین Serverها به‌صورت پیش‌فرض به Context و مکالمات سایر Serverها دسترسی ندارند.»
+        <div className="p-4 rounded-xl bg-cyan-950/20 border border-cyan-500/30 text-xs sm:text-sm text-slate-200 leading-relaxed font-sans">
+          «برنامه میزبان (Host) مرزهای دسترسی و تجمیع زمینه (Context Aggregation) را میان کلاینت‌ها و سرورهای خود هماهنگ می‌کند. پروتکل MCP هیچ ارتباط مستقیم سطح پروتکلی میان سرورها تعریف نمی‌کند؛ بااین‌حال، این امر ایزولاسیون کامل زیرساختی را تضمین نمی‌کند زیرا چندین سرور ممکن است همچنان به پایگاه‌های داده، APIها یا منابع خارجی مشترک دسترسی داشته باشند.»
         </div>
 
         {/* Collapsible Presenter Notes */}
@@ -268,7 +273,7 @@ export function MultiServerTopologySection() {
                     <span>متن گفتاری گوینده:</span>
                   </div>
                   <p>
-                    «در سناریوهای واقعی مهندسی، ما معمولاً از اصل تفکیک وظایف یا Separation of Concerns استفاده می‌کنیم. در معماری استاندارد MCP، هر Client با یک Server مشخص ارتباط دارد. هماهنگی میان قابلیت‌های چند Server از طریق Host و سیاست‌های دسترسی آن مدیریت می‌شود؛ بنابراین Serverها به‌صورت پیش‌فرض به Context و مکالمات سایر Serverها دسترسی ندارند. برای درک بهتر، این الگو را به عنوان یک مدل مفهومی Hub & Spoke نمایش می‌دهیم که در آن برنامه میزبان نقش مرکز هماهنگی را بازی می‌کند. سرورها کانال پروتکلی مستقیمی برای گفتگو با یکدیگر ندارند—اگرچه ممکن است خارج از قلمرو MCP به منابع داده‌ای مشترکی وصل باشند. این هاست است که تصمیم می‌گیرد کدام ابزارها فراخوانی شوند، چه خروجی‌هایی تجمیع گردند و چه داده‌هایی در اختیار مدل قرار گیرند.»
+                    «در سناریوهای واقعی مهندسی، ما معمولاً از اصل تفکیک وظایف یا Separation of Concerns استفاده می‌کنیم. در معماری استاندارد MCP، هر Client با یک Server مشخص ارتباط دارد (قاعده ۱ به ۱). برنامه میزبان (Host) مرزهای دسترسی و تجمیع زمینه یا Context Aggregation را میان کلاینت‌ها و سرورهای خود هماهنگ می‌کند. برای درک بهتر، این الگو را به عنوان یک تصویرسازی معماری مفهومی Hub & Spoke نمایش می‌دهیم—توجه داشته باشید که این دیاگرام صرفاً یک مدل‌سازی آموزشی مفهومی است، نه یک توپولوژی اجباری در پروتکل یا ضمانت امنیتی ایزولاسیون؛ پروتکل MCP هیچ ارتباط مستقیم سطح پروتکلی میان سرورها تعریف نمی‌کند؛ بااین‌حال، این امر ایزولاسیون کامل زیرساختی را تضمین نمی‌کند زیرا چندین سرور ممکن است خارج از پروتکل به پایگاه‌های داده، APIها یا منابع مشترک دیگر دسترسی داشته باشند. این هاست است که تصمیم می‌گیرد کدام ابزارها فراخوانی شوند، چه خروجی‌هایی تجمیع گردند و چه داده‌هایی در اختیار مدل قرار گیرند.»
                   </p>
                 </div>
               </motion.div>

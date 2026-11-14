@@ -158,8 +158,28 @@ export function JsonRpcPatternsSection() {
       <Card variant="solid" className="p-6 sm:p-8 border-cyan-500/25 space-y-6">
         
         {/* Interactive Tabs Header */}
-        <div className="space-y-2">
-          <div className="flex flex-wrap items-center justify-between gap-2 pb-2">
+        <div className="space-y-3">
+          {/* Visual Taxonomy Strip */}
+          <div className="p-3 rounded-xl bg-[#090E1A] border border-slate-800 text-xs">
+            <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-300">
+              <span className="font-bold text-slate-200">طبقه‌بندی استاندارد JSON-RPC 2.0 (سه رده اصلی پیام):</span>
+              <div className="flex flex-wrap items-center gap-2 font-mono" dir="ltr">
+                <span className="px-2 py-0.5 rounded bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-[10px]">
+                  1. Request (with id)
+                </span>
+                <span className="text-slate-500">&harr;</span>
+                <span className="px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-[10px]">
+                  2. Response (Variants: result | error)
+                </span>
+                <span className="text-slate-500">|</span>
+                <span className="px-2 py-0.5 rounded bg-indigo-950/60 border border-indigo-500/30 text-indigo-300 text-[10px]">
+                  3. Notification (no id)
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-between gap-2 pb-1">
             <span className="text-xs font-bold text-slate-300">
               الگوهای پیام و واریانت‌های پاسخ را انتخاب کنید:
             </span>
@@ -171,6 +191,14 @@ export function JsonRpcPatternsSection() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {tabs.map((tab) => {
               const isSelected = activeTab === tab.id;
+              const subTag =
+                tab.id === 'request'
+                  ? 'رده اصلی ۱'
+                  : tab.id === 'response'
+                  ? 'رده ۲ (واریانت موفق)'
+                  : tab.id === 'notification'
+                  ? 'رده اصلی ۳'
+                  : 'رده ۲ (واریانت خطا)';
               return (
                 <button
                   key={tab.id}
@@ -181,6 +209,9 @@ export function JsonRpcPatternsSection() {
                       : 'bg-[#0f172a] border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
                   }`}
                 >
+                  <div className="text-[10px] font-mono text-slate-400">
+                    {subTag}
+                  </div>
                   <div className={`text-xs font-bold ${isSelected ? tab.color : 'text-slate-200'}`} dir="ltr">
                     {tab.label}
                   </div>

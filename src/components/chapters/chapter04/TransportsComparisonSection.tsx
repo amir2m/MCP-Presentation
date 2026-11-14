@@ -48,8 +48,8 @@ export function TransportsComparisonSection({ onSelectChapter }: TransportsCompa
     },
     {
       metric: 'قابلیت استریم داده‌ها',
-      stdio: 'استریم متوالی داده‌ها روی کانال پایپ محلی',
-      http: 'دو الگوی استریم SSE: جریان دارای محدوده درخواست (Request-scoped) و گوش دادن به اشتراک‌ها (Subscription Listening)',
+      stdio: 'استریم متوالی داده‌ها روی کانال پایپ محلی سیستم‌عامل (stdin / stdout)',
+      http: 'تفکیک دو الگوی غیرقابل‌جایگزینی SSE: ۱) استریم موقت پاسخ دارای محدوده درخواست (شامل اعلان‌های پیشرفت و پیام‌های درخواست) ۲) استریم پایدار subscriptions/listen برای دریافت اعلان تغییرات منابع',
     },
     {
       metric: 'مدیریت نشست و استقرار',
@@ -297,17 +297,17 @@ export function TransportsComparisonSection({ onSelectChapter }: TransportsCompa
 
                   {/* Highlights Grid */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                    <div className="p-3.5 rounded-lg bg-slate-950/60 border border-slate-800 space-y-1">
-                      <span className="font-bold text-white block">الگوی ۱: جریان پاسخ دارای محدوده (Request-scoped SSE)</span>
-                      <p className="text-slate-400 leading-relaxed">
-                        جهت ارسال مرحله‌به‌مرحله و تکه‌ای خروجی‌های حجیم یا پاسخ‌های طولانی در چارچوب یک درخواست خاص ایجاد شده و پس از پایان پاسخ بسته می‌شود.
+                    <div className="p-3.5 rounded-lg bg-slate-950/60 border border-slate-800 space-y-1.5">
+                      <span className="font-bold text-white block">الگوی ۱: جریان پاسخ دارای محدوده درخواست (Request-scoped SSE)</span>
+                      <p className="text-slate-400 leading-relaxed font-sans">
+                        در پاسخ به یک درخواست خاص <code className="text-indigo-300 font-mono">HTTP POST</code> ایجاد می‌شود. اعلان‌های دارای محدوده درخواست (مانند اعلان پیشرفت کار <code className="text-cyan-300 font-mono">notifications/progress</code> و پیام‌های میانی) منحصراً به استریم پاسخ همان درخواست مبدا مقید بوده و با اتمام پاسخ بسته می‌شوند.
                       </p>
                     </div>
 
-                    <div className="p-3.5 rounded-lg bg-slate-950/60 border border-slate-800 space-y-1">
-                      <span className="font-bold text-white block">الگوی ۲: سازوکار گوش دادن به اشتراک‌ها (Subscription Listening)</span>
-                      <p className="text-slate-400 leading-relaxed">
-                        برای مطلع شدن مستمر از تغییرات منابع (Resources) یا رویدادهای سرور در طول زمان؛ کلاینت یک اتصال شنونده برای دریافت رویدادها باز نگه می‌دارد.
+                    <div className="p-3.5 rounded-lg bg-slate-950/60 border border-slate-800 space-y-1.5">
+                      <span className="font-bold text-white block">الگوی ۲: سازوکار گوش دادن به اشتراک‌ها (subscriptions/listen)</span>
+                      <p className="text-slate-400 leading-relaxed font-sans">
+                        استریم رویدادهای بلندمدت و پایدار برای دریافت مستمر اعلان‌های تغییر منابع (<code className="text-emerald-300 font-mono">notifications/resources/updated</code>) و رخدادهای پس‌زمینه سرور؛ این دو الگو ساختار، چرخه حیات و دامنه کارکرد مجزایی دارند و هرگز یک مکانیزم واحد یا قابل تعویض نیستند.
                       </p>
                     </div>
                   </div>
@@ -393,7 +393,7 @@ export function TransportsComparisonSection({ onSelectChapter }: TransportsCompa
             >
               <div className="p-4 pt-0 text-slate-300 text-xs sm:text-sm leading-relaxed border-t border-slate-800/60 bg-slate-950/60">
                 <p className="border-r-2 border-cyan-500 pr-3 my-2 text-slate-300">
-                  «به آخرین و جذاب‌ترین بخش معماری فصل چهارم رسیدیم: پیام‌های JSON-RPC چگونه جابه‌جا می‌شوند؟ استاندارد MCP دو شاهراه اصلی را معرفی می‌کند. نخست STDIO که پادشاه سناریوهای محلی است. وقتی در Claude Desktop یک سرور لوکال را اضافه می‌کنید، کلاینت یک پروسس نود یا پایتون در پس‌زمینه ران می‌کند و از طریق stdin و stdout با آن پیام ردوبدل می‌کند؛ هر پیام در یک خط و پایان آن یک کاراکتر خط جدید است. خروجی‌های لاگ هم روی stderr ریخته می‌شوند تا تداخلی با پروتکل ایجاد نکنند. این روش هیچ پورت شبکه‌ای باز نمی‌کند و فوق‌العاده امن و سریع است. اما اگر سرور در یک کلاد دیگر یا یک سرویس SaaS باشد چه؟ اینجا Streamable HTTP وارد میدان می‌شود. کلاینت پیام‌هایش را با متد ساده HTTP POST می‌فرستد و سرور می‌تواند پاسخ را به صورت JSON استاندارد بازگرداند، یا برای داده‌های مرحله‌ای از استریم‌های موقت دارای محدوده درخواست (Request-scoped SSE) بهره بگیرد؛ همچنین برای اعلان‌ها و اشتراک‌ها، مکانیزم گوش دادن طولانی‌مدت به SSE پشتیبانی می‌شود. از منظر زیرساختی، حذف نشست پروتکلی، توزیع درخواست‌ها میان نمونه‌های مختلف سرور را ساده‌تر می‌کند؛ بااین‌حال، تنظیمات پراکسی و پشتیبانی صحیح از جریان SSE همچنان اهمیت دارند.»
+                  «به آخرین و جذاب‌ترین بخش معماری فصل چهارم رسیدیم: پیام‌های JSON-RPC چگونه جابه‌جا می‌شوند؟ استاندارد MCP دو شاهراه اصلی را معرفی می‌کند. نخست STDIO که پادشاه سناریوهای محلی است. وقتی در Claude Desktop یک سرور لوکال را اضافه می‌کنید، کلاینت یک پروسس نود یا پایتون در پس‌زمینه ران می‌کند و از طریق stdin و stdout با آن پیام ردوبدل می‌کند؛ هر پیام در یک خط و پایان آن یک کاراکتر خط جدید است. خروجی‌های لاگ هم روی stderr ریخته می‌شوند تا تداخلی با پروتکل ایجاد نکنند. این روش هیچ پورت شبکه‌ای باز نمی‌کند و فوق‌العاده امن و سریع است. اما اگر سرور در یک کلاد دیگر یا یک سرویس SaaS باشد چه؟ اینجا Streamable HTTP وارد میدان می‌شود. کلاینت پیام‌هایش را با متد ساده HTTP POST می‌فرستد و ترابری وب به طور دقیق دو الگوی مجزای استریم SSE را تفکیک می‌کند: اول استریم پاسخ دارای محدوده درخواست (Request-scoped SSE) که اعلان‌های پیشرفت و پیام‌های متناظر با همان درخواست را ارسال کرده و با خاتمه پاسخ بسته می‌شود؛ دوم استریم بلندمدت subscriptions/listen برای پایش مستمر تغییرات منابع داده‌ای سرور در طول زمان. این دو الگو هرگز قابل تعویض نیستند. از منظر زیرساختی، حذف نشست پروتکلی، توزیع درخواست‌ها میان نمونه‌های مختلف سرور را ساده‌تر می‌کند؛ بااین‌حال، تنظیمات پراکسی و پشتیبانی صحیح از جریان SSE همچنان اهمیت دارند.»
                 </p>
               </div>
             </motion.div>
