@@ -64,12 +64,12 @@ export function RequestLifecycleSimulator({
 
   // Step advancement
   const goToNextStep = useCallback(() => {
+    stopPlayback();
     setCustomDebuggerTab(null);
     setCurrentStepIndex((prev) => {
       if (prev < LIFECYCLE_STEPS.length - 1) {
         return prev + 1;
       } else {
-        stopPlayback();
         return prev;
       }
     });

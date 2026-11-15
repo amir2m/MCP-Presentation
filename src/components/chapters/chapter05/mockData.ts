@@ -107,7 +107,7 @@ export const LIFECYCLE_STEPS: LifecycleStepInfo[] = [
     titlePersian: 'گام ۸: تولید پاسخ طبیعی مدل و ارائه نهایی به کاربر',
     titleEnglish: 'Step 8: Final Model Answer & User Presentation',
     descriptionPersian:
-      'مدل زبانی داده‌های دقیق ابزار را مطالعه کرده و پاسخی طبیعی، مستند و بدون توهم تولید می‌کند که توسط هاست به کاربر تحویل داده می‌شود.',
+      'مدل زبانی با استفاده از نتیجه بازگشتی ابزار در کانتکست، پاسخ نهایی را بر مبنای اطلاعات در دسترس تولید کرده و توسط هاست به کاربر تحویل داده می‌شود.',
     activeSender: 'llm',
     activeReceiver: 'user',
     pathDescription: 'تحویل پاسخ نهایی مدل از طریق برنامه میزبان به کاربر',
@@ -220,7 +220,7 @@ LIMIT 1;`,
       },
     },
     serverSql: `-- اجرای داخلی سرور — پیاده‌سازی نمونه ابزار (Server Internal Execution — Illustrative Implementation)
-SELECT sku, in_stock, quantity, inventory_id
+SELECT sku, in_stock, quantity
 FROM warehouse_inventory
 WHERE sku = 'NVMe-4TB'
 LIMIT 1;`,

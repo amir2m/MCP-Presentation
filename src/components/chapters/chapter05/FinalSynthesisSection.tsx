@@ -42,7 +42,7 @@ export function FinalSynthesisSection({ onSelectChapter }: FinalSynthesisSection
         </h3>
 
         <p className="text-sm sm:text-base text-slate-300 max-w-3xl mx-auto leading-relaxed">
-          به انتهای چرخه رسیدیم: مدل زبانی داده خام ابزار را که درون کانتکست نشسته بود تحلیل کرده و یک پاسخ سلیس، مستند و فاقد توهم آماری به کاربر تحویل می‌دهد.
+          به انتهای چرخه رسیدیم: مدل زبانی با استفاده از نتیجه بازگشتی ابزار در کانتکست، پاسخ نهایی را بر مبنای اطلاعات در دسترس برای کاربر تدوین می‌کند.
         </p>
       </div>
 
@@ -52,12 +52,12 @@ export function FinalSynthesisSection({ onSelectChapter }: FinalSynthesisSection
           <div className="flex items-center gap-2">
             <MessageSquare className="w-5 h-5 text-cyan-400" />
             <h4 className="font-bold text-slate-200 text-sm sm:text-base">
-              تحویل پاسخ به کاربر بدون هیچ‌گونه توهم آماری
+              تحویل پاسخ نهایی مدل بر مبنای شواهد مستند ابزار
             </h4>
           </div>
 
-          <Badge variant="success" size="sm">
-            Hallucination-Free Synthesis
+          <Badge variant="cyan" size="sm">
+            Evidence-Based Synthesis
           </Badge>
         </div>
 
@@ -175,7 +175,7 @@ export function FinalSynthesisSection({ onSelectChapter }: FinalSynthesisSection
               className="px-5 pb-5 pt-2 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 space-y-2 bg-[#0B1020]/90"
             >
               <p className="border-r-2 border-cyan-500 pr-3 my-2 text-slate-300">
-                «به انتهای چرخه رسیدیم. مدل زبانی داده خام ابزار را که درون کانتکست نشسته بود خواند و یک پاسخ طبیعی، سلیس و کاملاً مستند به کاربر تحویل داد: قطعه NVMe-4TB موجود است و ۶ عدد در انبار داریم. هیچ توهمی رخ نداد و هیچ دسترسی مستقیمی از مدل به دیتابیس وجود نداشت. این یعنی یک معماری تمیز، تفکیک‌شده و استاندارد. اکنون که کارکرد این چرخه را دیدیم، وقت آن است به مقایسه بپردازیم: چرا این روش بسیار برتر از ساختن صدها REST API سفارشی یا کدهای وابسته به یک مدل خاص است؟ در فصل ششم این موضوع را کالبدشکافی خواهیم کرد.»
+                «به انتهای چرخه رسیدیم. مدل زبانی با استفاده از نتیجه بازگشتی ابزار در کانتکست، پاسخ نهایی را بر مبنای اطلاعات در دسترس تدوین کرد و پاسخی طبیعی و مستند به کاربر تحویل داد: قطعه NVMe-4TB موجود است و ۶ عدد در انبار داریم. مدل با تکیه بر شواهد ابزار پاسخ داد و هیچ دسترسی مستقیمی از مدل به دیتابیس وجود نداشت. این یعنی یک معماری تمیز، تفکیک‌شده و استاندارد. اکنون که کارکرد این چرخه را دیدیم، وقت آن است به مقایسه بپردازیم: چرا این روش بسیار برتر از ساختن صدها REST API سفارشی یا کدهای وابسته به یک مدل خاص است؟ در فصل ششم این موضوع را کالبدشکافی خواهیم کرد.»
               </p>
             </motion.div>
           )}

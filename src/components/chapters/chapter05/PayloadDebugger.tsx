@@ -121,7 +121,7 @@ export function PayloadDebugger({
         return {
           code: scenario.finalModelResponse,
           banner:
-            'پاسخ نهایی مدل زبانی (Final Model Natural Response): مدل داده معتبر بازگشتی از ابزار را خوانده و پاسخی شفاف، دقیق و فاقد توهم آماری به زبان فارسی برای کاربر تدوین می‌کند.',
+            'پاسخ نهایی مدل زبانی (Final Model Natural Response): مدل با استفاده از نتیجه بازگشتی ابزار در کانتکست، پاسخ نهایی را بر مبنای اطلاعات در دسترس به زبان فارسی برای کاربر تدوین می‌کند.',
           isJson: false,
         };
     }

@@ -38,7 +38,7 @@
 | `src/components/chapters/chapter05/ProtocolDispatchSection.tsx` | بخش ۰۵.۳: ساخت و ارسال فریم رسمی `tools/call`، فراداده‌های الزامی `_meta`، نسخه `2026-07-28` و استقلال از ترابری |
 | `src/components/chapters/chapter05/ToolExecutionSection.tsx` | بخش ۰۵.۴: مراحل سه‌گانه پردازش سرور، کوئری تمثیلی پایگاه داده، اصل Database Agnostic و لایه‌های شش‌گانه تعامل |
 | `src/components/chapters/chapter05/ResultHandlingSection.tsx` | بخش ۰۵.۵: پاسخ استاندارد `resultType: "complete"`، ماتریس تدقیق ۴ سناریو و تفکیک خطای ابزار از خطای پروتکل |
-| `src/components/chapters/chapter05/FinalSynthesisSection.tsx` | بخش ۰۵.۶: سنتز پاسخ نهایی بدون توهم آماری، مرور رفت‌وبرگشت، تاگل شبیه‌ساز زنده و دکمه CTA ورود به فصل ششم |
+| `src/components/chapters/chapter05/FinalSynthesisSection.tsx` | بخش ۰۵.۶: سنتز پاسخ نهایی مدل بر مبنای شواهد مستند ابزار، مرور رفت‌وبرگشت، تاگل شبیه‌ساز زنده و دکمه CTA ورود به فصل ششم |
 | `src/components/chapters/Chapter05.tsx` | ارکستراتور اصلی فصل با تفکیک حالت ارائه (Slides با AnimatePresence) و حالت روایتی اسکرول (Scroll) |
 | `src/lib/presentation.ts` | ارتقای وضعیت فصل ۵ از `planned` به `active`، تنظیم شناسه اسلایدها (`c5-s1` تا `c5-s6`) و زمان ۴ دقیقه |
 | `src/app/presentation/page.tsx` | اتصال کامپوننت `Chapter05` در سوئیچ اسلایدها (`currentChapterId === 5`) و رندر بخش اسکرول با شناسه فصل |
@@ -64,7 +64,7 @@
        ↓
 [گام ۷: Server -> Client/Host] بازگشت پاسخ رسمی MCP با فیلد resultType: "complete" (یا شیء error)
        ↓
-[گام ۸: Host -> LLM -> کاربر]  تزریق داده مستند به کانتکست مدل و سنتز پاسخ نهایی فاقد توهم آماری
+[گام ۸: Host -> LLM -> کاربر]  تزریق داده مستند به کانتکست مدل و سنتز پاسخ نهایی بر مبنای شواهد مستند ابزار
 ```
 
 ---
@@ -76,8 +76,8 @@
 | سناریو | وضعیت کسب‌وکار | نوع پاسخ پروتکل | وضعیت فیلد `isError` | کد وضعیت | کلیدهای اصلی داده |
 |---|---|---|---|---|---|
 | **الف: موجود در انبار** | موفق (کالای موجود) | `result` استاندارد با `resultType: "complete"` | غایب / false | - | `in_stock: true, quantity: 6, inventory_id: "INV-2026-981"` |
-| **ب: عدم موجودی کالا** | موفق (موجودی صفر) | `result` استاندارد با `resultType: "complete"` | غایب / false | - | `in_stock: false, quantity: 0, inventory_id: "INV-2026-981"` |
-| **ج: خطای اجرای ابزار** | شکست منطق ابزار | `result` استاندارد با `resultType: "complete"` | `true` (الزام پروتکل) | - | `content[0].text`: شرح خطای قطعی دیتابیس / تایم‌اوت |
+| **ب: عدم موجودی کالا** | موفق (موجودی صفر) | `result` استاندارد با `resultType: "complete"` | غایب / false | - | `in_stock: false, quantity: 0` |
+| **ج: خطای اجرای ابزار** | شکست منطق ابزار | `result` استاندارد با `resultType: "complete"` | `true` (توصیه استاندارد / SHOULD) | - | `content[0].text`: شرح خطای قطعی دیتابیس / تایم‌اوت |
 | **د: خطای سطح پروتکل** | عدم انطباق پروتکلی | شیء بالادستی `error` در JSON-RPC (بدون `result`) | فاقد شیء result | `-32601` | `code: -32601, message: "Method not found"` |
 
 ### تفکیک بنیادین علمی:
@@ -127,7 +127,7 @@
 | ۹ | تفکیک فاز کشف (`tools/list`) از فاز اجرا (`tools/call`) | تایید شد | بخش ۰۵.۱ و تاگل تخصصی نمایش کشف پیشین ابزار در زمان برقراری ارتباط |
 | ۱۰ | گیت امنیتی و تایید کاربر در هاست (Human-in-the-Loop) | تایید شد | بخش ۰۵.۲ و گیت امنیتی اعمال سیاست‌های نظارتی هاست پیش از ارسال پیام به کلاینت |
 | ۱۱ | استقلال پروتکل از لایه ترابری (Transport Agnostic) | تایید شد | بخش ۰۵.۳ و کارت توضیحی عدم تغییر فریم JSON-RPC در STDIO یا HTTP |
-| ۱۲ | سنتز پاسخ بدون توهم و با استناد کامل به شواهد ابزار | تایید شد | بخش ۰۵.۶ و کارت پاسخ مستند به ۶ قطعه در انبار مرکزی تهران |
+| ۱۲ | سنتز پاسخ مدل بر مبنای اطلاعات در دسترس ابزار | تایید شد | بخش ۰۵.۶ و کارت پاسخ مستند به ۶ قطعه در انبار مرکزی تهران |
 | ۱۳ | یکپارچگی ناوبری و هدایت به فصل ششم با دکمه CTA | تایید شد | بخش ۰۵.۶ با دکمه اتصال به فصل ۶ (`onSelectChapter(6)`) و به‌روزرسانی اسلایدهای فعال |
 
 ---
@@ -144,7 +144,7 @@
 5. `desktop-s4-tool-execution.png` — اسلاید چهارم (اجرای سرور، کوئری SQL و لایه‌ها)
 6. `desktop-s5-result-handling.png` — اسلاید پنجم (تحلیل شیء result و سناریوی موجود)
 7. `desktop-s5-zero-stock-selected.png` — اسلاید پنجم با انتخاب سناریوی موجودی صفر
-8. `desktop-s6-final-synthesis.png` — اسلاید ششم (سنتز نهایی و پاسخ فاقد توهم)
+8. `desktop-s6-final-synthesis.png` — اسلاید ششم (سنتز نهایی و پاسخ مستند به شواهد ابزار)
 9. `desktop-s6-embedded-simulator.png` — اسلاید ششم با باز کردن شبیه‌ساز کامل تعاملی
 10. `desktop-sim-step8.png` — گام هشتم شبیه‌ساز (تحویل پاسخ نهایی)
 11. `desktop-sim-step7.png` — گام هفتم شبیه‌ساز (گام بازگشت داده)
