@@ -59,9 +59,10 @@
 
 ### Phase 3: Chapters 04 & 05
 - [x] Chapter 04 Scientific Audit & Content Architecture (TASK-004.1, TASK-004.1.1, TASK-004.1.2 & TASK-004.1.3 — see [CHAPTER_04_CONTENT_SPEC.md](CHAPTER_04_CONTENT_SPEC.md) & [CHAPTER_04_IMPLEMENTATION_PLAN.md](CHAPTER_04_IMPLEMENTATION_PLAN.md)).
-- [ ] Chapter 04 Application Implementation (TASK-004.2 — Next Task).
-- [ ] Live protocol inspector simulation: Request lifecycle, Tools, Prompts, Resources (Chapter 05).
-- [ ] Interactive payload debugger widget (Chapter 05).
+- [x] Chapter 04 Application Implementation across 6 sections and dual presentation/scroll modes (TASK-004.2).
+- [x] Chapter 04 Scientific Audit, Server Isolation Nuance & Multi-Viewport Browser QA (TASK-004.2.1).
+- [x] Chapter 05 Scientific Content Finalization, Corrections & Implementation Planning (TASK-005.1, TASK-005.1.1, TASK-005.1.2 & TASK-005.1.3 — see [CHAPTER_05_CONTENT_SPEC.md](CHAPTER_05_CONTENT_SPEC.md) & [CHAPTER_05_IMPLEMENTATION_PLAN.md](CHAPTER_05_IMPLEMENTATION_PLAN.md)).
+- [x] Chapter 05 Application Implementation: Request Lifecycle Simulator, 6 sections, Payload Debugger, dual-mode integration, multi-viewport responsive QA (TASK-005.2 Complete — see [CHAPTER_05_IMPLEMENTATION_REPORT.md](CHAPTER_05_IMPLEMENTATION_REPORT.md)).
 
 ### Phase 4: Chapters 06 & 07 (Future Task)
 - [ ] Comparative architectural matrix (MCP vs REST, Function Calling, Ad-hoc connectors) (Chapter 06).
@@ -75,14 +76,17 @@
 
 ---
 
-## 2. Current Implementation Status
+## ۲. وضعیت فعلی پیاده‌سازی و پیشرفت اسپرینت‌ها (Current Implementation Status)
 
 - **Completed Sprints:**
   - **TASK-001 / TASK-001.6:** Chapter 01 Educational & Scientific Refinement (Complete & Verified).
   - **TASK-002 / TASK-002.1 / TASK-002.3 / TASK-002.4:** Chapter 02 Implementation & Browser QA (Complete & Verified).
   - **TASK-003-AUDIT / TASK-003.1 / TASK-003.2 / TASK-003.3:** Chapter 03 Planning, Implementation & Refinement (Complete & Verified).
   - **TASK-004.1 / TASK-004.1.1 / TASK-004.1.2 / TASK-004.1.3:** Chapter 04 Scientific Audit, Content Architecture, Client Capabilities Requirement Correction & Implementation Roadmap (Complete & Documented).
-- **Next Milestone:** TASK-004.2 — Chapter 04 Application Code Implementation.
+  - **TASK-004.2 / TASK-004.2.1:** Chapter 04 Application Implementation across 6 sections, Server Isolation Nuance Qualification & 8-Combination Browser QA (Complete & Verified).
+  - **TASK-005.1 / TASK-005.1.1 / TASK-005.1.2 / TASK-005.1.3:** Chapter 05 Scientific Content Finalization, Raw JSON Verification & Implementation Planning (Complete & Documented).
+  - **TASK-005.2:** Chapter 05 Application Implementation: Request Lifecycle Simulator, 6 sections, Payload Debugger, dual-mode integration, and multi-viewport responsive QA (Complete & Verified).
+- **Next Milestone:** TASK-006.1 — Chapter 06 Scientific Content Finalization & Architecture Planning.
 
 ---
 
