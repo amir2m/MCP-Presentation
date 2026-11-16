@@ -64,8 +64,9 @@
 - [x] Chapter 05 Scientific Content Finalization, Corrections & Implementation Planning (TASK-005.1, TASK-005.1.1, TASK-005.1.2 & TASK-005.1.3 — see [CHAPTER_05_CONTENT_SPEC.md](CHAPTER_05_CONTENT_SPEC.md) & [CHAPTER_05_IMPLEMENTATION_PLAN.md](CHAPTER_05_IMPLEMENTATION_PLAN.md)).
 - [x] Chapter 05 Application Implementation: Request Lifecycle Simulator, 6 sections, Payload Debugger, dual-mode integration, multi-viewport responsive QA (TASK-005.2 Complete — see [CHAPTER_05_IMPLEMENTATION_REPORT.md](CHAPTER_05_IMPLEMENTATION_REPORT.md)).
 
-### Phase 4: Chapters 06 & 07 (Future Task)
-- [ ] Comparative architectural matrix (MCP vs REST, Function Calling, Ad-hoc connectors) (Chapter 06).
+### Phase 4: Chapters 06 & 07
+- [x] Chapter 06 Scientific Content Architecture, API vs MCP Comparison & Implementation Planning (TASK-006.1 & TASK-006.1.1 Complete — see [CHAPTER_06_CONTENT_SPEC.md](CHAPTER_06_CONTENT_SPEC.md) & [CHAPTER_06_IMPLEMENTATION_PLAN.md](CHAPTER_06_IMPLEMENTATION_PLAN.md)).
+- [ ] Chapter 06 Application Implementation: Interactive Architecture Switcher, Integration Matrix Demo, Technology Triad Viewer, Dual-Mode Integration (TASK-006.2 — Next Milestone).
 - [ ] Production security practices, real-world case studies, and future roadmap (Chapter 07).
 - [ ] Final lecture wrap-up and interactive Q&A summary board.
 
@@ -86,7 +87,8 @@
   - **TASK-004.2 / TASK-004.2.1:** Chapter 04 Application Implementation across 6 sections, Server Isolation Nuance Qualification & 8-Combination Browser QA (Complete & Verified).
   - **TASK-005.1 / TASK-005.1.1 / TASK-005.1.2 / TASK-005.1.3:** Chapter 05 Scientific Content Finalization, Raw JSON Verification & Implementation Planning (Complete & Documented).
   - **TASK-005.2:** Chapter 05 Application Implementation: Request Lifecycle Simulator, 6 sections, Payload Debugger, dual-mode integration, and multi-viewport responsive QA (Complete & Verified).
-- **Next Milestone:** TASK-006.1 — Chapter 06 Scientific Content Finalization & Architecture Planning.
+  - **TASK-006.1 / TASK-006.1.1:** Chapter 06 Scientific Content Architecture, API vs MCP Comparison, Precision Refinements & Implementation Planning (Complete & Documented).
+- **Next Milestone:** TASK-006.2 — Chapter 06 Application Implementation (Interactive Architecture Switcher, Integration Matrix Demo, Technology Triad Viewer, Dual-Mode Integration).
 
 ---
 
