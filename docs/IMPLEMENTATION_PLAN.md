@@ -66,8 +66,9 @@
 
 ### Phase 4: Chapters 06 & 07
 - [x] Chapter 06 Scientific Content Architecture, API vs MCP Comparison & Implementation Planning (TASK-006.1 & TASK-006.1.1 Complete — see [CHAPTER_06_CONTENT_SPEC.md](CHAPTER_06_CONTENT_SPEC.md) & [CHAPTER_06_IMPLEMENTATION_PLAN.md](CHAPTER_06_IMPLEMENTATION_PLAN.md)).
-- [ ] Chapter 06 Application Implementation: Interactive Architecture Switcher, Integration Matrix Demo, Technology Triad Viewer, Dual-Mode Integration (TASK-006.2 — Next Milestone).
-- [ ] Production security practices, real-world case studies, and future roadmap (Chapter 07).
+- [x] Chapter 06 Application Implementation: Interactive Architecture Switcher, Integration Matrix Demo, Technology Triad Viewer, Dual-Mode Integration (TASK-006.2 Complete).
+- [x] Chapter 07 Content Research, Scientific Audit, Security Bounds & Evidence Integrity: Real-world use cases, security architecture, trust boundaries, OAuth 2.1 normative tiers (Draft-13 & Draft-17), privacy/data residency boundaries, warehouse scenario integrity, roadmap priorities, OWASP 2025 identifiers, verified source register URLs, RFC 9728 authors, TypeScript SDK v2 `serveStdio` API precision, and AAIF governance (TASK-007.1, TASK-007.1.1, TASK-007.1.2, TASK-007.1.3, TASK-007.1.4 & TASK-007.1.5 Complete — see [CHAPTER_07_RESEARCH.md](CHAPTER_07_RESEARCH.md), [CHAPTER_07_CONTENT_SPEC.md](CHAPTER_07_CONTENT_SPEC.md) & [CHAPTER_07_IMPLEMENTATION_PLAN.md](CHAPTER_07_IMPLEMENTATION_PLAN.md)).
+- [ ] Chapter 07 Application Implementation: Real-world workflows, security simulator, grand synthesis board, dual presentation/scroll modes, responsive QA (TASK-007.2).
 - [ ] Final lecture wrap-up and interactive Q&A summary board.
 
 ### Phase 5: Polish & Final Review (Future Task)
@@ -88,7 +89,9 @@
   - **TASK-005.1 / TASK-005.1.1 / TASK-005.1.2 / TASK-005.1.3:** Chapter 05 Scientific Content Finalization, Raw JSON Verification & Implementation Planning (Complete & Documented).
   - **TASK-005.2:** Chapter 05 Application Implementation: Request Lifecycle Simulator, 6 sections, Payload Debugger, dual-mode integration, and multi-viewport responsive QA (Complete & Verified).
   - **TASK-006.1 / TASK-006.1.1:** Chapter 06 Scientific Content Architecture, API vs MCP Comparison, Precision Refinements & Implementation Planning (Complete & Documented).
-- **Next Milestone:** TASK-006.2 — Chapter 06 Application Implementation (Interactive Architecture Switcher, Integration Matrix Demo, Technology Triad Viewer, Dual-Mode Integration).
+  - **TASK-006.2 / TASK-006.2.1 / TASK-006.2.2:** Chapter 06 Application Implementation across 6 sections, stateless protocol precision, clientCapabilities correction, and multi-viewport responsive QA (Complete & Verified).
+  - **TASK-007.1 / TASK-007.1.1 / TASK-007.1.2 / TASK-007.1.3 / TASK-007.1.4 / TASK-007.1.5:** Chapter 07 Content Research, Security & Trust Analysis, Normative References, Privacy/Residency Bounds, Warehouse Data Integrity, OWASP 2025 Risk Identifiers, Verified Source Register URLs & Metadata (RFC 9728 authors, OAuth 2.1 Draft-13 date, TS SDK v2 `serveStdio` API), Educational Content Spec, and Technical Implementation Roadmap (Complete & Documented).
+- **Next Milestone:** TASK-007.2 — Chapter 07 Frontend Implementation, Interactive Workflows, Security Simulator, Grand Synthesis Board, and Responsive QA.
 
 ---
 
