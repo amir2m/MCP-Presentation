@@ -15,7 +15,7 @@ Planned Presentation Duration: ~25 minutes (calibrated for 20–30 minute sessio
 | **فصل ۴** | معماری MCP و مؤلفه‌های کلیدی (Architecture & Core Components) | ~6-7 دقیقه | پیاده‌سازی و ممیزی نهایی (TASK-004.2.1) |
 | **فصل ۵** | شبیه‌سازی جریان یک درخواست در MCP (Request Lifecycle Simulation) | ~3.5 دقیقه | پیاده‌سازی، شبیه‌ساز زنده و ممیزی (TASK-005.2.1) |
 | **فصل ۶** | MCP در برابر APIها و روش‌های سنتی اتصال (MCP vs APIs, Function Calling) | ~4 دقیقه | پیاده‌سازی، تدقیق پروتکل و ممیزی (TASK-006.2.2) |
-| **فصل ۷** | کاربردها، امنیت، محدودیت‌ها و آینده (Applications, Security, and Future) | ~4 دقیقه (۲۴۰ ثانیه) | محتوای علمی، مراجع و برنامه پیاده‌سازی مصوب (TASK-007.1.5) |
+| **فصل ۷** | کاربردها، امنیت، محدودیت‌ها و آینده (Applications, Security, and Future) | ~4 دقیقه (۲۴۰ ثانیه) | پیاده‌سازی کامل، شبیه‌ساز امنیتی و آزمون مرورگر (TASK-007.2) |
 
 ---
 
@@ -175,7 +175,7 @@ Planned Presentation Duration: ~25 minutes (calibrated for 20–30 minute sessio
 ---
 
 ### فصل ۷: کاربردها، امنیت، محدودیت‌ها و آینده (Applications, Security, Limitations, and Future)
-*Status: Content Finalized & Architecture Planned (TASK-007.1, TASK-007.1.1, TASK-007.1.2, TASK-007.1.3, TASK-007.1.4 & TASK-007.1.5 Complete — see [CHAPTER_07_RESEARCH.md](CHAPTER_07_RESEARCH.md), [CHAPTER_07_CONTENT_SPEC.md](CHAPTER_07_CONTENT_SPEC.md) & [CHAPTER_07_IMPLEMENTATION_PLAN.md](CHAPTER_07_IMPLEMENTATION_PLAN.md))*
+*Status: Fully Implemented & Verified in TASK-007.2 (All 6 sections, 3 interactive widgets, 240s duration, multi-viewport responsive QA passed — see [CHAPTER_07_RESEARCH.md](CHAPTER_07_RESEARCH.md), [CHAPTER_07_CONTENT_SPEC.md](CHAPTER_07_CONTENT_SPEC.md) & [CHAPTER_07_IMPLEMENTATION_PLAN.md](CHAPTER_07_IMPLEMENTATION_PLAN.md))*
 *مدت زمان هدف: ۴ دقیقه (۲۴۰ ثانیه)*
 *نسخه مرجع پروتکل: مشخصات مصوب بنیاد لینوکس / AAIF نسخه 2026-07-28*
 

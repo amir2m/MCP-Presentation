@@ -15,6 +15,7 @@ import { Chapter03 } from '@/components/chapters/Chapter03';
 import { Chapter04 } from '@/components/chapters/Chapter04';
 import { Chapter05 } from '@/components/chapters/Chapter05';
 import { Chapter06 } from '@/components/chapters/Chapter06';
+import { Chapter07 } from '@/components/chapters/Chapter07';
 import { CHAPTERS } from '@/lib/presentation';
 import { parsePresentationKey } from '@/lib/navigation';
 import { PresentationViewMode } from '@/types/presentation';
@@ -194,6 +195,12 @@ function PresentationContent() {
                   activeSlideIndex={currentSlideIndex}
                   onSelectChapter={handleSelectChapter}
                 />
+              ) : currentChapterId === 7 ? (
+                <Chapter07
+                  mode="slides"
+                  activeSlideIndex={currentSlideIndex}
+                  onSelectChapter={handleSelectChapter}
+                />
               ) : (
                 <div className="text-center py-20 space-y-4 max-w-lg mx-auto">
                   <Badge variant="outline" size="md">
@@ -288,53 +295,60 @@ function PresentationContent() {
               <Chapter06 mode="scroll" onSelectChapter={handleSelectChapter} />
             </ChapterSection>
 
-            {/* Preview of Upcoming Chapters in Scroll Mode */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-indigo-500/10">
-              <div className="text-center mb-10 space-y-2">
-                <Badge variant="outline" size="md">
-                  نقشه راه سرفصل‌ها
-                </Badge>
-                <h3 className="text-2xl font-bold text-slate-200">
-                  فصول آتی ارائه جامع MCP
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-400">
-                  سایر فصول مطابق سند ساختار محتوایی تدوین خواهند شد.
-                </p>
-              </div>
+            {/* Chapter 07 Section */}
+            <ChapterSection chapter={CHAPTERS[6]}>
+              <Chapter07 mode="scroll" onSelectChapter={handleSelectChapter} />
+            </ChapterSection>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {CHAPTERS.slice(6).map((ch) => (
-                  <div
-                    key={ch.id}
-                    className="p-5 rounded-2xl bg-[#141C2E]/60 border border-slate-800/80 flex flex-col justify-between"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs font-bold text-indigo-400">
-                          {ch.numberPersian}
-                        </span>
-                        <Badge variant="outline" size="sm">
-                          در انتظار تدوین
-                        </Badge>
+            {/* Preview of Upcoming Chapters in Scroll Mode (if any) */}
+            {CHAPTERS.slice(7).length > 0 && (
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-indigo-500/10">
+                <div className="text-center mb-10 space-y-2">
+                  <Badge variant="outline" size="md">
+                    نقشه راه سرفصل‌ها
+                  </Badge>
+                  <h3 className="text-2xl font-bold text-slate-200">
+                    فصول آتی ارائه جامع MCP
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-400">
+                    سایر فصول مطابق سند ساختار محتوایی تدوین خواهند شد.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {CHAPTERS.slice(7).map((ch) => (
+                    <div
+                      key={ch.id}
+                      className="p-5 rounded-2xl bg-[#141C2E]/60 border border-slate-800/80 flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-xs font-bold text-indigo-400">
+                            {ch.numberPersian}
+                          </span>
+                          <Badge variant="outline" size="sm">
+                            در انتظار تدوین
+                          </Badge>
+                        </div>
+                        <h4 className="text-base font-bold text-slate-200 mb-1">
+                          {ch.titlePersian}
+                        </h4>
+                        <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                          {ch.descriptionPersian}
+                        </p>
                       </div>
-                      <h4 className="text-base font-bold text-slate-200 mb-1">
-                        {ch.titlePersian}
-                      </h4>
-                      <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed">
-                        {ch.descriptionPersian}
-                      </p>
-                    </div>
 
-                    <div className="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-slate-500 flex items-center justify-between">
-                      <span className="font-mono" dir="ltr">
-                        {ch.titleEnglish}
-                      </span>
-                      <span>~{ch.estimatedMinutes} دقیقه</span>
+                      <div className="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-slate-500 flex items-center justify-between">
+                        <span className="font-mono" dir="ltr">
+                          {ch.titleEnglish}
+                        </span>
+                        <span>~{ch.estimatedMinutes} دقیقه</span>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
       </main>

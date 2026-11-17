@@ -6,8 +6,8 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { HeroSection } from '@/components/presentation/HeroSection';
 import { PresentationNavigation } from '@/components/layout/PresentationNavigation';
-import { ChapterSection } from '@/components/presentation/ChapterSection';
-import { Chapter01 } from '@/components/chapters/Chapter01';
+//import { ChapterSection } from '@/components/presentation/ChapterSection';
+//import { Chapter01 } from '@/components/chapters/Chapter01';
 import { CHAPTERS } from '@/lib/presentation';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
@@ -57,7 +57,7 @@ export default function HomePage() {
       <section className="py-12 border-y border-indigo-500/10 bg-[#0E1527]/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            
+
             {/* Scroll Mode Card */}
             <Card
               variant="translucent"
@@ -115,11 +115,11 @@ export default function HomePage() {
       </section>
 
       {/* Live Preview: Chapter 01 Section */}
-      <section className="py-16">
+      {/* <section className="py-16">
         <ChapterSection chapter={CHAPTERS[0]}>
           <Chapter01 mode="scroll" onSelectChapter={(id) => router.push(`/presentation?chapter=${id}`)} />
         </ChapterSection>
-      </section>
+      </section> */}
 
       {/* Chapters Syllabus Roadmap Section */}
       <section id="syllabus-section" className="py-20 border-t border-indigo-500/10 bg-[#070B16]">
@@ -143,11 +143,10 @@ export default function HomePage() {
               return (
                 <div
                   key={chapter.id}
-                  className={`p-6 rounded-2xl border transition-all flex flex-col justify-between ${
-                    isAvailable
-                      ? 'bg-[#141C2E] border-indigo-500/40 shadow-xl shadow-indigo-950/40 ring-1 ring-cyan-400/20'
-                      : 'bg-[#101728]/70 border-slate-800/80 hover:border-slate-700'
-                  }`}
+                  className={`p-6 rounded-2xl border transition-all flex flex-col justify-between ${isAvailable
+                    ? 'bg-[#141C2E] border-indigo-500/40 shadow-xl shadow-indigo-950/40 ring-1 ring-cyan-400/20'
+                    : 'bg-[#101728]/70 border-slate-800/80 hover:border-slate-700'
+                    }`}
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3">
