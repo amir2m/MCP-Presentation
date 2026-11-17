@@ -4,6 +4,8 @@ import React from 'react';
 import { Database, Lock, ShieldAlert, CheckCircle2, HelpCircle } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_02_PRESENTER_NOTES } from './presenterNotes';
 
 export function KnowledgeBoundaryDiagram() {
   return (
@@ -151,6 +153,9 @@ export function KnowledgeBoundaryDiagram() {
           </span>
         </div>
       </Card>
+
+      {/* Slide Presenter Notes (Collapsible) */}
+      <SlidePresenterNotes note={CHAPTER_02_PRESENTER_NOTES[1]} />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 # Content Structure: MCP Interactive Presentation
 **ساختار محتوایی ارائه: مدلهای زبانی و Model Context Protocol (MCP)**
 
-Planned Presentation Duration: ~25 minutes (calibrated for 20–30 minute sessions).
+Planned Presentation Duration: 29:20 (1,760 seconds total — calibrated for standard 20–30 minute university sessions).
 
 ---
 
@@ -9,12 +9,12 @@ Planned Presentation Duration: ~25 minutes (calibrated for 20–30 minute sessio
 
 | فصل (Chapter) | عنوان فصل (Title) | مدت زمان تخمینی | وضعیت محتوا |
 |---|---|---|---|
-| **فصل ۱** | مقدمه و مسئله اصلی (Introduction and the Main Problem) | ~3 دقیقه | پیاده‌سازی و بازبینی نهایی (TASK-001.6) |
-| **فصل ۲** | از پیش‌بینی کلمه تا انجام عملیات (Large Language Models & External Tools) | ~4 دقیقه | پیاده‌سازی و آزمون موفق مرورگر (TASK-002.1) |
-| **فصل ۳** | معرفی Model Context Protocol (Introduction to MCP) | ~4 دقیقه | پیاده‌سازی و تدقیق علمی (TASK-003.3) |
-| **فصل ۴** | معماری MCP و مؤلفه‌های کلیدی (Architecture & Core Components) | ~6-7 دقیقه | پیاده‌سازی و ممیزی نهایی (TASK-004.2.1) |
-| **فصل ۵** | شبیه‌سازی جریان یک درخواست در MCP (Request Lifecycle Simulation) | ~3.5 دقیقه | پیاده‌سازی، شبیه‌ساز زنده و ممیزی (TASK-005.2.1) |
-| **فصل ۶** | MCP در برابر APIها و روش‌های سنتی اتصال (MCP vs APIs, Function Calling) | ~4 دقیقه | پیاده‌سازی، تدقیق پروتکل و ممیزی (TASK-006.2.2) |
+| **فصل ۱** | مقدمه و مسئله اصلی (Introduction and the Main Problem) | ~3 دقیقه (۱۸۰ ثانیه) | پیاده‌سازی، یادداشت‌های سخنران و مستندات کامل (TASK-001.6 / TASK-008) |
+| **فصل ۲** | از پیش‌بینی کلمه تا انجام عملیات (Large Language Models & External Tools) | ~4 دقیقه (۲۴۰ ثانیه) | پیاده‌سازی، یادداشت‌های سخنران و مستندات کامل (TASK-002.1 / TASK-008) |
+| **فصل ۳** | معرفی Model Context Protocol (Introduction to MCP) | ~4 دقیقه (۲۳۰ ثانیه) | پیاده‌سازی و تدقیق علمی (TASK-003.3) |
+| **فصل ۴** | معماری MCP و مؤلفه‌های کلیدی (Architecture & Core Components) | ~7 دقیقه (۴۲۰ ثانیه) | پیاده‌سازی و ممیزی نهایی (TASK-004.2.1) |
+| **فصل ۵** | شبیه‌سازی جریان یک درخواست در MCP (Request Lifecycle Simulation) | ~3.5 دقیقه (۲۱۰ ثانیه) | پیاده‌سازی، شبیه‌ساز زنده و ممیزی (TASK-005.2.1) |
+| **فصل ۶** | MCP در برابر APIها و روش‌های سنتی اتصال (MCP vs APIs, Function Calling) | ~4 دقیقه (۲۴۰ ثانیه) | پیاده‌سازی، تدقیق پروتکل و ممیزی (TASK-006.2.2) |
 | **فصل ۷** | کاربردها، امنیت، محدودیت‌ها و آینده (Applications, Security, and Future) | ~4 دقیقه (۲۴۰ ثانیه) | پیاده‌سازی کامل، شبیه‌ساز امنیتی و آزمون مرورگر (TASK-007.2) |
 
 ---
@@ -22,7 +22,8 @@ Planned Presentation Duration: ~25 minutes (calibrated for 20–30 minute sessio
 ## Detailed Chapter Breakdowns
 
 ### فصل ۱: مقدمه و مسئله اصلی (Introduction and the Main Problem)
-*Status: Approved and Refined in TASK-001.6 (Scientific Accuracy & Educational Enhancements)*
+*Status: Approved and Refined in TASK-001.6 & Documented/Presenter Notes Added in TASK-008 (See dedicated [CHAPTER_01_CONTENT_SPEC.md](CHAPTER_01_CONTENT_SPEC.md) and [CHAPTER_01_IMPLEMENTATION_PLAN.md](CHAPTER_01_IMPLEMENTATION_PLAN.md))*
+- **مدت زمان تخمینی:** ۳ دقیقه (۱۸۰ ثانیه: اسلاید ۱: ۴۵ ثانیه، اسلاید ۲: ۵۰ ثانیه، اسلاید ۳: ۴۵ ثانیه، اسلاید ۴: ۴۰ ثانیه).
 
 - **۱.۱ پیام ورودی، تفکیک معماری و مرزهای دسترسی (Welcome & Access Boundaries):**
   - عنوان: گذار از تولید متن به تعامل با ابزارها.
@@ -45,8 +46,8 @@ Planned Presentation Duration: ~25 minutes (calibrated for 20–30 minute sessio
 ---
 
 ### فصل ۲: از پیش‌بینی کلمه تا انجام عملیات (Large Language Models & External Tools)
-*Status: Approved and Refined in TASK-002.1 (Scientific Accuracy, Simulator Reliability & Narrative Refinement)*
-- **مدت زمان تخمینی:** ۳ تا ۴ دقیقه.
+*Status: Approved and Refined in TASK-002.1 & Documented/Presenter Notes Added in TASK-008 (See dedicated [CHAPTER_02_CONTENT_SPEC.md](CHAPTER_02_CONTENT_SPEC.md) and [CHAPTER_02_IMPLEMENTATION_PLAN.md](CHAPTER_02_IMPLEMENTATION_PLAN.md))*
+- **مدت زمان تخمینی:** ۴ دقیقه (۲۴۰ ثانیه: اسلاید ۱: ۴۰ ثانیه، اسلاید ۲: ۴۰ ثانیه، اسلاید ۳: ۴۵ ثانیه، اسلاید ۴: ۴۵ ثانیه، اسلاید ۵: ۳۵ ثانیه، اسلاید ۶: ۳۵ ثانیه).
 - **اهداف آموزشی:**
   - تبیین مفهوم مدل زبانی بزرگ (LLM) به عنوان مدل پیش‌بینی توزیع آماری توکن‌ها (<span dir="ltr">Next-Token Prediction</span>)، نه پایگاه داده‌ای از اطلاعات ذخیره‌شده.
   - مفهوم توکن‌ها (Tokens) و واحدهای خرد پردازش متنی (کلمه، زیرکلمه، علائم نگارشی).

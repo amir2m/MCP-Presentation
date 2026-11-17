@@ -28,6 +28,8 @@ import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { CHAPTER_01_QUIZ } from '@/lib/presentation';
 import { AccessBoundaryDiagram } from './chapter01/AccessBoundaryDiagram';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_01_PRESENTER_NOTES } from './chapter01/presenterNotes';
 
 interface Chapter01Props {
   mode?: 'scroll' | 'slides';
@@ -218,6 +220,9 @@ export function Chapter01({
 
       {/* 2D Responsive Architecture Diagram */}
       <AccessBoundaryDiagram />
+
+      {/* Slide Presenter Notes (Collapsible) */}
+      <SlidePresenterNotes note={CHAPTER_01_PRESENTER_NOTES[0]} />
     </div>
   );
 
@@ -476,6 +481,9 @@ export function Chapter01({
           </div>
         </div>
       </Card>
+
+      {/* Slide Presenter Notes (Collapsible) */}
+      <SlidePresenterNotes note={CHAPTER_01_PRESENTER_NOTES[1]} />
     </div>
   );
 
@@ -560,6 +568,9 @@ export function Chapter01({
           </p>
         </div>
       </div>
+
+      {/* Slide Presenter Notes (Collapsible) */}
+      <SlidePresenterNotes note={CHAPTER_01_PRESENTER_NOTES[2]} />
     </div>
   );
 
@@ -714,6 +725,9 @@ export function Chapter01({
             ورود به فصل دوم
           </Button>
         </div>
+
+        {/* Slide Presenter Notes (Collapsible) */}
+        <SlidePresenterNotes note={CHAPTER_01_PRESENTER_NOTES[3]} />
       </div>
     );
   };

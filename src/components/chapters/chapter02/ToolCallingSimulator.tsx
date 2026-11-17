@@ -14,6 +14,8 @@ import {
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_02_PRESENTER_NOTES } from './presenterNotes';
 
 export function ToolCallingSimulator() {
   const [activeMode, setActiveMode] = useState<'no-tool' | 'tool-calling'>('no-tool');
@@ -284,6 +286,9 @@ export function ToolCallingSimulator() {
           </motion.div>
         )}
       </Card>
+
+      {/* Slide Presenter Notes (Collapsible) */}
+      <SlidePresenterNotes note={CHAPTER_02_PRESENTER_NOTES[3]} />
     </div>
   );
 }

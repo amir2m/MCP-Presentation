@@ -7,6 +7,8 @@ import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { CHAPTER_02_QUIZ } from '@/lib/presentation';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_02_PRESENTER_NOTES } from './presenterNotes';
 
 interface Chapter02QuizProps {
   onSelectChapter?: (chapterId: number) => void;
@@ -249,6 +251,9 @@ export function Chapter02Quiz({ onSelectChapter }: Chapter02QuizProps) {
           </Button>
         </div>
       )}
+
+      {/* Slide Presenter Notes (Collapsible) */}
+      <SlidePresenterNotes note={CHAPTER_02_PRESENTER_NOTES[5]} />
     </div>
   );
 }

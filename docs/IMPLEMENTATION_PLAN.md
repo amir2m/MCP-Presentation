@@ -71,6 +71,16 @@
 - [x] Chapter 07 Application Implementation: Real-world workflows (WorkflowTrustExplorer), security policy simulator (SecurityPolicySimulator), grand synthesis board (GrandSynthesisBoard), 6 sections, dual presentation/scroll modes, multi-viewport responsive QA (TASK-007.2 Complete).
 - [ ] Final lecture wrap-up and interactive Q&A summary board.
 
+### Phase 4.5: Chapters 01 & 02 Documentation and Presenter Notes Completion (Completed: TASK-008)
+- [x] Author comprehensive dedicated documentation for Chapter 01: [CHAPTER_01_CONTENT_SPEC.md](CHAPTER_01_CONTENT_SPEC.md) & [CHAPTER_01_IMPLEMENTATION_PLAN.md](CHAPTER_01_IMPLEMENTATION_PLAN.md).
+- [x] Author comprehensive dedicated documentation for Chapter 02: [CHAPTER_02_CONTENT_SPEC.md](CHAPTER_02_CONTENT_SPEC.md) & [CHAPTER_02_IMPLEMENTATION_PLAN.md](CHAPTER_02_IMPLEMENTATION_PLAN.md).
+- [x] Author slide-specific presenter notes in Persian with 8 mandatory sections for all 10 slides:
+  - Chapter 01 (4 slides, 180s total: 45s, 50s, 45s, 40s) in `src/components/chapters/chapter01/presenterNotes.ts`.
+  - Chapter 02 (6 slides, 240s total: 40s, 40s, 45s, 45s, 35s, 35s) in `src/components/chapters/chapter02/presenterNotes.ts`.
+- [x] Implement reusable UI component `SlidePresenterNotes.tsx` with collapsible toggle, subtle presenter styling, and RTL support with isolated LTR spans.
+- [x] Integrate presenter notes into all 4 slides of Chapter 01 and all 6 slides of Chapter 02 in Presentation Mode and Scroll Mode.
+- [x] Verify total presentation duration remains 1,760s (29:20) and no regressions introduced to Chapters 03–07.
+
 ### Phase 5: Polish & Final Review (Future Task)
 - [ ] Full end-to-end rehearsal mode with presenter notes timer.
 - [ ] Performance and bundle optimization.
@@ -92,6 +102,8 @@
   - **TASK-006.2 / TASK-006.2.1 / TASK-006.2.2:** Chapter 06 Application Implementation across 6 sections, stateless protocol precision, clientCapabilities correction, and multi-viewport responsive QA (Complete & Verified).
   - **TASK-007.1 / TASK-007.1.1 / TASK-007.1.2 / TASK-007.1.3 / TASK-007.1.4 / TASK-007.1.5:** Chapter 07 Content Research, Security & Trust Analysis, Normative References, Privacy/Residency Bounds, Warehouse Data Integrity, OWASP 2025 Risk Identifiers, Verified Source Register URLs & Metadata (RFC 9728 authors, OAuth 2.1 Draft-13 date, TS SDK v2 `serveStdio` API), Educational Content Spec, and Technical Implementation Roadmap (Complete & Documented).
   - **TASK-007.2:** Chapter 07 Frontend Implementation across 6 sections, WorkflowTrustExplorer, SecurityPolicySimulator, GrandSynthesisBoard, 240s presentation timing, dual presentation/scroll modes, and 6-viewport responsive browser QA (Complete & Verified).
+  - **TASK-008:** Chapters 01 & 02 Dedicated Documentation (`CHAPTER_01_CONTENT_SPEC.md`, `CHAPTER_01_IMPLEMENTATION_PLAN.md`, `CHAPTER_02_CONTENT_SPEC.md`, `CHAPTER_02_IMPLEMENTATION_PLAN.md`), Reusable `SlidePresenterNotes` UI, and Complete Persian Presenter Notes across all 10 slides of Chapters 01 and 02 with 8 structured sections per slide (Complete & Verified).
+  - **TASK-008.1:** Final Timing Reconciliation & Documentation Integrity Audit: Authoritative reconciliation of Chapter 04 (420s / 7:00) and Chapter 06 (240s / 4:00), mathematical verification of total duration (1,760s / 29:20), verification of external Word guide availability in the workspace, and validation of all 4 newly created documentation files (Complete & Verified).
 - **All 7 Chapters Complete:** The full 7-chapter interactive university presentation (1,760s / 29:20) is fully implemented, verified, and ready for rehearsal.
 
 ---

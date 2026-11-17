@@ -5,6 +5,8 @@ import { motion } from 'motion/react';
 import { Sparkles, Play, RotateCcw, Brain, Split } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_02_PRESENTER_NOTES } from './presenterNotes';
 import { Button } from '@/components/ui/Button';
 
 export function LLMGenerationDiagram() {
@@ -279,6 +281,9 @@ export function LLMGenerationDiagram() {
 
         </div>
       </Card>
+
+      {/* Slide Presenter Notes (Collapsible) */}
+      <SlidePresenterNotes note={CHAPTER_02_PRESENTER_NOTES[0]} />
     </div>
   );
 }
