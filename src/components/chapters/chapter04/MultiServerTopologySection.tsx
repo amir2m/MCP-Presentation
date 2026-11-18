@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import {
   FolderGit2,
   HardDrive,
@@ -10,18 +9,17 @@ import {
   ShieldCheck,
   XCircle,
   Layers,
-  ChevronDown,
   AppWindow,
   Workflow,
   Network,
 } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_04_PRESENTER_NOTES } from './presenterNotes';
 
 export function MultiServerTopologySection() {
   const [activeServerId, setActiveServerId] = useState<string>('fs');
-  const [showSpeakerNotes, setShowSpeakerNotes] = useState(false);
 
   const servers = [
     {
@@ -242,46 +240,10 @@ export function MultiServerTopologySection() {
         </div>
 
         {/* Collapsible Presenter Notes */}
-        <div className="pt-2 border-t border-slate-800/80">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setShowSpeakerNotes(!showSpeakerNotes)}
-            iconEnd={
-              <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  showSpeakerNotes ? 'rotate-180' : ''
-                }`}
-              />
-            }
-            className="text-xs text-slate-400 hover:text-slate-200"
-          >
-            {showSpeakerNotes ? 'بستن یادداشت سخنران' : 'مشاهده یادداشت سخنران (Presenter Notes)'}
-          </Button>
-
-          <AnimatePresence>
-            {showSpeakerNotes && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden"
-              >
-                <div className="mt-3 p-4 rounded-xl bg-cyan-950/30 border border-cyan-500/20 text-xs text-slate-300 leading-relaxed space-y-1.5 font-sans">
-                  <div className="font-bold text-cyan-300 flex items-center gap-1.5">
-                    <Layers className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>متن گفتاری گوینده:</span>
-                  </div>
-                  <p>
-                    «در سناریوهای واقعی مهندسی، ما معمولاً از اصل تفکیک وظایف یا Separation of Concerns استفاده می‌کنیم. در معماری استاندارد MCP، هر Client با یک Server مشخص ارتباط دارد (قاعده ۱ به ۱). برنامه میزبان (Host) مرزهای دسترسی و تجمیع زمینه یا Context Aggregation را میان کلاینت‌ها و سرورهای خود هماهنگ می‌کند. برای درک بهتر، این الگو را به عنوان یک تصویرسازی معماری مفهومی Hub & Spoke نمایش می‌دهیم—توجه داشته باشید که این دیاگرام صرفاً یک مدل‌سازی آموزشی مفهومی است، نه یک توپولوژی اجباری در پروتکل یا ضمانت امنیتی ایزولاسیون؛ پروتکل MCP هیچ ارتباط مستقیم سطح پروتکلی میان سرورها تعریف نمی‌کند؛ بااین‌حال، این امر ایزولاسیون کامل زیرساختی را تضمین نمی‌کند زیرا چندین سرور ممکن است خارج از پروتکل به پایگاه‌های داده، APIها یا منابع مشترک دیگر دسترسی داشته باشند. این هاست است که تصمیم می‌گیرد کدام ابزارها فراخوانی شوند، چه خروجی‌هایی تجمیع گردند و چه داده‌هایی در اختیار مدل قرار گیرند.»
-                  </p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
       </Card>
+
+      {/* Slide Presenter Notes (Standardized 8-Section System) */}
+      <SlidePresenterNotes note={CHAPTER_04_PRESENTER_NOTES[2]} />
     </div>
   );
 }

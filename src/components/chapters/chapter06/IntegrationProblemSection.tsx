@@ -1,22 +1,19 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React from 'react';
 import {
   Copy,
   KeyRound,
   Wrench,
-  ChevronDown,
-  Layers,
   Sparkles,
 } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_06_PRESENTER_NOTES } from './presenterNotes';
 import { IntegrationMatrixDemo } from './IntegrationMatrixDemo';
-import { SPEAKER_NOTES } from './mockData';
 
 export function IntegrationProblemSection() {
-  const [showSpeakerNotes, setShowSpeakerNotes] = useState<boolean>(false);
 
   return (
     <div className="space-y-8 max-w-5xl mx-auto" id="section-06-3-integration-problem">
@@ -80,39 +77,8 @@ export function IntegrationProblemSection() {
         </Card>
       </div>
 
-      {/* 4. Speaker Notes Section (Collapsible) */}
-      <div className="border border-slate-800 rounded-xl bg-[#090E1A]/80 overflow-hidden">
-        <button
-          onClick={() => setShowSpeakerNotes(!showSpeakerNotes)}
-          className="w-full px-4 py-3 flex items-center justify-between text-xs text-slate-400 hover:text-slate-200 transition-colors cursor-pointer"
-        >
-          <span className="font-semibold flex items-center gap-2">
-            <Layers className="w-4 h-4 text-indigo-400" />
-            یادداشت‌های تفصیلی سخنران (Presenter Notes)
-          </span>
-          <ChevronDown
-            className={`w-4 h-4 transition-transform duration-200 ${
-              showSpeakerNotes ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
-
-        <AnimatePresence>
-          {showSpeakerNotes && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="px-4 pb-4 border-t border-slate-800/80 text-xs text-slate-300 leading-relaxed space-y-2"
-            >
-              <p className="p-3 rounded-lg bg-slate-900/60 border border-slate-800/80">
-                {SPEAKER_NOTES.section3}
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      {/* 4. Slide Presenter Notes (Standardized 8-Section System) */}
+      <SlidePresenterNotes note={CHAPTER_06_PRESENTER_NOTES[2]} />
     </div>
   );
 }

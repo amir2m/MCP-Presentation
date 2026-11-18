@@ -6,15 +6,14 @@ import {
   Bot,
   ShieldCheck,
   AlertTriangle,
-  ChevronDown,
-  Sparkles,
 } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_05_PRESENTER_NOTES } from './presenterNotes';
 import { CONSTANTS } from './mockData';
 
 export function ModelDecisionSection() {
-  const [showSpeakerNotes, setShowSpeakerNotes] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<'decision' | 'demarcation'>('decision');
 
   return (
@@ -158,39 +157,8 @@ export function ModelDecisionSection() {
         </AnimatePresence>
       </Card>
 
-      {/* 3. Speaker Notes Toggle */}
-      <div className="border border-slate-800/80 rounded-2xl bg-slate-900/40 overflow-hidden">
-        <button
-          onClick={() => setShowSpeakerNotes(!showSpeakerNotes)}
-          className="w-full px-5 py-3.5 flex items-center justify-between text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 transition-colors text-xs sm:text-sm font-medium cursor-pointer"
-        >
-          <span className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-purple-400" />
-            یادداشت تفصیلی ارائه‌دهنده (Presenter Notes)
-          </span>
-          <ChevronDown
-            className={`w-4 h-4 transition-transform duration-200 ${
-              showSpeakerNotes ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
-
-        <AnimatePresence>
-          {showSpeakerNotes && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="px-5 pb-5 pt-2 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 space-y-2 bg-[#0B1020]/90"
-            >
-              <p className="border-r-2 border-purple-500 pr-3 my-2 text-slate-300">
-                «مدل زبانی سؤال را بررسی می‌کند و درمی‌یابد که پاسخ را در حافظه وزن‌های خود ندارد؛ لذا نام تابع query_inventory و آرگومان SKU را در فرمت API اختصاصی هاست تولید می‌کند. دقت کنید: این خروجی هنوز پیام پروتکل MCP نیست! مدل سوکت اینترنت باز نمی‌کند و به سرور پیام نمی‌فرستد. این برنامه میزبان است که خروجی مدل را تحلیل می‌کند، مجوزها را می‌سنجد، سیاست‌های امنیتی را اعمال می‌کند و در صورت تأیید، فرمان ساخت پیام پروتکل را به MCP Client زیرمجموعه خود صادر می‌کند.»
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      {/* 3. Slide Presenter Notes (Standardized 8-Section System) */}
+      <SlidePresenterNotes note={CHAPTER_05_PRESENTER_NOTES[1]} />
     </div>
   );
 }

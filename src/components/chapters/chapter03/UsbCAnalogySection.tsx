@@ -2,13 +2,14 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Usb, CheckCircle2, AlertCircle, Layers, ChevronDown, TableProperties } from 'lucide-react';
+import { Usb, CheckCircle2, AlertCircle, ChevronDown, TableProperties } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_03_PRESENTER_NOTES } from './presenterNotes';
 
 export function UsbCAnalogySection() {
-  const [showSpeakerNotes, setShowSpeakerNotes] = useState(false);
   const [showDetailTable, setShowDetailTable] = useState(false);
 
   const matchPoints = [
@@ -197,47 +198,10 @@ export function UsbCAnalogySection() {
           </AnimatePresence>
         </div>
 
-        {/* Collapsible Speaker Notes */}
-        <div className="pt-2 border-t border-slate-800/80">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setShowSpeakerNotes(!showSpeakerNotes)}
-            iconEnd={
-              <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  showSpeakerNotes ? 'rotate-180' : ''
-                }`}
-              />
-            }
-            className="text-xs text-slate-400 hover:text-slate-200"
-          >
-            {showSpeakerNotes ? 'بستن یادداشت سخنران' : 'مشاهده یادداشت سخنران (Presenter Notes)'}
-          </Button>
-
-          <AnimatePresence>
-            {showSpeakerNotes && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden"
-              >
-                <div className="mt-3 p-4 rounded-xl bg-indigo-950/30 border border-indigo-500/20 text-xs text-slate-300 leading-relaxed space-y-1.5 font-sans">
-                  <div className="font-bold text-indigo-300 flex items-center gap-1.5">
-                    <Layers className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>متن گفتاری گوینده:</span>
-                  </div>
-                  <p>
-                    «برای توضیح دادن نقش MCP، مهندسان معمولاً از تمثیل درگاه USB-C استفاده می‌کنند. سال‌ها پیش برای شارژ کردن یا اتصال لپ‌تاپ، تبلت، هارد اکسترنال و دوربین، مجبور بودیم ده‌ها کابل و پورت اختصاصی ناهمگون را در کشوی میز نگهداری کنیم. USB-C آمد و یک شکل فیزیکی و پروتکل مشترک تعریف کرد تا هر وسیله‌ای با یک درگاه واحد کار کند. MCP نیز در دنیای نرم‌افزار هوش مصنوعی چنین نقشی ایفا می‌کند: کلاینت هوش مصنوعی مانند یک لپ‌تاپ و سرور ابزارها مانند یک وسیله جانبی است که به این استاندارد متصل می‌شود. اما در محیط دانشگاهی ما باید مرزهای دقیق این استعاره را بشناسیم: اولاً MCP کابل و کانکتور فیزیکی نیست، بلکه یک پروتکل نرم‌افزاری مبتنی بر تبادل پیام است. ثانیاً همان‌طور که صرف اتصال یک کابل USB-C تضمین نمی‌کند سرعت تاندربولت فعال شود، در MCP نیز سازگاری بر اساس قابلیت‌های اعلام‌شده دو طرف تعیین می‌شود و امنیت، احراز هویت و تأیید انسانی هرگز خودکار و یکنواخت نیست، بلکه به لایه انتقال و سیاست‌های برنامه میزبان وابسته است.»
-                  </p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
       </Card>
+
+      {/* Slide Presenter Notes (Standardized 8-Section System) */}
+      <SlidePresenterNotes note={CHAPTER_03_PRESENTER_NOTES[2]} />
     </div>
   );
 }

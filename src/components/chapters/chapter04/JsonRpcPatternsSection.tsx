@@ -1,23 +1,21 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import {
   Code2,
   Copy,
   Check,
-  ChevronDown,
-  Layers,
   Info,
 } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_04_PRESENTER_NOTES } from './presenterNotes';
 
 export function JsonRpcPatternsSection() {
   const [activeTab, setActiveTab] = useState<'request' | 'response' | 'notification' | 'error'>('request');
   const [copied, setCopied] = useState(false);
-  const [showSpeakerNotes, setShowSpeakerNotes] = useState(false);
 
   const tabs = [
     {
@@ -329,47 +327,10 @@ export function JsonRpcPatternsSection() {
           </div>
         </div>
 
-        {/* Collapsible Presenter Notes */}
-        <div className="pt-2 border-t border-slate-800/80">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setShowSpeakerNotes(!showSpeakerNotes)}
-            iconEnd={
-              <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  showSpeakerNotes ? 'rotate-180' : ''
-                }`}
-              />
-            }
-            className="text-xs text-slate-400 hover:text-slate-200"
-          >
-            {showSpeakerNotes ? 'بستن یادداشت سخنران' : 'مشاهده یادداشت سخنران (Presenter Notes)'}
-          </Button>
-
-          <AnimatePresence>
-            {showSpeakerNotes && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden"
-              >
-                <div className="mt-3 p-4 rounded-xl bg-cyan-950/30 border border-cyan-500/20 text-xs text-slate-300 leading-relaxed space-y-1.5 font-sans">
-                  <div className="font-bold text-cyan-300 flex items-center gap-1.5">
-                    <Layers className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>متن گفتاری گوینده:</span>
-                  </div>
-                  <p>
-                    «پروتکل MCP چرخ را از ابتدا اختراع نکرده است؛ برای زبان گفتگو میان کلاینت و سرور، از استاندارد بالغ و سبک JSON-RPC 2.0 استفاده می‌کند. در مشخصات استاندارد، پیام‌ها به سه رده اصلی تقسیم می‌شوند: اول Request، یعنی زمانی که کلاینت درخواستی را به سرور می‌فرستد و منتظر پاسخ می‌ماند. فیلد id در اینجا نقشی کلیدی دارد؛ زیرا در تبادل ناهمگام (Asynchronous)، کلاینت به کمک این شناسه می‌فهمد کدام پاسخ مربوط به کدام درخواست است. رده دوم Response است که متناظر با همان id بازمی‌گردد. در استاندارد، Response دو حالت دارد: یا نتیجه موفق با فیلد result است، یا پاسخ همراه با خطا (Response with Error) با فیلد error و کدهای خطای مشخص؛ بنابراین پاسخ خطا یک ساختار جدا از پاسخ نیست، بلکه واریانت خطا در پیام پاسخ است. رده سوم هم Notificationها یا اعلان‌های یک‌طرفه هستند؛ پیام‌هایی برای اطلاع‌رسانی وضعیت یا پیشرفت که شاخصه هویتی‌شان نداشتن فیلد id و عدم ارسال پاسخ است.»
-                  </p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
       </Card>
+
+      {/* Slide Presenter Notes (Standardized 8-Section System) */}
+      <SlidePresenterNotes note={CHAPTER_04_PRESENTER_NOTES[3]} />
     </div>
   );
 }

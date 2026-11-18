@@ -1,18 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { ArrowLeft, HelpCircle, Layers, ChevronDown, Network, Cpu, Terminal } from 'lucide-react';
+import React from 'react';
+import { ArrowLeft, HelpCircle, Network, Cpu, Terminal } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_03_PRESENTER_NOTES } from './presenterNotes';
 
 interface Chapter03ConclusionProps {
   onSelectChapter?: (chapterId: number) => void;
 }
 
 export function Chapter03Conclusion({ onSelectChapter }: Chapter03ConclusionProps) {
-  const [showSpeakerNotes, setShowSpeakerNotes] = useState(false);
 
   const teaserQuestions = [
     {
@@ -168,47 +168,10 @@ export function Chapter03Conclusion({ onSelectChapter }: Chapter03ConclusionProp
           </Button>
         </div>
 
-        {/* Collapsible Speaker Notes */}
-        <div className="pt-2 border-t border-slate-800/80">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setShowSpeakerNotes(!showSpeakerNotes)}
-            iconEnd={
-              <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  showSpeakerNotes ? 'rotate-180' : ''
-                }`}
-              />
-            }
-            className="text-xs text-slate-400 hover:text-slate-200"
-          >
-            {showSpeakerNotes ? 'بستن یادداشت سخنران' : 'مشاهده یادداشت سخنران (Presenter Notes)'}
-          </Button>
-
-          <AnimatePresence>
-            {showSpeakerNotes && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden"
-              >
-                <div className="mt-3 p-4 rounded-xl bg-cyan-950/30 border border-cyan-500/20 text-xs text-slate-300 leading-relaxed space-y-1.5 font-sans">
-                  <div className="font-bold text-cyan-300 flex items-center gap-1.5">
-                    <Layers className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>متن گفتاری گوینده:</span>
-                  </div>
-                  <p>
-                    «ما در این فصل ریشه شکل‌گیری Model Context Protocol، تمثیل کاربردی USB-C، تعریف استاندارد باز و مرزبندی‌های آن را به صورت شفاف شناختیم. اما یک مهندس نرم‌افزار زمانی قانع می‌شود که بفهمد این معماری در عمل چگونه کار می‌کند. اجزای نرم‌افزاری MCP چه هستند؟ نقش‌های سه‌گانه برنامه میزبان (Host)، کلاینت پروتکل (Client) و سرورهای قابلیت‌ها (Server) چگونه با هم تعامل می‌کنند؟ در فصل چهارم، مستقیماً وارد بررسی دقیق معماری و اجزای MCP خواهیم شد و جایگاه هر یک را کالبدشکافی خواهیم کرد. همراه ما باشید.»
-                  </p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
       </Card>
+
+      {/* Slide Presenter Notes (Standardized 8-Section System) */}
+      <SlidePresenterNotes note={CHAPTER_03_PRESENTER_NOTES[5]} />
     </div>
   );
 }

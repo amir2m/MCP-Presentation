@@ -10,7 +10,6 @@ import {
   RefreshCw,
   Copy,
   Check,
-  ChevronDown,
   Info,
   Server,
   Network,
@@ -19,11 +18,12 @@ import {
 } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_04_PRESENTER_NOTES } from './presenterNotes';
 
 export function DiscoveryStatelessSection() {
   const [architectureView, setArchitectureView] = useState<'modern' | 'legacy'>('modern');
   const [copied, setCopied] = useState(false);
-  const [showSpeakerNotes, setShowSpeakerNotes] = useState(false);
   const [selectedMetaField, setSelectedMetaField] = useState<string | null>(null);
 
   const discoveryCode = `{
@@ -407,41 +407,8 @@ export function DiscoveryStatelessSection() {
         </div>
       </Card>
 
-      {/* 5. Collapsible Speaker Notes */}
-      <div className="border border-slate-800 rounded-xl overflow-hidden bg-slate-950/40">
-        <button
-          onClick={() => setShowSpeakerNotes(!showSpeakerNotes)}
-          className="w-full flex items-center justify-between p-4 text-right hover:bg-slate-900/50 transition-colors"
-        >
-          <div className="flex items-center gap-2 text-slate-400 text-sm">
-            <Info className="w-4 h-4 text-cyan-400" />
-            <span className="font-medium text-slate-300">یادداشت تفصیلی ارائه‌دهنده (Presenter Notes)</span>
-          </div>
-          <ChevronDown
-            className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${
-              showSpeakerNotes ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
-
-        <AnimatePresence>
-          {showSpeakerNotes && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="overflow-hidden"
-            >
-              <div className="p-4 pt-0 text-slate-300 text-xs sm:text-sm leading-relaxed border-t border-slate-800/60 bg-slate-950/60">
-                <p className="border-r-2 border-cyan-500 pr-3 my-2 text-slate-300">
-                  «به یکی از مهم‌ترین اصلاحات علمی در دنیای MCP رسیدیم. اگر آموزش‌ها یا مقالات سال ۲۰۲۴ و اوایل ۲۰۲۵ را در اینترنت بررسی کنید، مکرراً به الگوی دست‌تکانی اولیه اجباری initialize و نگه‌داشتن شناسه نشست در هدرها برمی‌خورید. اما در بازنگری رسمی ۲۸ ژوئیه ۲۰۲۶، کنسرسیوم هسته پروتکل را به یک هسته بدون نشست یا Stateless Core ارتقا داد. در استاندارد کنونی، درخواست‌ها خوداتکا هستند و هر درخواست الزاماً دو فیلد فراداده io.modelcontextprotocol/protocolVersion و io.modelcontextprotocol/clientCapabilities را حمل می‌کند—که در بستر HTTP با هدر MCP-Protocol-Version همگام است؛ درحالی‌که اطلاعات کلاینت (clientInfo) اختیاری بوده و کلاینت‌ها توصیه می‌شوند خود را معرفی نمایند. سرورها برای معرفی توانمندی‌ها متد server/discover را دارند، اما پروتکل کلاینت را مجبور به برقراری یک جلسه سراسری سنگین نمی‌کند. نکته کلیدی مهندسی این است: حذف نشست پروتکلی، توزیع درخواست‌ها میان نمونه‌های مختلف سرور را ساده‌تر می‌کند؛ بااین‌حال، تنظیمات پراکسی و پشتیبانی صحیح از جریان SSE همچنان اهمیت دارند و نباید تصور کرد هر لودبالانسری بدون تنظیمات تایم‌اوت و بافر استریم آماده سرویس‌دهی است.»
-                </p>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      {/* 5. Presenter Notes (Standardized 8-Section System) */}
+      <SlidePresenterNotes note={CHAPTER_04_PRESENTER_NOTES[4]} />
 
       {/* 6. Transition to Next Section */}
       <div className="flex items-center justify-between p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-xs sm:text-sm text-slate-400">

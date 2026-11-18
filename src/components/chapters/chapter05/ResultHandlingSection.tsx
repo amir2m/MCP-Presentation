@@ -1,23 +1,21 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import {
   Terminal,
   CheckCircle2,
   AlertTriangle,
   HelpCircle,
-  ChevronDown,
-  Sparkles,
 } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_05_PRESENTER_NOTES } from './presenterNotes';
 import { CONSTANTS, SCENARIOS } from './mockData';
 import { ScenarioId } from './types';
 
 export function ResultHandlingSection() {
   const [selectedScenarioId, setSelectedScenarioId] = useState<ScenarioId>('scenario-a');
-  const [showSpeakerNotes, setShowSpeakerNotes] = useState<boolean>(false);
 
   const scenario = SCENARIOS[selectedScenarioId];
 
@@ -148,39 +146,8 @@ export function ResultHandlingSection() {
         </div>
       </Card>
 
-      {/* 3. Speaker Notes Toggle */}
-      <div className="border border-slate-800/80 rounded-2xl bg-slate-900/40 overflow-hidden">
-        <button
-          onClick={() => setShowSpeakerNotes(!showSpeakerNotes)}
-          className="w-full px-5 py-3.5 flex items-center justify-between text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 transition-colors text-xs sm:text-sm font-medium cursor-pointer"
-        >
-          <span className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-cyan-400" />
-            یادداشت تفصیلی ارائه‌دهنده (Presenter Notes)
-          </span>
-          <ChevronDown
-            className={`w-4 h-4 transition-transform duration-200 ${
-              showSpeakerNotes ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
-
-        <AnimatePresence>
-          {showSpeakerNotes && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="px-5 pb-5 pt-2 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 space-y-2 bg-[#0B1020]/90"
-            >
-              <p className="border-r-2 border-cyan-500 pr-3 my-2 text-slate-300">
-                «سرور انبار پاسخ خود را با همان شناسه req-042 می‌فرستد تا کلاینت بداند این جوابِ کدام سؤال بود. محتوای بازگشتی در شیء result قرار دارد و طبق استاندارد ۲۰۲۶ دارای مشخصه resultType: complete است. اینجا یک تمایز علمی بسیار حساس وجود دارد که اغلب مهندسان در آن دچار اشتباه می‌شوند: اگر قطعه در انبار موجود نباشد (موجودی صفر)، آیا این یک خطاست؟ خیر! ابزار به درستی اجرا شده و پاسخِ درست صفر است؛ بنابراین isError فعال نمی‌شود. اما اگر ارتباط سرور با دیتابیس قطع شود یا زمان آن به سر آید، آنگاه خطای اجرای ابزار رخ داده و سرور پاسخ پروتکل را طبق توصیه استاندارد با پرچم isError: true همراه می‌کند. هاست این تمایزها را متوجه می‌شود و محتوا را درون حافظه کانتکست مدل می‌نشاند.»
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      {/* 3. Slide Presenter Notes (Standardized 8-Section System) */}
+      <SlidePresenterNotes note={CHAPTER_05_PRESENTER_NOTES[4]} />
     </div>
   );
 }

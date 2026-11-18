@@ -8,14 +8,14 @@ import {
   ArrowLeft,
   TableProperties,
   Layers,
-  ChevronDown,
-  Info,
   Server,
   Radio,
 } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_04_PRESENTER_NOTES } from './presenterNotes';
 
 interface TransportsComparisonSectionProps {
   onSelectChapter?: (chapterId: number) => void;
@@ -23,7 +23,6 @@ interface TransportsComparisonSectionProps {
 
 export function TransportsComparisonSection({ onSelectChapter }: TransportsComparisonSectionProps) {
   const [selectedTransport, setSelectedTransport] = useState<'stdio' | 'http'>('stdio');
-  const [showSpeakerNotes, setShowSpeakerNotes] = useState(false);
 
   const comparisonRows = [
     {
@@ -365,41 +364,8 @@ export function TransportsComparisonSection({ onSelectChapter }: TransportsCompa
         </div>
       </div>
 
-      {/* 4. Collapsible Presenter Notes */}
-      <div className="border border-slate-800 rounded-xl overflow-hidden bg-slate-950/40">
-        <button
-          onClick={() => setShowSpeakerNotes(!showSpeakerNotes)}
-          className="w-full flex items-center justify-between p-4 text-right hover:bg-slate-900/50 transition-colors"
-        >
-          <div className="flex items-center gap-2 text-slate-400 text-sm">
-            <Info className="w-4 h-4 text-cyan-400" />
-            <span className="font-medium text-slate-300">یادداشت تفصیلی ارائه‌دهنده (Presenter Notes)</span>
-          </div>
-          <ChevronDown
-            className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${
-              showSpeakerNotes ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
-
-        <AnimatePresence>
-          {showSpeakerNotes && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="overflow-hidden"
-            >
-              <div className="p-4 pt-0 text-slate-300 text-xs sm:text-sm leading-relaxed border-t border-slate-800/60 bg-slate-950/60">
-                <p className="border-r-2 border-cyan-500 pr-3 my-2 text-slate-300">
-                  «به آخرین و جذاب‌ترین بخش معماری فصل چهارم رسیدیم: پیام‌های JSON-RPC چگونه جابه‌جا می‌شوند؟ استاندارد MCP دو شاهراه اصلی را معرفی می‌کند. نخست STDIO که پادشاه سناریوهای محلی است. وقتی در Claude Desktop یک سرور لوکال را اضافه می‌کنید، کلاینت یک پروسس نود یا پایتون در پس‌زمینه ران می‌کند و از طریق stdin و stdout با آن پیام ردوبدل می‌کند؛ هر پیام در یک خط و پایان آن یک کاراکتر خط جدید است. خروجی‌های لاگ هم روی stderr ریخته می‌شوند تا تداخلی با پروتکل ایجاد نکنند. این روش هیچ پورت شبکه‌ای باز نمی‌کند و فوق‌العاده امن و سریع است. اما اگر سرور در یک کلاد دیگر یا یک سرویس SaaS باشد چه؟ اینجا Streamable HTTP وارد میدان می‌شود. کلاینت پیام‌هایش را با متد ساده HTTP POST می‌فرستد و ترابری وب به طور دقیق دو الگوی مجزای استریم SSE را تفکیک می‌کند: اول استریم پاسخ دارای محدوده درخواست (Request-scoped SSE) که اعلان‌های پیشرفت و پیام‌های متناظر با همان درخواست را ارسال کرده و با خاتمه پاسخ بسته می‌شود؛ دوم استریم بلندمدت subscriptions/listen برای پایش مستمر تغییرات منابع داده‌ای سرور در طول زمان. این دو الگو هرگز قابل تعویض نیستند. از منظر زیرساختی، حذف نشست پروتکلی، توزیع درخواست‌ها میان نمونه‌های مختلف سرور را ساده‌تر می‌کند؛ بااین‌حال، تنظیمات پراکسی و پشتیبانی صحیح از جریان SSE همچنان اهمیت دارند.»
-                </p>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      {/* 4. Presenter Notes (Standardized 8-Section System) */}
+      <SlidePresenterNotes note={CHAPTER_04_PRESENTER_NOTES[5]} />
 
       {/* 5. Final Transition CTA Box */}
       <Card

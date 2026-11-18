@@ -5,15 +5,14 @@ import { motion, AnimatePresence } from 'motion/react';
 import {
   Server,
   Database,
-  ChevronDown,
-  Sparkles,
 } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_05_PRESENTER_NOTES } from './presenterNotes';
 import { CONSTANTS } from './mockData';
 
 export function ToolExecutionSection() {
-  const [showSpeakerNotes, setShowSpeakerNotes] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<'server-steps' | 'six-layers'>('server-steps');
 
   const sixLayers = [
@@ -201,39 +200,8 @@ LIMIT 1;`}</code>
         </AnimatePresence>
       </Card>
 
-      {/* 3. Speaker Notes Toggle */}
-      <div className="border border-slate-800/80 rounded-2xl bg-slate-900/40 overflow-hidden">
-        <button
-          onClick={() => setShowSpeakerNotes(!showSpeakerNotes)}
-          className="w-full px-5 py-3.5 flex items-center justify-between text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 transition-colors text-xs sm:text-sm font-medium cursor-pointer"
-        >
-          <span className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-emerald-400" />
-            یادداشت تفصیلی ارائه‌دهنده (Presenter Notes)
-          </span>
-          <ChevronDown
-            className={`w-4 h-4 transition-transform duration-200 ${
-              showSpeakerNotes ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
-
-        <AnimatePresence>
-          {showSpeakerNotes && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="px-5 pb-5 pt-2 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 space-y-2 bg-[#0B1020]/90"
-            >
-              <p className="border-r-2 border-emerald-500 pr-3 my-2 text-slate-300">
-                «سرور MCP پیام را دریافت می‌کند. به این نکته بنیادین دقت کنید: سرور پروتکل یک دیتابیس نیست، بلکه یک آداپتور هوشمند است. پروتکل MCP به خودی خود زبان SQL نمی‌فهمد و با هیچ پایگاه‌داده‌ای پیوند ذاتی ندارد؛ سرور می‌تواند به یک وب‌سرویس، یک ترمینال، یا فایل‌های سیستم وصل باشد. در سناریوی انبار ما، کدِ داخلی ابزار برای پاسخ‌گویی به این درخواست یک کوئری SQL به پایگاه داده داخلی می‌زند. دیتابیس داده را برمی‌گرداند: ۶ عدد قطعه در انبار موجود است. اکنون سرور باید این خروجی خام پایگاه داده را به زبان رسمی پروتکل بسته‌بندی کند و به کلاینت بازگرداند.»
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      {/* 3. Slide Presenter Notes (Standardized 8-Section System) */}
+      <SlidePresenterNotes note={CHAPTER_05_PRESENTER_NOTES[3]} />
     </div>
   );
 }

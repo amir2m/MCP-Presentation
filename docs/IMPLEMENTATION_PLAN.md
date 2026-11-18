@@ -81,6 +81,17 @@
 - [x] Integrate presenter notes into all 4 slides of Chapter 01 and all 6 slides of Chapter 02 in Presentation Mode and Scroll Mode.
 - [x] Verify total presentation duration remains 1,760s (29:20) and no regressions introduced to Chapters 03–07.
 
+### Phase 4.6: Chapters 03–07 Presenter Notes Enrichment & Speaker Guide Standardization (Completed: TASK-008.2)
+- [x] Author comprehensive slide-specific presenter notes in Persian with the mandatory 8-section structured format (A–H) matching `SlidePresenterNote` interface across all 30 slides of Chapters 03 to 07:
+  - Chapter 03 (6 slides, 230s total: 30s, 35s, 45s, 50s, 45s, 25s) in `src/components/chapters/chapter03/presenterNotes.ts`.
+  - Chapter 04 (6 slides, 420s total: 55s, 70s, 65s, 75s, 65s, 90s) in `src/components/chapters/chapter04/presenterNotes.ts`.
+  - Chapter 05 (6 slides, 210s total: 30s, 35s, 35s, 35s, 35s, 40s) in `src/components/chapters/chapter05/presenterNotes.ts`.
+  - Chapter 06 (6 slides, 240s total: 30s, 35s, 40s, 50s, 45s, 40s) in `src/components/chapters/chapter06/presenterNotes.ts`.
+  - Chapter 07 (6 slides, 240s total: 40s, 35s, 45s, 40s, 40s, 40s) in `src/components/chapters/chapter07/presenterNotes.ts`.
+- [x] Standardize UI across all 30 section components by replacing legacy ad-hoc speaker note blocks with the standardized `<SlidePresenterNotes />` component.
+- [x] Maintain zero regressions in Chapters 01 and 02; total presentation duration remains exactly 1,760 seconds (29:20 across 40 slides).
+- [x] Full browser QA verification across all 30 slides, 6 responsive viewports (360px to 1920px), zero horizontal overflow, and zero console/page errors.
+
 ### Phase 5: Polish & Final Review (Future Task)
 - [ ] Full end-to-end rehearsal mode with presenter notes timer.
 - [ ] Performance and bundle optimization.
@@ -104,7 +115,8 @@
   - **TASK-007.2:** Chapter 07 Frontend Implementation across 6 sections, WorkflowTrustExplorer, SecurityPolicySimulator, GrandSynthesisBoard, 240s presentation timing, dual presentation/scroll modes, and 6-viewport responsive browser QA (Complete & Verified).
   - **TASK-008:** Chapters 01 & 02 Dedicated Documentation (`CHAPTER_01_CONTENT_SPEC.md`, `CHAPTER_01_IMPLEMENTATION_PLAN.md`, `CHAPTER_02_CONTENT_SPEC.md`, `CHAPTER_02_IMPLEMENTATION_PLAN.md`), Reusable `SlidePresenterNotes` UI, and Complete Persian Presenter Notes across all 10 slides of Chapters 01 and 02 with 8 structured sections per slide (Complete & Verified).
   - **TASK-008.1:** Final Timing Reconciliation & Documentation Integrity Audit: Authoritative reconciliation of Chapter 04 (420s / 7:00) and Chapter 06 (240s / 4:00), mathematical verification of total duration (1,760s / 29:20), verification of external Word guide availability in the workspace, and validation of all 4 newly created documentation files (Complete & Verified).
-- **All 7 Chapters Complete:** The full 7-chapter interactive university presentation (1,760s / 29:20) is fully implemented, verified, and ready for rehearsal.
+  - **TASK-008.2:** Chapters 03–07 Presenter Notes Enrichment & Speaker Guide Standardization: Full 8-section presenter notes authored and integrated across all 30 slides of Chapters 03–07 (`presenterNotes.ts`), component standardization via `SlidePresenterNotes`, verified exact timings (total 1,760s / 29:20), zero lint warnings, zero TypeScript errors, and complete browser QA across all 30 slides and 6 responsive viewports (Complete & Verified).
+- **All 7 Chapters Complete:** The full 7-chapter interactive university presentation (1,760s / 29:20 across 40 slides) is fully enriched with standardized presenter notes, verified, and ready for rehearsal.
 
 ---
 

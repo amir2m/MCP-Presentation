@@ -1,13 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Brain, Terminal, Database, Server, ShieldAlert, Layers, ChevronDown, XCircle, ArrowRightLeft } from 'lucide-react';
+import React from 'react';
+import { Brain, Terminal, Database, Server, ShieldAlert, XCircle, ArrowRightLeft } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_03_PRESENTER_NOTES } from './presenterNotes';
 
 export function WhatMcpIsNotSection() {
-  const [showSpeakerNotes, setShowSpeakerNotes] = useState(false);
 
   const misconceptions = [
     {
@@ -145,47 +144,10 @@ export function WhatMcpIsNotSection() {
           })}
         </div>
 
-        {/* Collapsible Speaker Notes */}
-        <div className="pt-2 border-t border-slate-800/80">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setShowSpeakerNotes(!showSpeakerNotes)}
-            iconEnd={
-              <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  showSpeakerNotes ? 'rotate-180' : ''
-                }`}
-              />
-            }
-            className="text-xs text-slate-400 hover:text-slate-200"
-          >
-            {showSpeakerNotes ? 'بستن یادداشت سخنران' : 'مشاهده یادداشت سخنران (Presenter Notes)'}
-          </Button>
-
-          <AnimatePresence>
-            {showSpeakerNotes && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden"
-              >
-                <div className="mt-3 p-4 rounded-xl bg-rose-950/30 border border-rose-500/20 text-xs text-slate-300 leading-relaxed space-y-1.5 font-sans">
-                  <div className="font-bold text-rose-300 flex items-center gap-1.5">
-                    <Layers className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>متن گفتاری گوینده:</span>
-                  </div>
-                  <p>
-                    «به یکی از کلیدی‌ترین اسلایدهای این ارائه رسیدیم: زدودن توهمات رایج فنی. در دنیای مهندسی بسیار پیش می‌آید که افراد مفاهیم را خلط کنند. اولاً: MCP یک مدل زبانی جدید نیست؛ MCP تفکر نمی‌کند و وزنی ندارد. ثانیاً: MCP همان قابلیت فراخوانی ابزار یا Tool Calling نیست! مدل زبانی قابلیت ساختاریافته درخواست ابزار را دارد؛ این برنامه میزبان است که با پروتکل MCP فهرست این قابلیت‌ها را از سرورها کشف کرده و اجرا را هدایت می‌کند. این دو مکمل هم هستند. ثالثاً: MCP خودش دیتابیس نیست و داده‌ای ذخیره نمی‌کند. رابعاً: پروتکل کد اجرا نمی‌کند؛ کد واقعی در سرور ابزار یا سیستم‌عامل اجرا می‌شود. و در نهایت، MCP به خودی خود تضمین‌کننده امنیت نیست؛ امنیت و احراز هویت به نحوه استقرار، لایه انتقال و سیاست‌های برنامه میزبان وابسته است و میزبان می‌تواند برای اقدامات حساس تأییدیه کاربر را جویا شود.»
-                  </p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
       </Card>
+
+      {/* Slide Presenter Notes (Standardized 8-Section System) */}
+      <SlidePresenterNotes note={CHAPTER_03_PRESENTER_NOTES[4]} />
     </div>
   );
 }

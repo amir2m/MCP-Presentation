@@ -7,14 +7,14 @@ import {
   Bot,
   User,
   ArrowLeft,
-  ChevronDown,
-  Sparkles,
   RotateCcw,
   Layers,
 } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_05_PRESENTER_NOTES } from './presenterNotes';
 import { CONSTANTS, SCENARIOS } from './mockData';
 import { RequestLifecycleSimulator } from './RequestLifecycleSimulator';
 
@@ -23,7 +23,6 @@ interface FinalSynthesisSectionProps {
 }
 
 export function FinalSynthesisSection({ onSelectChapter }: FinalSynthesisSectionProps) {
-  const [showSpeakerNotes, setShowSpeakerNotes] = useState<boolean>(false);
   const [showFullSimulator, setShowFullSimulator] = useState<boolean>(false);
 
   return (
@@ -148,39 +147,8 @@ export function FinalSynthesisSection({ onSelectChapter }: FinalSynthesisSection
         </AnimatePresence>
       </Card>
 
-      {/* 3. Speaker Notes Toggle */}
-      <div className="border border-slate-800/80 rounded-2xl bg-slate-900/40 overflow-hidden">
-        <button
-          onClick={() => setShowSpeakerNotes(!showSpeakerNotes)}
-          className="w-full px-5 py-3.5 flex items-center justify-between text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 transition-colors text-xs sm:text-sm font-medium cursor-pointer"
-        >
-          <span className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-cyan-400" />
-            یادداشت تفصیلی ارائه‌دهنده (Presenter Notes)
-          </span>
-          <ChevronDown
-            className={`w-4 h-4 transition-transform duration-200 ${
-              showSpeakerNotes ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
-
-        <AnimatePresence>
-          {showSpeakerNotes && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="px-5 pb-5 pt-2 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 space-y-2 bg-[#0B1020]/90"
-            >
-              <p className="border-r-2 border-cyan-500 pr-3 my-2 text-slate-300">
-                «به انتهای چرخه رسیدیم. مدل زبانی با استفاده از نتیجه بازگشتی ابزار در کانتکست، پاسخ نهایی را بر مبنای اطلاعات در دسترس تدوین کرد و پاسخی طبیعی و مستند به کاربر تحویل داد: قطعه NVMe-4TB موجود است و ۶ عدد در انبار داریم. مدل با تکیه بر شواهد ابزار پاسخ داد و هیچ دسترسی مستقیمی از مدل به دیتابیس وجود نداشت. این یعنی یک معماری تمیز، تفکیک‌شده و استاندارد. اکنون که کارکرد این چرخه را دیدیم، وقت آن است به مقایسه بپردازیم: چرا این روش بسیار برتر از ساختن صدها REST API سفارشی یا کدهای وابسته به یک مدل خاص است؟ در فصل ششم این موضوع را کالبدشکافی خواهیم کرد.»
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      {/* 3. Slide Presenter Notes (Standardized 8-Section System) */}
+      <SlidePresenterNotes note={CHAPTER_05_PRESENTER_NOTES[5]} />
 
       {/* 4. Final Transition CTA Box to Chapter 06 */}
       <Card

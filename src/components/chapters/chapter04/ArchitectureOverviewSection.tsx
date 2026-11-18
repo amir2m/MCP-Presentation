@@ -1,14 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import {
   Layers,
   Cpu,
   Network,
   Database,
   ArrowDownUp,
-  ChevronDown,
   Globe,
   FileCode,
   Boxes,
@@ -16,11 +15,11 @@ import {
 } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_04_PRESENTER_NOTES } from './presenterNotes';
 
 export function ArchitectureOverviewSection() {
   const [activeLayer, setActiveLayer] = useState<'all' | 'data' | 'transport'>('all');
-  const [showSpeakerNotes, setShowSpeakerNotes] = useState(false);
 
   const dataLayerFeatures = [
     {
@@ -255,46 +254,10 @@ export function ArchitectureOverviewSection() {
           </div>
         </div>
 
-        {/* Collapsible Presenter Notes */}
-        <div className="pt-2 border-t border-slate-800/80">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setShowSpeakerNotes(!showSpeakerNotes)}
-            iconEnd={
-              <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  showSpeakerNotes ? 'rotate-180' : ''
-                }`}
-              />
-            }
-            className="text-xs text-slate-400 hover:text-slate-200"
-          >
-            {showSpeakerNotes ? 'بستن یادداشت سخنران' : 'مشاهده یادداشت سخنران (Presenter Notes)'}
-          </Button>
-
-          <AnimatePresence>
-            {showSpeakerNotes && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden"
-              >
-                <div className="mt-3 p-4 rounded-xl bg-cyan-950/30 border border-cyan-500/20 text-xs text-slate-300 leading-relaxed space-y-1.5 font-sans">
-                  <div className="font-bold text-cyan-300 flex items-center gap-1.5">
-                    <Layers className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>متن گفتاری گوینده:</span>
-                  </div>
-                  <p>
-                    «به فصل چهارم و قلب فنی ارائه خود خوش آمدید. وقتی به Model Context Protocol به عنوان یک استاندارد مهندسی نگاه می‌کنیم، نخستین اصل برجسته، تفکیک کامل لایه داده از لایه انتقال است. لایه داده یا Data Layer مشخص می‌کند که پیام‌ها چه معنایی دارند: ساختار پیام‌های JSON-RPC، متدها، چگونه یک ابزار تعریف می‌شود، چگونه یک منبع اطلاعاتی خوانده می‌شود و قالب پاسخ‌ها چیست. در مقابل، لایه انتقال یا Transport Layer صرفاً جابجایی فیزیکی بایت‌ها نیست؛ بلکه نحوه فریم‌بندی پیام‌ها، تحویل آن‌ها، فراداده‌های اختصاصی ترابری، نحوه لغو درخواست‌ها و ویژگی‌های اتصالی و جریانی را مدیریت می‌کند—خواه روی لوله‌های استاندارد سیستم‌عامل (STDIO) باشد، خواه روی پروتکل وب (Streamable HTTP). این تفکیک هوشمندانه باعث می‌شود که توسعه‌دهنده سرور ابزار، تنها یک بار منطق سرویس خود را بنویسد و نگران شیوه انتقال کلاینت‌ها نباشد.»
-                  </p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
       </Card>
+
+      {/* Slide Presenter Notes (Standardized 8-Section System) */}
+      <SlidePresenterNotes note={CHAPTER_04_PRESENTER_NOTES[0]} />
     </div>
   );
 }

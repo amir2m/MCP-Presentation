@@ -1,14 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Unplug, AlertTriangle, Layers, Copy, Lock, Wrench, ChevronDown } from 'lucide-react';
+import React from 'react';
+import { Unplug, AlertTriangle, Copy, Lock, Wrench } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_03_PRESENTER_NOTES } from './presenterNotes';
 
 export function BespokeIntegrationSection() {
-  const [showSpeakerNotes, setShowSpeakerNotes] = useState(false);
 
   const applications = [
     { id: 'claude', name: 'Claude Desktop', desc: 'کلاینت دسکتاپ هوش مصنوعی' },
@@ -171,47 +170,10 @@ export function BespokeIntegrationSection() {
           })}
         </div>
 
-        {/* Collapsible Speaker Notes (Educational Access) */}
-        <div className="pt-2 border-t border-slate-800/80">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setShowSpeakerNotes(!showSpeakerNotes)}
-            iconEnd={
-              <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  showSpeakerNotes ? 'rotate-180' : ''
-                }`}
-              />
-            }
-            className="text-xs text-slate-400 hover:text-slate-200"
-          >
-            {showSpeakerNotes ? 'بستن یادداشت سخنران' : 'مشاهده یادداشت سخنران (Presenter Notes)'}
-          </Button>
-
-          <AnimatePresence>
-            {showSpeakerNotes && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden"
-              >
-                <div className="mt-3 p-4 rounded-xl bg-indigo-950/30 border border-indigo-500/20 text-xs text-slate-300 leading-relaxed space-y-1.5 font-sans">
-                  <div className="font-bold text-indigo-300 flex items-center gap-1.5">
-                    <Layers className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>متن گفتاری گوینده:</span>
-                  </div>
-                  <p>
-                    «همان‌طور که در پایان فصل دوم بررسی کردیم، حل کردن مشکل دسترسی مدل به داده‌ها از طریق Tool Calling تنها نیمی از مسیر مهندسی است. چالش بزرگ‌تر زمانی آغاز می‌شود که بخواهید در یک سازمان یا در اکوسیستم باز نرم‌افزار، ده‌ها کلاینت هوش مصنوعی مختلف را به صدها سرویس، دیتابیس و ابزار مهندسی متصل کنید. در رویکرد سنتی نقطه‌به‌نقطه، هر برنامه باید درایور اختصاصی خودش را برای هر ابزار بازنویسی کند؛ یعنی یک مدل ساده‌شده از هزینه M × N. در این ساختار، نه تنوع کلاینت‌ها مقیاس‌پذیر است و نه ابزارها به سادگی قابل تعویض هستند.»
-                  </p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
       </Card>
+
+      {/* Slide Presenter Notes (Standardized 8-Section System) */}
+      <SlidePresenterNotes note={CHAPTER_03_PRESENTER_NOTES[0]} />
     </div>
   );
 }

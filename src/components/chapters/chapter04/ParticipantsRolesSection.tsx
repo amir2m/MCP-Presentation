@@ -8,18 +8,16 @@ import {
   Server,
   CheckCircle2,
   AlertCircle,
-  ChevronDown,
-  Layers,
   ArrowLeftRight,
   KeyRound,
 } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_04_PRESENTER_NOTES } from './presenterNotes';
 
 export function ParticipantsRolesSection() {
   const [selectedRole, setSelectedRole] = useState<'host' | 'client' | 'server'>('host');
-  const [showSpeakerNotes, setShowSpeakerNotes] = useState(false);
 
   const roles = [
     {
@@ -258,47 +256,10 @@ export function ParticipantsRolesSection() {
           </div>
         </div>
 
-        {/* Collapsible Presenter Notes */}
-        <div className="pt-2 border-t border-slate-800/80">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setShowSpeakerNotes(!showSpeakerNotes)}
-            iconEnd={
-              <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  showSpeakerNotes ? 'rotate-180' : ''
-                }`}
-              />
-            }
-            className="text-xs text-slate-400 hover:text-slate-200"
-          >
-            {showSpeakerNotes ? 'بستن یادداشت سخنران' : 'مشاهده یادداشت سخنران (Presenter Notes)'}
-          </Button>
-
-          <AnimatePresence>
-            {showSpeakerNotes && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden"
-              >
-                <div className="mt-3 p-4 rounded-xl bg-cyan-950/30 border border-cyan-500/20 text-xs text-slate-300 leading-relaxed space-y-1.5 font-sans">
-                  <div className="font-bold text-cyan-300 flex items-center gap-1.5">
-                    <Layers className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>متن گفتاری گوینده:</span>
-                  </div>
-                  <p>
-                    «در کالبدشکافی MCP، مرزبندی دقیق میان سه بازیگر ضروری است. Host همان برنامه‌ای است که کاربر می‌بیند؛ برای مثال Claude Desktop یا محیط برنامه‌نویسی Cursor. هاست مغز ارتباطی و هماهنگ‌کننده است؛ اوست که تصمیم می‌گیرد با مدل زبانی گفتگو کند، اوست که رابط کاربری را نمایش می‌دهد و سیاست‌های امنیتی را کنترل می‌کند. اما هاست مستقیماً کد اتصال سرورها را در منطق خود مخلوط نمی‌کند؛ بلکه برای هر سروری که می‌خواهد به آن متصل شود، یک MCP Client مستقل می‌سازد. دقت کنید: رابطه کلاینت به سرور همیشه یک‌به‌یک است. اگر به گیت‌هاب و دیتابیس متصل هستید، هاست شما دو کلاینت مجزا ایجاد کرده است. سرورها هم برنامه‌های مستقلی هستند که ابزار و داده در اختیار می‌گذارند و هرگز سر خود کاری انجام نمی‌دهند، مگر با پیام مستقیم کلاینت.»
-                  </p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
       </Card>
+
+      {/* Slide Presenter Notes (Standardized 8-Section System) */}
+      <SlidePresenterNotes note={CHAPTER_04_PRESENTER_NOTES[1]} />
     </div>
   );
 }

@@ -1,19 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React from 'react';
 import {
   Send,
   CheckCircle2,
-  ChevronDown,
-  Sparkles,
 } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_05_PRESENTER_NOTES } from './presenterNotes';
 import { CONSTANTS } from './mockData';
 
 export function ProtocolDispatchSection() {
-  const [showSpeakerNotes, setShowSpeakerNotes] = useState<boolean>(false);
 
   const requestJson = {
     jsonrpc: '2.0',
@@ -123,39 +121,8 @@ export function ProtocolDispatchSection() {
         </div>
       </Card>
 
-      {/* 3. Speaker Notes Toggle */}
-      <div className="border border-slate-800/80 rounded-2xl bg-slate-900/40 overflow-hidden">
-        <button
-          onClick={() => setShowSpeakerNotes(!showSpeakerNotes)}
-          className="w-full px-5 py-3.5 flex items-center justify-between text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 transition-colors text-xs sm:text-sm font-medium cursor-pointer"
-        >
-          <span className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-cyan-400" />
-            یادداشت تفصیلی ارائه‌دهنده (Presenter Notes)
-          </span>
-          <ChevronDown
-            className={`w-4 h-4 transition-transform duration-200 ${
-              showSpeakerNotes ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
-
-        <AnimatePresence>
-          {showSpeakerNotes && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="px-5 pb-5 pt-2 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 space-y-2 bg-[#0B1020]/90"
-            >
-              <p className="border-r-2 border-cyan-500 pr-3 my-2 text-slate-300">
-                «اینجا دقیقاً همان نقطه‌ای است که پروتکل MCP متولد می‌شود! کلاینت MCP یک پیام JSON-RPC 2.0 رسمی با متد tools/call می‌سازد. به ساختار پیام دقت کنید: یک شناسه منحصر‌به‌فرد مثل req-042 برای پیگیری ناهمگام، نام ابزار و پارامترها، و از همه مهم‌تر در استاندارد ۲۰۲۶، شیء _meta که نسخه پروتکل و قابلیت‌های کلاینت را حمل می‌کند. کلاینت این پیام خوداتکا را از طریق ترابری فعال—چه پایپ‌های ورودی/خروجی STDIO و چه وب‌سرویس Streamable HTTP—به سمت سرور انبار شلیک می‌کند.»
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      {/* 3. Slide Presenter Notes (Standardized 8-Section System) */}
+      <SlidePresenterNotes note={CHAPTER_05_PRESENTER_NOTES[2]} />
     </div>
   );
 }

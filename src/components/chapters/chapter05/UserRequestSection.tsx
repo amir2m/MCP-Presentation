@@ -6,16 +6,15 @@ import {
   User,
   Boxes,
   ShieldAlert,
-  ChevronDown,
   CheckCircle2,
-  Sparkles,
 } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_05_PRESENTER_NOTES } from './presenterNotes';
 import { CONSTANTS, MOCK_DISCLOSURE_TEXT } from './mockData';
 
 export function UserRequestSection() {
-  const [showSpeakerNotes, setShowSpeakerNotes] = useState<boolean>(false);
   const [activeCatalogTab, setActiveCatalogTab] = useState<'prompt' | 'tools-catalog'>('prompt');
 
   return (
@@ -187,39 +186,8 @@ export function UserRequestSection() {
         </div>
       </Card>
 
-      {/* 3. Speaker Notes Toggle */}
-      <div className="border border-slate-800/80 rounded-2xl bg-slate-900/40 overflow-hidden">
-        <button
-          onClick={() => setShowSpeakerNotes(!showSpeakerNotes)}
-          className="w-full px-5 py-3.5 flex items-center justify-between text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 transition-colors text-xs sm:text-sm font-medium cursor-pointer"
-        >
-          <span className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-indigo-400" />
-            یادداشت تفصیلی ارائه‌دهنده (Presenter Notes)
-          </span>
-          <ChevronDown
-            className={`w-4 h-4 transition-transform duration-200 ${
-              showSpeakerNotes ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
-
-        <AnimatePresence>
-          {showSpeakerNotes && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="px-5 pb-5 pt-2 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 space-y-2 bg-[#0B1020]/90"
-            >
-              <p className="border-r-2 border-indigo-500 pr-3 my-2 text-slate-300">
-                «برای شروع این سناریو، فرض کنید کاربری در محیط برنامه میزبان—مثلاً Claude Desktop یا IDE اختصاصی—می‌پرسد: آیا قطعه NVMe-4TB در انبار موجود است؟ کاربر هیچ تصوری از ساختارهای دیتابیس یا سوکت‌های پروتکل ندارد. از طرف دیگر، برنامه میزبان پیش از این در فاز اتصال اولیه با اجرای متد tools/list، مشخصات ابزار استعلام انبار را دریافت کرده است. بنابراین هاست دقیقاً می‌داند چه ابزارهایی آماده استفاده‌اند و شمای آن‌ها را در اختیار رابط مدل زبانی می‌گذارد.»
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      {/* 3. Slide Presenter Notes (Standardized 8-Section System) */}
+      <SlidePresenterNotes note={CHAPTER_05_PRESENTER_NOTES[0]} />
     </div>
   );
 }

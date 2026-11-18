@@ -1,14 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Wrench, Database, Sparkles, Globe, Layers, ChevronDown, ShieldCheck, Calendar } from 'lucide-react';
+import React from 'react';
+import { Wrench, Database, Sparkles, Globe, ShieldCheck, Calendar } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_03_PRESENTER_NOTES } from './presenterNotes';
 
 export function McpDefinitionSection() {
-  const [showSpeakerNotes, setShowSpeakerNotes] = useState(false);
 
   const primitives = [
     {
@@ -157,47 +156,10 @@ export function McpDefinitionSection() {
           </div>
         </div>
 
-        {/* Collapsible Speaker Notes */}
-        <div className="pt-2 border-t border-slate-800/80">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setShowSpeakerNotes(!showSpeakerNotes)}
-            iconEnd={
-              <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  showSpeakerNotes ? 'rotate-180' : ''
-                }`}
-              />
-            }
-            className="text-xs text-slate-400 hover:text-slate-200"
-          >
-            {showSpeakerNotes ? 'بستن یادداشت سخنران' : 'مشاهده یادداشت سخنران (Presenter Notes)'}
-          </Button>
-
-          <AnimatePresence>
-            {showSpeakerNotes && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden"
-              >
-                <div className="mt-3 p-4 rounded-xl bg-cyan-950/30 border border-cyan-500/20 text-xs text-slate-300 leading-relaxed space-y-1.5 font-sans">
-                  <div className="font-bold text-cyan-300 flex items-center gap-1.5">
-                    <Layers className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>متن گفتاری گوینده:</span>
-                  </div>
-                  <p>
-                    «به تعریف رسمی و دانشگاهی می‌رسیم: پروتکل زمینه مدل یا MCP، یک استاندارد باز است که نحوه گفتگوی ساختاریافته میان برنامه‌های کاربردی هوش مصنوعی و محیط‌های بیرونی را تعریف می‌کند. این پروتکل قرارداد معینی است که از طریق آن، برنامه کاربردی می‌تواند بفهمد سرور مقابل چه امکاناتی دارد و چگونه باید با آن تعامل کند. از نظر خاستگاه، MCP در نوامبر ۲۰۲۴ توسط آنتروپیک معرفی شد و در دسامبر ۲۰۲۵ برای تضمین توسعه خنثی و بدون وابستگی به یک شرکت، به بنیاد لینوکس و زیرمجموعه هوش مصنوعی عامل‌محور یعنی AAIF اهدا شد. سرورهای سازگار با MCP سه نوع موهبت یا قابلیت در اختیار برنامه می‌گذارند: اول ابزارها (Tools) که توابع و قابلیت‌های اجرایی هستند و میزبان بسته به ریسک عملیات ممکن است تأییدیه کاربر را درخواست کند؛ دوم منابع اطلاعاتی (Resources) که داده‌ها و اسنادی هستند که برنامه انتخاب کرده و به عنوان زمینه به مدل تزریق می‌کند؛ و سوم الگوهای پرامپت (Prompts) که قالب‌های آماده برای راهبری مدل به شمار می‌آیند. تفکیک دقیق سازوکار این سه مفهوم را در فصل بعد بررسی خواهیم کرد.»
-                  </p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
       </Card>
+
+      {/* Slide Presenter Notes (Standardized 8-Section System) */}
+      <SlidePresenterNotes note={CHAPTER_03_PRESENTER_NOTES[3]} />
     </div>
   );
 }

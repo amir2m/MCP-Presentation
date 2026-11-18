@@ -4,23 +4,21 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Sparkles,
-  ChevronDown,
   Database,
   ShoppingCart,
   Layers,
-  HelpCircle,
   FileCode,
 } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
+import { SlidePresenterNotes } from '@/components/presentation/SlidePresenterNotes';
+import { CHAPTER_07_PRESENTER_NOTES } from './presenterNotes';
 import {
   MULTI_TOOL_WORKFLOW_STEPS,
-  SPEAKER_NOTES,
 } from './mockData';
 import { MultiToolStep } from './types';
 
 export function MultiToolWorkflowSection() {
-  const [showSpeakerNotes, setShowSpeakerNotes] = useState<boolean>(false);
   const [activeStepIndex, setActiveStepIndex] = useState<number>(0);
 
   const currentStep: MultiToolStep = MULTI_TOOL_WORKFLOW_STEPS[activeStepIndex];
@@ -200,44 +198,8 @@ export function MultiToolWorkflowSection() {
         </div>
       </Card>
 
-      {/* 4. Collapsible Speaker Notes */}
-      <div className="pt-2">
-        <button
-          type="button"
-          onClick={() => setShowSpeakerNotes((prev) => !prev)}
-          className="w-full flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 transition-all text-xs"
-        >
-          <span className="flex items-center gap-2 font-semibold">
-            <HelpCircle className="w-4 h-4 text-cyan-400" />
-            {SPEAKER_NOTES[1].title}
-          </span>
-          <ChevronDown
-            className={`w-4 h-4 transition-transform duration-200 ${
-              showSpeakerNotes ? 'rotate-180' : ''
-            }`}
-          />
-        </button>
-
-        <AnimatePresence>
-          {showSpeakerNotes && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="mt-2 p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-2.5 text-xs text-slate-300"
-            >
-              <ul className="space-y-1.5 list-disc list-inside text-slate-300 leading-relaxed">
-                {SPEAKER_NOTES[1].bullets.map((bullet, idx) => (
-                  <li key={idx}>{bullet}</li>
-                ))}
-              </ul>
-              <div className="pt-2 text-cyan-300 font-medium border-t border-slate-800/60">
-                انتقال به بخش بعد: {SPEAKER_NOTES[1].closingPrompt}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      {/* 4. Slide Presenter Notes (Standardized 8-Section System) */}
+      <SlidePresenterNotes note={CHAPTER_07_PRESENTER_NOTES[1]} />
     </div>
   );
 }
